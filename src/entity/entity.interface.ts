@@ -1,5 +1,3 @@
-import { Types } from 'mongoose';
-
 export interface IEntity {
     // Person's Basic information
     id: string;
@@ -26,4 +24,8 @@ export interface IEntity {
     };
     sex?: string;
     birthDate?: Date;
+}
+
+export interface ProfilePictureDTO extends PictureMeta {
+    takenAt: Date;
 }

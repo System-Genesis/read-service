@@ -29,3 +29,5 @@ export interface IEntity {
 export interface ProfilePictureDTO extends PictureMeta {
     takenAt: Date;
 }
+
+let x = 3;

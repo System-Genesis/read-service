@@ -9,6 +9,7 @@
     "test": "jest --coverage",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' src/expres/server.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc.js 'src/**/*.ts' --check",
@@ -43,9 +44,11 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.2",
+    "nodemon": "^2.0.7",
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
+    "ts-node": "^10.0.0",
     "typescript": "^4.0.3"
   }
 }

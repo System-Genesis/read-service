@@ -1,4 +1,4 @@
-export interface DigitalIdentity {
+export interface DigitalIdentityDTO {
     // Person's Basic information
     type: string;
     Source: string;

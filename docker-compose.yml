@@ -5,6 +5,10 @@ services:
     image: mongo
     ports:
       - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${ROOT_DATABASE}
 
   rabbit:
     image: rabbitmq:3-management

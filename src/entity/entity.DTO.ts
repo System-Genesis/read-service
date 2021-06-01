@@ -1,4 +1,4 @@
-interface Entity {
+export interface EntityDTO {
     // Person's Basic information
     id: string;
     displayName: string;
@@ -22,5 +22,3 @@ interface Entity {
     sex?: string;
     birthDate?: Date;
 }
-
-export default Entity;

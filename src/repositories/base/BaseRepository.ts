@@ -1,27 +1,47 @@
 // import all interfaces
+import { MongoClient, Db, Collection, InsertOneWriteOpResult } from 'mongodb';
 import { IWrite } from '../interfaces/IWrite';
 import { IRead } from '../interfaces/IRead';
 
+// we imported all types from mongodb driver, to use in code
+
 // that class only can be extended
 export abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
-    create(_item: T): Promise<boolean> {
-        console.log(this);
+    // creating a property to use your code in all instances
+    // that extends your base repository and reuse on methods of class
+    public readonly _collection: Collection;
+
+    // we created constructor with arguments to manipulate mongodb operations
+    constructor(db: Db, collectionName: string) {
+        this._collection = db.collection(collectionName);
+    }
+
+    // we add to method, the async keyword to manipulate the insert result
+    // of method.
+    async create(item: T): Promise<boolean> {
+        const result: InsertOneWriteOpResult = await this._collection.insert(item);
+        // after the insert operations, we returns only ok property (that haves a 1 or 0 results)
+        // and we convert to boolean result (0 false, 1 true)
+        return !!result.result.ok;
+    }
+
+    update(id: string, item: T): Promise<boolean> {
+        const x = this._collection;
         throw new Error('Method not implemented.');
     }
 
-    update(_id: string, _item: T): Promise<boolean> {
+    delete(id: string): Promise<boolean> {
+        const x = this._collection;
         throw new Error('Method not implemented.');
     }
 
-    delete(_id: string): Promise<boolean> {
+    find(item: T): Promise<T[]> {
+        const x = this._collection;
         throw new Error('Method not implemented.');
     }
 
-    find(_item: T): Promise<T[]> {
-        throw new Error('Method not implemented.');
-    }
-
-    findOne(_id: string): Promise<T> {
+    findOne(id: string): Promise<T> {
+        const x = this._collection;
         throw new Error('Method not implemented.');
     }
 }

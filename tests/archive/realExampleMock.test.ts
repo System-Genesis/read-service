@@ -1,8 +1,8 @@
 import { mocked } from 'ts-jest/utils';
-import FolderModel from '../src/express/feature/model';
-import FeatureManager from '../src/express/feature/manager';
+import FolderModel from '../../src/express/feature/model';
+import FeatureManager from '../../src/express/feature/manager';
 
-jest.mock('../src/express/feature/model');
+jest.mock('../../src/express/feature/model');
 // "mocked" function returns FolderModel "as is", but with mocked type ('cuz jest.mock's "side effects" is overriding the original module with mocks)
 const mockedFolderModel = mocked(FolderModel, true);
 

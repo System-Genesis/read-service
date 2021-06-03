@@ -1,15 +1,12 @@
-import { roleDTO } from '../role/role.DTO';
-
-export interface DigitalIdentityDTO {
+export interface DigitalIdentityInterface {
     // DI's Basic information
     type: string;
     source: string;
-    mail: string; // enum
+    mail: string;
     uniqueId: string;
     entityId: string;
     createdAt: Date;
     updatedAt: Date;
     isRoleAttachable: boolean;
-    // when expanded
-    role: roleDTO;
+    roleID: string;
 }

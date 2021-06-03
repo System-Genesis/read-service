@@ -1,5 +1,5 @@
 interface Entity {
-    // Person's Basic information
+    // Entity's Basic information
     id: string;
     displayName: string;
     entityType: string; // enum
@@ -10,7 +10,6 @@ interface Entity {
     lastName: string;
     akaUnit: string;
     status: string;
-
     dischargeDate: Date;
     rank: string; // enum
     mail: string;

@@ -1,21 +1,14 @@
-// require the necessary libraries
-import faker from 'faker';
-import { Schema, Model } from 'mongoose';
+import { connectDatabase, closeDatabase, clearDatabase } from './db.service';
 
-function randomIntFromInterval(min, max) {
+function randomIntFromInterval(min: number, max: number) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 async function seedDB() {
     // Connection URL
-    const uri = 'YOUR MONGODB ATLAS URI';
-    await mongoose.connect(mongo.uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
+    await connectDatabase();
     try {
-        await client.connect();
-        const collection = client.db('iot').collection('kitty-litter-time-series');
-        // The drop() command destroys all data from a collection.
-        // Make sure you run it against proper database and collection.
-        collection.drop();
+        await clearDatabase();
         // make a bunch of time series data
         let timeSeriesData = [];
         for (let i = 0; i < 5000; i++) {

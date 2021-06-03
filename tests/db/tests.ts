@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import EntityModel from '../../src/entity/entity.model';
 
+import dbTests from './db';
+
 const databaseName = 'test';
 
 beforeAll(async () => {

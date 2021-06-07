@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
+/* eslint-disable no-restricted-syntax */
+import * as mongoose from 'mongoose';
 
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-const mongod = new MongoMemoryServer();
+const mongod = new MongoMemoryServer({ instance: { port: 36341 } });
 
 /**
  * Connect to the in-memory database.

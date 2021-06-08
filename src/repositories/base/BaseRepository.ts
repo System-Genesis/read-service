@@ -1,47 +1,24 @@
-// // import all interfaces
-// import { MongoClient, Db, Collection, InsertOneWriteOpResult } from 'mongodb';
-// import { IWrite } from '../interfaces/IWrite';
-// import { IRead } from '../interfaces/IRead';
+/* eslint-disable no-underscore-dangle */
 
-// // we imported all types from mongodb driver, to use in code
+import * as mongoose from 'mongoose';
+import { IRead } from '../interfaces/IRead';
 
-// // that class only can be extended
-// export default abstract class BaseRepository<T> implements IWrite<T>, IRead<T> {
-//     // creating a property to use your code in all instances
-//     // that extends your base repository and reuse on methods of class
-//     public readonly _collection: Collection;
+export default abstract class BaseRepository<T> implements IRead<T> {
+    protected _model: mongoose.Model<T & mongoose.Document>;
 
-//     // we created constructor with arguments to manipulate mongodb operations
-//     constructor(db: Db, collectionName: string) {
-//         this._collection = db.collection(collectionName);
-//     }
+    constructor(documentModel: mongoose.Model<T & mongoose.Document>) {
+        this._model = documentModel;
+    }
 
-//     // we add to method, the async keyword to manipulate the insert result
-//     // of method.
-//     async create(item: T): Promise<boolean> {
-//         const result: InsertOneWriteOpResult = await this._collection.insert(item);
-//         // after the insert operations, we returns only ok property (that haves a 1 or 0 results)
-//         // and we convert to boolean result (0 false, 1 true)
-//         return !!result.result.ok;
-//     }
+    find(query: any): Promise<T[]> {
+        return this._model.find(query).exec();
+    }
 
-//     update(id: string, item: T): Promise<boolean> {
-//         const x = this._collection;
-//         throw new Error('Method not implemented.');
-//     }
+    getAll(): Promise<T[]> {
+        return this._model.find({}).exec();
+    }
 
-//     delete(id: string): Promise<boolean> {
-//         const x = this._collection;
-//         throw new Error('Method not implemented.');
-//     }
-
-//     find(item: T): Promise<T[]> {
-//         const x = this._collection;
-//         throw new Error('Method not implemented.');
-//     }
-
-//     findOne(id: string): Promise<T> {
-//         const x = this._collection;
-//         throw new Error('Method not implemented.');
-//     }
-// }
+    findOne(id: string): Promise<any> {
+        return this._model.findById({ id }).exec();
+    }
+}

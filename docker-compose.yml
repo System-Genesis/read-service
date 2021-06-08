@@ -9,12 +9,10 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${ROOT_DATABASE}
-
-  rabbit:
-    image: rabbitmq:3-management
-    ports:
-      - 5672:5672
-      - 15672:15672
+  mongo-seed:
+    build: ./mongo-seed
+    links:
+      - mongo
 
   feature:
     build: .

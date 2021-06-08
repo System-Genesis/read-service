@@ -19,6 +19,12 @@ async function seedDB() {
             const fakeEntityModel = new EntityModel({ ...fakeFields });
             await fakeEntityModel.save();
         }
+        fakeEntityModel
+            .find()
+            .lean()
+            .exec((err, entities) => {
+                fs.writeFileSync(JSON.stringify(entities));
+            });
     } catch (err) {
         console.log(err.stack);
     }

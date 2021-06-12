@@ -1,14 +1,12 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
+import { writeFileSync } from 'fs';
 import { connectDatabase, closeDatabase, clearDatabase } from './db.service';
 import { EntityModel, IEntity } from '../../entity/entity.interface';
-import { fakeEntity, generateIDs } from './db.faker';
+import { fakeEntity, generateIDs } from './fakers/entity.faker';
+import { fakeHierarchies } from './fakers/group.faker';
 
-function randomIntFromInterval(min: number, max: number) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-async function seedDB() {
+(async function seedDB() {
     // Connection URL
     await connectDatabase();
     try {
@@ -19,14 +17,9 @@ async function seedDB() {
             const fakeEntityModel = new EntityModel({ ...fakeFields });
             await fakeEntityModel.save();
         }
-        fakeEntityModel
-            .find()
-            .lean()
-            .exec((err, entities) => {
-                fs.writeFileSync(JSON.stringify(entities));
-            });
+        const allGroups = fakeHierarchies();
+        await closeDatabase();
     } catch (err) {
         console.log(err.stack);
     }
-}
-seedDB();
+})();

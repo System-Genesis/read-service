@@ -3,13 +3,15 @@ import * as mongoose from 'mongoose';
 
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-const mongod = new MongoMemoryServer({ instance: { port: 36341 } });
+const mongod = new MongoMemoryServer({
+    instance: { port: 28000, dbName: 'Genesis' },
+});
 
 /**
  * Connect to the in-memory database.
  */
 export const connectDatabase = async () => {
-    const uri = await mongod.getConnectionString();
+    const uri = await mongod.getUri();
 
     const mongooseOpts = {
         useNewUrlParser: true,

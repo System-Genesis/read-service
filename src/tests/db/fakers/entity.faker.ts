@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as faker from 'faker';
 import { mongo } from 'mongoose';
-import { IEntity } from '../../entity/entity.interface';
-import weightedEnums from './weighted.enums';
-import { randomFromWeightedEnum, generateTZ } from './utils';
+import { IEntity } from '../../../entity/entity.interface';
+import weightedEnums from '../weighted.enums';
+import { randomFromWeightedEnum, generateTZ } from '../utils';
 
-import enums from '../../config/enums';
+import enums from '../../../config/enums';
 
 const fakeEntity = (mi, tz) => {
     let entityObj = {};

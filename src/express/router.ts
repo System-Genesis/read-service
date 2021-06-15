@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import featureRouter from './feature/router';
+import EntityRouter from '../entity/entity.router';
 
 const appRouter = Router();
 
-appRouter.use('/api', featureRouter);
+appRouter.use('/api', EntityRouter);
 
 appRouter.use('/isAlive', (_req, res) => {
     res.status(200).send('alive');

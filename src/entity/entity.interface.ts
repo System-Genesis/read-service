@@ -1,4 +1,4 @@
-import { model, Schema, Document, Model } from 'mongoose';
+import { Document } from 'mongoose';
 
 interface IEntity extends Document {
     // Entity's Basic information
@@ -24,30 +24,4 @@ interface IEntity extends Document {
     birthDate?: Date;
 }
 
-const entitySchema: Schema = new Schema({
-    // Entity's Basic information
-    id: String,
-    displayName: String,
-    entityType: String, // enum
-    identityCard: String,
-    personalNumber: String,
-    serviceType: String,
-    firstName: String,
-    lastName: String,
-    akaUnit: String,
-    status: String,
-    dischargeDate: Date,
-    rank: String, // enum
-    mail: String,
-    job: String,
-    phone: String,
-    mobilePHone: String,
-    address: String,
-    clearance: String, // String of number - enum
-    sex: String,
-    birthDate: Date,
-});
-
-const EntityModel: Model<IEntity> = model('entity', entitySchema);
-
-export { IEntity, EntityModel };
+export default IEntity;

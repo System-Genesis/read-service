@@ -1,7 +1,12 @@
 import BaseRepository from '../repositories/base/BaseRepository';
-import { IEntity, EntityModel } from './entity.interface';
+import IEntity from './entity.interface';
+import EntityModel from './entity.model';
 
 export default class EntityRepository extends BaseRepository<IEntity> {
+    static async find() {
+        throw new Error('Method not implemented.');
+    }
+
     constructor() {
         super(EntityModel);
     }

@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { EntityModel } from './entity.interface';
+import { EntityModel } from './entity.model';
 
 beforeAll(async () => {
     const url = `mongodb://127.0.0.1/${databaseName}`;

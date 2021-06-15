@@ -7,6 +7,18 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Index",
+      "program": "${workspaceFolder}/src/index.ts",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "env": { "NODE_ENV": "dev" },
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Seed",
       "program": "${workspaceFolder}/src/tests/db/db.seed.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",

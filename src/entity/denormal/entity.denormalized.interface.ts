@@ -1,5 +1,8 @@
-export interface EntityDTO {
-    // Person's Basic information
+import { Document } from 'mongoose';
+import { IDigitalIdentity } from '../../digitalIdentity/digitalIdentity.interface';
+
+interface IDenormalizedEntity extends Document {
+    // Entity's Basic information
     id: string;
     displayName: string;
     entityType: string; // enum
@@ -15,10 +18,12 @@ export interface EntityDTO {
     mail: string;
     job: string;
     phone: string;
-    mobilePhone: string;
+    mobilePHone: string;
     address: string;
     clearance: string; // string of number - enum
     sex?: string;
     birthDate?: Date;
-    digitalIdentities: string[];
+    digitalIdentities: IDigitalIdentity[];
 }
+
+export default IDenormalizedEntity;

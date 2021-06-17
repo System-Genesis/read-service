@@ -7,7 +7,7 @@ const config = {
     },
     mongo: {
         uri: env.get('MONGO_URI').required().asUrlString(),
-        featureCollectionName: env.get('MONGO_FEATURE_COLLECTION_NAME').required().asString(),
+        EntityCollectionName: env.get('ENTITY_COLLECTION_NAME').required().asString(),
     },
     rabbit: {
         uri: env.get('RABBIT_URI').required().asUrlString(),

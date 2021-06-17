@@ -3,7 +3,7 @@ import EntityRouter from '../entity/entity.router';
 
 const appRouter = Router();
 
-appRouter.use('/api', EntityRouter);
+appRouter.use('/entity', EntityRouter);
 
 appRouter.use('/isAlive', (_req, res) => {
     res.status(200).send('alive');

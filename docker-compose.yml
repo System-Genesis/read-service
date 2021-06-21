@@ -19,7 +19,9 @@ services:
       - ./mongo-seed:/data
     depends_on:
       - mongo
-    command: ['mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/entities.json --jsonArray']
+    command: >
+      "mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/entityDNs.json --jsonArray
+      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/entities.json --jsonArray"
 
   feature:
     build: .

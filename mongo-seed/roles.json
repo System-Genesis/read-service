@@ -1,0 +1,794 @@
+[
+  {
+    "hierarchyIds": [],
+    "roleId": "g5f319177246@city",
+    "jobTitle": "Internal Group Technician",
+    "digitalIdentityUniqueId": "g5f319177246@city.com",
+    "hierarchy": "city_name",
+    "source": "city_name",
+    "directGroup": 0
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "gf216488876@city",
+    "jobTitle": "Legacy Creative Assistant",
+    "digitalIdentityUniqueId": "gf216488876@city.com",
+    "hierarchy": "city_name/odyssey",
+    "source": "city_name",
+    "directGroup": 1
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "e273779525@city",
+    "jobTitle": "Dynamic Mobility Analyst",
+    "digitalIdentityUniqueId": "e273779525@city.com",
+    "hierarchy": "city_name/odyssey",
+    "source": "city_name",
+    "directGroup": 4
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "m589146180@city",
+    "jobTitle": "Senior Research Designer",
+    "digitalIdentityUniqueId": "m589146180@city.com",
+    "hierarchy": "city_name/unknown",
+    "source": "city_name",
+    "directGroup": 4
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "e522129027@city",
+    "jobTitle": "Dynamic Mobility Designer",
+    "digitalIdentityUniqueId": "e522129027@city.com",
+    "hierarchy": "city_name/interstellar",
+    "source": "city_name",
+    "directGroup": 5
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "e606470504@city",
+    "jobTitle": "Lead Assurance Director",
+    "digitalIdentityUniqueId": "e606470504@city.com",
+    "hierarchy": "city_name/odyssey",
+    "source": "city_name",
+    "directGroup": 5
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "gf674075508@city",
+    "jobTitle": "Internal Usability Supervisor",
+    "digitalIdentityUniqueId": "gf674075508@city.com",
+    "hierarchy": "city_name/bladerunners",
+    "source": "city_name",
+    "directGroup": 5
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "m305093349@city",
+    "jobTitle": "Chief Directives Agent",
+    "digitalIdentityUniqueId": "m305093349@city.com",
+    "hierarchy": "city_name/odyssey",
+    "source": "city_name",
+    "directGroup": 5
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "m286575450@city",
+    "jobTitle": "Dynamic Usability Liaison",
+    "digitalIdentityUniqueId": "m286575450@city.com",
+    "hierarchy": "city_name/interstellar",
+    "source": "city_name",
+    "directGroup": 5
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "m39643744@city",
+    "jobTitle": "Lead Configuration Designer",
+    "digitalIdentityUniqueId": "m39643744@city.com",
+    "hierarchy": "city_name/bladerunners",
+    "source": "city_name",
+    "directGroup": 5
+  },
+  {
+    "hierarchyIds": [6, 8],
+    "roleId": "e814257172@city",
+    "jobTitle": "Direct Directives Producer",
+    "digitalIdentityUniqueId": "e814257172@city.com",
+    "hierarchy": "wallmart/quia/aperiam",
+    "source": "city_name",
+    "directGroup": 72
+  },
+  {
+    "hierarchyIds": [6, 19],
+    "roleId": "e398264811@city",
+    "jobTitle": "Central Group Coordinator",
+    "digitalIdentityUniqueId": "e398264811@city.com",
+    "hierarchy": "wallmart/exercitationem/dolores",
+    "source": "city_name",
+    "directGroup": 79
+  },
+  {
+    "hierarchyIds": [6, 7],
+    "roleId": "i696878130@city",
+    "jobTitle": "Dynamic Mobility Producer",
+    "digitalIdentityUniqueId": "i696878130@city.com",
+    "hierarchy": "wallmart/expedita/harum",
+    "source": "city_name",
+    "directGroup": 71
+  },
+  {
+    "hierarchyIds": [6, 8],
+    "roleId": "e687363967@city",
+    "jobTitle": "Direct Marketing Architect",
+    "digitalIdentityUniqueId": "e687363967@city.com",
+    "hierarchy": "wallmart/adipisci/aut",
+    "source": "city_name",
+    "directGroup": 72
+  },
+  {
+    "hierarchyIds": [6, 10],
+    "roleId": "e817648993@city",
+    "jobTitle": "Investor Operations Director",
+    "digitalIdentityUniqueId": "e817648993@city.com",
+    "hierarchy": "wallmart/maxime/id",
+    "source": "city_name",
+    "directGroup": 74
+  },
+  {
+    "hierarchyIds": [6, 13],
+    "roleId": "g100617365@city",
+    "jobTitle": "Product Markets Engineer",
+    "digitalIdentityUniqueId": "g100617365@city.com",
+    "hierarchy": "wallmart/et/consequuntur",
+    "source": "city_name",
+    "directGroup": 77
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "i358104466@city",
+    "jobTitle": "Senior Branding Supervisor",
+    "digitalIdentityUniqueId": "i358104466@city.com",
+    "hierarchy": "wallmart/ipsum/et",
+    "source": "city_name",
+    "directGroup": 78
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "m766235368@city",
+    "jobTitle": "Customer Functionality Liaison",
+    "digitalIdentityUniqueId": "m766235368@city.com",
+    "hierarchy": "wallmart/amet/qui",
+    "source": "city_name",
+    "directGroup": 78
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "g420216633@city",
+    "jobTitle": "Corporate Infrastructure Supervisor",
+    "digitalIdentityUniqueId": "g420216633@city.com",
+    "hierarchy": "wallmart/magni/eos",
+    "source": "city_name",
+    "directGroup": 78
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "e410327527@city",
+    "jobTitle": "Product Communications Consultant",
+    "digitalIdentityUniqueId": "e410327527@city.com",
+    "hierarchy": "wallmart/voluptas/ut",
+    "source": "city_name",
+    "directGroup": 78
+  },
+  {
+    "hierarchyIds": [6, 34],
+    "roleId": "e335550272@city",
+    "jobTitle": "Forward Applications Associate",
+    "digitalIdentityUniqueId": "e335550272@city.com",
+    "hierarchy": "wallmart/magni/rerum",
+    "source": "city_name",
+    "directGroup": 91
+  },
+  {
+    "hierarchyIds": [6, 23],
+    "roleId": "g5f384607899@city",
+    "jobTitle": "Dynamic Group Officer",
+    "digitalIdentityUniqueId": "g5f384607899@city.com",
+    "hierarchy": "wallmart/dicta/praesentium",
+    "source": "city_name",
+    "directGroup": 81
+  },
+  {
+    "hierarchyIds": [6, 24],
+    "roleId": "gf277328956@city",
+    "jobTitle": "International Group Associate",
+    "digitalIdentityUniqueId": "gf277328956@city.com",
+    "hierarchy": "wallmart/voluptatibus/magni",
+    "source": "city_name",
+    "directGroup": 83
+  },
+  {
+    "hierarchyIds": [6, 8],
+    "roleId": "e745162070@city",
+    "jobTitle": "Forward Web Orchestrator",
+    "digitalIdentityUniqueId": "e745162070@city.com",
+    "hierarchy": "wallmart/quia/laborum",
+    "source": "city_name",
+    "directGroup": 84
+  },
+  {
+    "hierarchyIds": [6, 26],
+    "roleId": "gf662971990@city",
+    "jobTitle": "Direct Program Specialist",
+    "digitalIdentityUniqueId": "gf662971990@city.com",
+    "hierarchy": "wallmart/consequatur/aperiam",
+    "source": "city_name",
+    "directGroup": 85
+  },
+  {
+    "hierarchyIds": [6, 28],
+    "roleId": "gf995406763@city",
+    "jobTitle": "Dynamic Response Coordinator",
+    "digitalIdentityUniqueId": "gf995406763@city.com",
+    "hierarchy": "wallmart/sit/veniam",
+    "source": "city_name",
+    "directGroup": 86
+  },
+  {
+    "hierarchyIds": [6, 29],
+    "roleId": "e549028979@city",
+    "jobTitle": "National Branding Executive",
+    "digitalIdentityUniqueId": "e549028979@city.com",
+    "hierarchy": "wallmart/natus/aspernatur",
+    "source": "city_name",
+    "directGroup": 87
+  },
+  {
+    "hierarchyIds": [6, 30],
+    "roleId": "e731483279@city",
+    "jobTitle": "Regional Mobility Officer",
+    "digitalIdentityUniqueId": "e731483279@city.com",
+    "hierarchy": "wallmart/nesciunt/quos",
+    "source": "city_name",
+    "directGroup": 88
+  },
+  {
+    "hierarchyIds": [6, 30],
+    "roleId": "gf776762013@city",
+    "jobTitle": "Global Marketing Producer",
+    "digitalIdentityUniqueId": "gf776762013@city.com",
+    "hierarchy": "wallmart/quae/qui",
+    "source": "city_name",
+    "directGroup": 88
+  },
+  {
+    "hierarchyIds": [6, 30],
+    "roleId": "m557756501@city",
+    "jobTitle": "Principal Usability Producer",
+    "digitalIdentityUniqueId": "m557756501@city.com",
+    "hierarchy": "wallmart/consequatur/vel",
+    "source": "city_name",
+    "directGroup": 88
+  },
+  {
+    "hierarchyIds": [6, 30],
+    "roleId": "m24807868@city",
+    "jobTitle": "Future Tactics Technician",
+    "digitalIdentityUniqueId": "m24807868@city.com",
+    "hierarchy": "wallmart/neque/dolorum",
+    "source": "city_name",
+    "directGroup": 88
+  },
+  {
+    "hierarchyIds": [6, 30],
+    "roleId": "g7288951@city",
+    "jobTitle": "National Solutions Specialist",
+    "digitalIdentityUniqueId": "g7288951@city.com",
+    "hierarchy": "wallmart/adipisci/qui",
+    "source": "city_name",
+    "directGroup": 88
+  },
+  {
+    "hierarchyIds": [6, 33],
+    "roleId": "g82046289@city",
+    "jobTitle": "Direct Quality Supervisor",
+    "digitalIdentityUniqueId": "g82046289@city.com",
+    "hierarchy": "wallmart/non/repellat",
+    "source": "city_name",
+    "directGroup": 89
+  },
+  {
+    "hierarchyIds": [6, 30],
+    "roleId": "e805745845@city",
+    "jobTitle": "Central Marketing Technician",
+    "digitalIdentityUniqueId": "e805745845@city.com",
+    "hierarchy": "wallmart/nesciunt/vitae",
+    "source": "city_name",
+    "directGroup": 90
+  },
+  {
+    "hierarchyIds": [6, 34],
+    "roleId": "e810367168@city",
+    "jobTitle": "Legacy Integration Developer",
+    "digitalIdentityUniqueId": "e810367168@city.com",
+    "hierarchy": "wallmart/dignissimos/rerum",
+    "source": "city_name",
+    "directGroup": 91
+  },
+  {
+    "hierarchyIds": [6, 34],
+    "roleId": "i661580200@city",
+    "jobTitle": "Senior Interactions Consultant",
+    "digitalIdentityUniqueId": "i661580200@city.com",
+    "hierarchy": "wallmart/et/in",
+    "source": "city_name",
+    "directGroup": 91
+  },
+  {
+    "hierarchyIds": [6, 34],
+    "roleId": "e994208582@city",
+    "jobTitle": "Forward Accountability Executive",
+    "digitalIdentityUniqueId": "e994208582@city.com",
+    "hierarchy": "wallmart/et/qui",
+    "source": "city_name",
+    "directGroup": 91
+  },
+  {
+    "hierarchyIds": [6, 34],
+    "roleId": "m336258295@city",
+    "jobTitle": "Internal Integration Engineer",
+    "digitalIdentityUniqueId": "m336258295@city.com",
+    "hierarchy": "wallmart/aut/dolores",
+    "source": "city_name",
+    "directGroup": 91
+  },
+  {
+    "hierarchyIds": [6, 28],
+    "roleId": "e660569946@city",
+    "jobTitle": "Customer Mobility Strategist",
+    "digitalIdentityUniqueId": "e660569946@city.com",
+    "hierarchy": "wallmart/sit/rem",
+    "source": "city_name",
+    "directGroup": 92
+  },
+  {
+    "hierarchyIds": [6, 36],
+    "roleId": "e611658486@city",
+    "jobTitle": "Legacy Intranet Strategist",
+    "digitalIdentityUniqueId": "e611658486@city.com",
+    "hierarchy": "wallmart/ab/nam",
+    "source": "city_name",
+    "directGroup": 93
+  },
+  {
+    "hierarchyIds": [6, 38],
+    "roleId": "ii557224793@city",
+    "jobTitle": "Regional Markets Facilitator",
+    "digitalIdentityUniqueId": "ii557224793@city.com",
+    "hierarchy": "wallmart/eos/fuga",
+    "source": "city_name",
+    "directGroup": 95
+  },
+  {
+    "hierarchyIds": [6, 39],
+    "roleId": "l575722256@city",
+    "jobTitle": "Central Mobility Planner",
+    "digitalIdentityUniqueId": "l575722256@city.com",
+    "hierarchy": "wallmart/beatae/hic",
+    "source": "city_name",
+    "directGroup": 96
+  },
+  {
+    "hierarchyIds": [6, 39],
+    "roleId": "gf403951045@city",
+    "jobTitle": "Internal Group Planner",
+    "digitalIdentityUniqueId": "gf403951045@city.com",
+    "hierarchy": "wallmart/illo/aspernatur",
+    "source": "city_name",
+    "directGroup": 96
+  },
+  {
+    "hierarchyIds": [6, 41],
+    "roleId": "g5f139755036@city",
+    "jobTitle": "Dynamic Implementation Developer",
+    "digitalIdentityUniqueId": "g5f139755036@city.com",
+    "hierarchy": "wallmart/atque/a",
+    "source": "city_name",
+    "directGroup": 97
+  },
+  {
+    "hierarchyIds": [6, 42],
+    "roleId": "e763986391@city",
+    "jobTitle": "Senior Accounts Strategist",
+    "digitalIdentityUniqueId": "e763986391@city.com",
+    "hierarchy": "wallmart/vel/eos",
+    "source": "city_name",
+    "directGroup": 98
+  },
+  {
+    "hierarchyIds": [6, 42],
+    "roleId": "gf15406910@city",
+    "jobTitle": "Dynamic Assurance Consultant",
+    "digitalIdentityUniqueId": "gf15406910@city.com",
+    "hierarchy": "wallmart/et/sed",
+    "source": "city_name",
+    "directGroup": 98
+  },
+  {
+    "hierarchyIds": [6, 42],
+    "roleId": "g5f337839516@city",
+    "jobTitle": "District Tactics Assistant",
+    "digitalIdentityUniqueId": "g5f337839516@city.com",
+    "hierarchy": "wallmart/et/asperiores",
+    "source": "city_name",
+    "directGroup": 98
+  },
+  {
+    "hierarchyIds": [6, 42],
+    "roleId": "e720011750@city",
+    "jobTitle": "Lead Web Strategist",
+    "digitalIdentityUniqueId": "e720011750@city.com",
+    "hierarchy": "wallmart/maxime/incidunt",
+    "source": "city_name",
+    "directGroup": 98
+  },
+  {
+    "hierarchyIds": [6, 42],
+    "roleId": "g706762056@city",
+    "jobTitle": "Product Intranet Architect",
+    "digitalIdentityUniqueId": "g706762056@city.com",
+    "hierarchy": "wallmart/assumenda/sit",
+    "source": "city_name",
+    "directGroup": 98
+  },
+  {
+    "hierarchyIds": [6, 45],
+    "roleId": "g193622251@city",
+    "jobTitle": "District Optimization Associate",
+    "digitalIdentityUniqueId": "g193622251@city.com",
+    "hierarchy": "wallmart/nulla/cum",
+    "source": "city_name",
+    "directGroup": 99
+  },
+  {
+    "hierarchyIds": [6, 46],
+    "roleId": "e913413808@city",
+    "jobTitle": "District Assurance Officer",
+    "digitalIdentityUniqueId": "e913413808@city.com",
+    "hierarchy": "wallmart/in/non",
+    "source": "city_name",
+    "directGroup": 100
+  },
+  {
+    "hierarchyIds": [6, 46],
+    "roleId": "i51800781@city",
+    "jobTitle": "Product Accountability Representative",
+    "digitalIdentityUniqueId": "i51800781@city.com",
+    "hierarchy": "wallmart/autem/earum",
+    "source": "city_name",
+    "directGroup": 100
+  },
+  {
+    "hierarchyIds": [6, 46],
+    "roleId": "m372130059@city",
+    "jobTitle": "Central Branding Analyst",
+    "digitalIdentityUniqueId": "m372130059@city.com",
+    "hierarchy": "wallmart/sit/sit",
+    "source": "city_name",
+    "directGroup": 100
+  },
+  {
+    "hierarchyIds": [6, 49],
+    "roleId": "g147453154@city",
+    "jobTitle": "Legacy Solutions Producer",
+    "digitalIdentityUniqueId": "g147453154@city.com",
+    "hierarchy": "wallmart/velit/nisi",
+    "source": "city_name",
+    "directGroup": 101
+  },
+  {
+    "hierarchyIds": [6, 51],
+    "roleId": "g5f142763@city",
+    "jobTitle": "Human Division Engineer",
+    "digitalIdentityUniqueId": "g5f142763@city.com",
+    "hierarchy": "wallmart/possimus/occaecati",
+    "source": "city_name",
+    "directGroup": 102
+  },
+  {
+    "hierarchyIds": [6, 52],
+    "roleId": "l679047461@city",
+    "jobTitle": "Regional Solutions Executive",
+    "digitalIdentityUniqueId": "l679047461@city.com",
+    "hierarchy": "wallmart/enim/voluptatem",
+    "source": "city_name",
+    "directGroup": 103
+  },
+  {
+    "hierarchyIds": [6, 33],
+    "roleId": "g486341355@city",
+    "jobTitle": "Corporate Security Administrator",
+    "digitalIdentityUniqueId": "g486341355@city.com",
+    "hierarchy": "wallmart/non/alias",
+    "source": "city_name",
+    "directGroup": 104
+  },
+  {
+    "hierarchyIds": [6, 33],
+    "roleId": "m208342176@city",
+    "jobTitle": "Investor Identity Liaison",
+    "digitalIdentityUniqueId": "m208342176@city.com",
+    "hierarchy": "wallmart/autem/voluptas",
+    "source": "city_name",
+    "directGroup": 104
+  },
+  {
+    "hierarchyIds": [0, 4],
+    "roleId": "e312302414@city",
+    "jobTitle": "Direct Usability Orchestrator",
+    "digitalIdentityUniqueId": "e312302414@city.com",
+    "hierarchy": "wallmart/dolorum/nihil",
+    "source": "city_name",
+    "directGroup": 106
+  },
+  {
+    "hierarchyIds": [6, 54],
+    "roleId": "m395009122@city",
+    "jobTitle": "Lead Applications Officer",
+    "digitalIdentityUniqueId": "m395009122@city.com",
+    "hierarchy": "wallmart/similique/fugiat",
+    "source": "city_name",
+    "directGroup": 108
+  },
+  {
+    "hierarchyIds": [6, 13],
+    "roleId": "l711615070@city",
+    "jobTitle": "Chief Interactions Specialist",
+    "digitalIdentityUniqueId": "l711615070@city.com",
+    "hierarchy": "wallmart/et/aliquid",
+    "source": "city_name",
+    "directGroup": 109
+  },
+  {
+    "hierarchyIds": [6, 51],
+    "roleId": "ee188865686@city",
+    "jobTitle": "Forward Operations Architect",
+    "digitalIdentityUniqueId": "ee188865686@city.com",
+    "hierarchy": "wallmart/possimus/aliquam",
+    "source": "city_name",
+    "directGroup": 110
+  },
+  {
+    "hierarchyIds": [6, 51],
+    "roleId": "m211745358@city",
+    "jobTitle": "Legacy Accountability Officer",
+    "digitalIdentityUniqueId": "m211745358@city.com",
+    "hierarchy": "wallmart/qui/dolores",
+    "source": "city_name",
+    "directGroup": 110
+  },
+  {
+    "hierarchyIds": [6, 62],
+    "roleId": "e50718598@city",
+    "jobTitle": "Senior Branding Technician",
+    "digitalIdentityUniqueId": "e50718598@city.com",
+    "hierarchy": "wallmart/dolores/eos",
+    "source": "city_name",
+    "directGroup": 111
+  },
+  {
+    "hierarchyIds": [6, 62],
+    "roleId": "m33802087@city",
+    "jobTitle": "Forward Assurance Manager",
+    "digitalIdentityUniqueId": "m33802087@city.com",
+    "hierarchy": "wallmart/architecto/et",
+    "source": "city_name",
+    "directGroup": 111
+  },
+  {
+    "hierarchyIds": [6, 62],
+    "roleId": "g5f359058899@city",
+    "jobTitle": "Central Interactions Director",
+    "digitalIdentityUniqueId": "g5f359058899@city.com",
+    "hierarchy": "wallmart/incidunt/voluptatibus",
+    "source": "city_name",
+    "directGroup": 111
+  },
+  {
+    "hierarchyIds": [6, 60],
+    "roleId": "e302617412@city",
+    "jobTitle": "Future Program Producer",
+    "digitalIdentityUniqueId": "e302617412@city.com",
+    "hierarchy": "wallmart/suscipit/cumque",
+    "source": "city_name",
+    "directGroup": 112
+  },
+  {
+    "hierarchyIds": [6, 61],
+    "roleId": "m9322559@city",
+    "jobTitle": "Lead Intranet Executive",
+    "digitalIdentityUniqueId": "m9322559@city.com",
+    "hierarchy": "wallmart/ducimus/culpa",
+    "source": "city_name",
+    "directGroup": 113
+  },
+  {
+    "hierarchyIds": [6, 61],
+    "roleId": "g806279953@city",
+    "jobTitle": "Product Factors Strategist",
+    "digitalIdentityUniqueId": "g806279953@city.com",
+    "hierarchy": "wallmart/ut/earum",
+    "source": "city_name",
+    "directGroup": 113
+  },
+  {
+    "hierarchyIds": [6, 61],
+    "roleId": "e549376843@city",
+    "jobTitle": "Product Usability Planner",
+    "digitalIdentityUniqueId": "e549376843@city.com",
+    "hierarchy": "wallmart/nostrum/saepe",
+    "source": "city_name",
+    "directGroup": 113
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "m906132687@city",
+    "jobTitle": "Human Data Strategist",
+    "digitalIdentityUniqueId": "m906132687@city.com",
+    "hierarchy": "wallmart/non/ut",
+    "source": "city_name",
+    "directGroup": 114
+  },
+  {
+    "hierarchyIds": [0],
+    "roleId": "e965552070@city",
+    "jobTitle": "Lead Tactics Engineer",
+    "digitalIdentityUniqueId": "e965552070@city.com",
+    "hierarchy": "wallmart/voluptas/nisi",
+    "source": "city_name",
+    "directGroup": 114
+  },
+  {
+    "hierarchyIds": [6, 67],
+    "roleId": "m418558375@city",
+    "jobTitle": "Direct Accountability Assistant",
+    "digitalIdentityUniqueId": "m418558375@city.com",
+    "hierarchy": "wallmart/asperiores/iusto",
+    "source": "city_name",
+    "directGroup": 116
+  },
+  {
+    "hierarchyIds": [6, 67],
+    "roleId": "m383069779@city",
+    "jobTitle": "Forward Communications Manager",
+    "digitalIdentityUniqueId": "m383069779@city.com",
+    "hierarchy": "wallmart/enim/eos",
+    "source": "city_name",
+    "directGroup": 116
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "e38313586@city",
+    "jobTitle": "Investor Brand Associate",
+    "digitalIdentityUniqueId": "e38313586@city.com",
+    "hierarchy": "wallmart/distinctio/reprehenderit",
+    "source": "city_name",
+    "directGroup": 117
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "e503962027@city",
+    "jobTitle": "Corporate Program Manager",
+    "digitalIdentityUniqueId": "e503962027@city.com",
+    "hierarchy": "wallmart/omnis/non",
+    "source": "city_name",
+    "directGroup": 117
+  },
+  {
+    "hierarchyIds": [6, 14],
+    "roleId": "g5f673987772@city",
+    "jobTitle": "Principal Accounts Manager",
+    "digitalIdentityUniqueId": "g5f673987772@city.com",
+    "hierarchy": "wallmart/sequi/nam",
+    "source": "city_name",
+    "directGroup": 117
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "e360998633@city",
+    "jobTitle": "Corporate Response Developer",
+    "digitalIdentityUniqueId": "e360998633@city.com",
+    "hierarchy": "city_name/unknown/eligendi/rem/quo/minima",
+    "source": "city_name",
+    "directGroup": 125
+  },
+  {
+    "hierarchyIds": [123],
+    "roleId": "ee569077787@city",
+    "jobTitle": "Regional Web Supervisor",
+    "digitalIdentityUniqueId": "ee569077787@city.com",
+    "hierarchy": "city_name/armagadon/autem/odit/ipsum/aspernatur",
+    "source": "city_name",
+    "directGroup": 128
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "m34094860@city",
+    "jobTitle": "Chief Intranet Developer",
+    "digitalIdentityUniqueId": "m34094860@city.com",
+    "hierarchy": "city_name/interstellar/sed/natus/nam/porro",
+    "source": "city_name",
+    "directGroup": 129
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "g737510366@city",
+    "jobTitle": "Forward Applications Architect",
+    "digitalIdentityUniqueId": "g737510366@city.com",
+    "hierarchy": "city_name/armagadon/et/laudantium/voluptatem/et",
+    "source": "city_name",
+    "directGroup": 130
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "m828846197@city",
+    "jobTitle": "Forward Functionality Liaison",
+    "digitalIdentityUniqueId": "m828846197@city.com",
+    "hierarchy": "city_name/bladerunners/sit/in/dolores/nobis",
+    "source": "city_name",
+    "directGroup": 131
+  },
+  {
+    "hierarchyIds": [125],
+    "roleId": "j734958619@city",
+    "jobTitle": "Dynamic Paradigm Architect",
+    "digitalIdentityUniqueId": "j734958619@city.com",
+    "hierarchy": "city_name/armagadon/est/impedit/voluptatem/sequi",
+    "source": "city_name",
+    "directGroup": 132
+  },
+  {
+    "hierarchyIds": [125],
+    "roleId": "ee701904982@city",
+    "jobTitle": "Product Functionality Liaison",
+    "digitalIdentityUniqueId": "ee701904982@city.com",
+    "hierarchy": "city_name/unknown/autem/molestias/ea/amet",
+    "source": "city_name",
+    "directGroup": 132
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "e8e887776981@city",
+    "jobTitle": "Chief Functionality Agent",
+    "digitalIdentityUniqueId": "e8e887776981@city.com",
+    "hierarchy": "city_name/unknown/unde/quia/dolores/perferendis",
+    "source": "city_name",
+    "directGroup": 133
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "e808479047@city",
+    "jobTitle": "Senior Program Coordinator",
+    "digitalIdentityUniqueId": "e808479047@city.com",
+    "hierarchy": "city_name/unknown/laboriosam/temporibus/vel/aut",
+    "source": "city_name",
+    "directGroup": 133
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "g403160181@city",
+    "jobTitle": "Lead Infrastructure Agent",
+    "digitalIdentityUniqueId": "g403160181@city.com",
+    "hierarchy": "city_name/bladerunners/incidunt/ipsa/rerum/sed",
+    "source": "city_name",
+    "directGroup": 133
+  },
+  {
+    "hierarchyIds": [],
+    "roleId": "l891099683@city",
+    "jobTitle": "Dynamic Research Developer",
+    "digitalIdentityUniqueId": "l891099683@city.com",
+    "hierarchy": "city_name/quas/sapiente/deleniti/quisquam",
+    "source": "city_name",
+    "directGroup": 133
+  }
+]

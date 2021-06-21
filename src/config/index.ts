@@ -8,6 +8,10 @@ const config = {
     mongo: {
         uri: env.get('MONGO_URI').required().asUrlString(),
         EntityCollectionName: env.get('ENTITY_COLLECTION_NAME').required().asString(),
+        EntityDenormalizedCollectionName: env.get('ENTITY_DENORMALIZED_COLLECTION_NAME').required().asString(),
+        DigitalIdentityCollectionName: env.get('DI_COLLECTION_NAME').required().asString(),
+        DigitalIdentityDenormalizedCollectionName: env.get('DI_DENORMALIZED_COLLECTION_NAME').required().asString(),
+        RoleCollectionName: env.get('ROLE_COLLECTION_NAME').required().asString(),
     },
     rabbit: {
         uri: env.get('RABBIT_URI').required().asUrlString(),

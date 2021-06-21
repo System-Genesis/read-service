@@ -10,6 +10,4 @@ export interface DigitalIdentityDTO {
     createdAt: Date;
     updatedAt: Date;
     isRoleAttachable: boolean;
-    // when expanded
-    role: roleDTO;
 }

@@ -1,4 +1,4 @@
-export interface roleDTO {
+export default interface IRole {
     // Role's Basic information
     roleId: string;
     jobTitle: string;

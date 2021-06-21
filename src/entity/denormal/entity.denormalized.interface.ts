@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { IDigitalIdentity } from '../../digitalIdentity/digitalIdentity.interface';
+import IDenormalizedDI from '../../digitalIdentity/denormal/digitalIdentity.denormalized.interface';
 
 interface IDenormalizedEntity extends Document {
     // Entity's Basic information
@@ -23,7 +23,7 @@ interface IDenormalizedEntity extends Document {
     clearance: string; // string of number - enum
     sex?: string;
     birthDate?: Date;
-    digitalIdentities: IDigitalIdentity[];
+    digitalIdentities: [IDenormalizedDI];
 }
 
 export default IDenormalizedEntity;

@@ -2,7 +2,7 @@ import { model, Schema, Model } from 'mongoose';
 import IEntity from './entity.interface';
 import config from '../config/index';
 
-const entitySchema: Schema = new Schema(
+const EntitySchema: Schema = new Schema(
     {
         // Entity's Basic information
         id: String,
@@ -31,4 +31,4 @@ const entitySchema: Schema = new Schema(
 
 const EntityModel: Model<IEntity> = model('entity', entitySchema);
 
-export default EntityModel;
+export { EntityModel, EntitySchema };

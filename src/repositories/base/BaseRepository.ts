@@ -17,8 +17,4 @@ export default abstract class BaseRepository<T> implements IRead<T> {
     getAll(): Promise<T[]> {
         return this.model.find({}).exec();
     }
-
-    findOne(id: string): Promise<any> {
-        return this.model.findById({ id }).exec();
-    }
 }

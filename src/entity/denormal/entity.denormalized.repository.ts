@@ -1,17 +1,18 @@
 import BaseRepository from '../../repositories/base/BaseRepository';
 import IDenormalizedEntity from './entity.denormalized.interface';
-import DenormalizedEntityModel from './entity.denormalized.model';
+import EntityDenormalizedModel from './entity.denormalized.model';
 
 export default class EntityDenormalizedRepository extends BaseRepository<IDenormalizedEntity> {
-    static async find() {
-        throw new Error('Method not implemented.');
-    }
-
     constructor() {
-        super(DenormalizedEntityModel);
+        super(EntityDenormalizedModel);
     }
 
-    getMembersOfGroups(organizationGroupsIDS: string[]): Promise<IDenormalizedEntity[]> {
-        return this.find({ directGroup: { $in: organizationGroupsIDS } });
+    getByRole(roleID: string): Promise<IDenormalizedEntity[]> {
+        return this.model.find({ roleID }).exec();
+    }
+
+    findById(id_: string): Promise<IDenormalizedEntity | null> {
+        const idNum: number = +id_;
+        return this.model.findOne({ id: idNum }).exec();
     }
 }

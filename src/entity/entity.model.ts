@@ -29,6 +29,6 @@ const EntitySchema: Schema = new Schema(
     { collection: config.mongo.EntityCollectionName },
 );
 
-const EntityModel: Model<IEntity> = model('entity', entitySchema);
+const EntityModel: Model<IEntity> = model('entity', EntitySchema);
 
 export { EntityModel, EntitySchema };

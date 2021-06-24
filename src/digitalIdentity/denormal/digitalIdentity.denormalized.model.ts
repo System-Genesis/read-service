@@ -15,9 +15,9 @@ const DIDenormalizedSchema: Schema = new Schema(
         isRoleAttachable: Boolean,
         role: RoleSchema,
     },
-    { collection: config.mongo.EntityDenormalizedCollectionName },
+    { collection: config.mongo.DigitalIdentityDenormalizedCollectionName },
 );
 
-const DIDenormalizedModel: Model<IDenormalizedDI> = model('digitalIdentityDN', DIDenormalizedSchema);
+const DenormalizedDIModel: Model<IDenormalizedDI> = model('digitalIdentityDN', DIDenormalizedSchema);
 
-export { DIDenormalizedModel, DIDenormalizedSchema };
+export { DenormalizedDIModel, DIDenormalizedSchema };

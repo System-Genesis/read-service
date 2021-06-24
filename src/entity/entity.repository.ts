@@ -1,14 +1,10 @@
 import BaseRepository from '../repositories/base/BaseRepository';
 import IEntity from './entity.interface';
-import EntityModel from './entity.model';
+import { EntityModel } from './entity.model';
 
 export default class EntityRepository extends BaseRepository<IEntity> {
     constructor() {
         super(EntityModel);
-    }
-
-    getById(id: string): Promise<IEntity[]> {
-        return this.model.find({ _id: id }).exec();
     }
 
     getByIdentifier(identifier: string): Promise<IEntity[]> {
@@ -20,5 +16,10 @@ export default class EntityRepository extends BaseRepository<IEntity> {
 
     getMembersOfGroups(organizationGroupsIDS: string[]): Promise<IEntity[]> {
         return this.find({ directGroup: { $in: organizationGroupsIDS } });
+    }
+
+    findById(_id: string): Promise<IEntity | null> {
+        // const idNum: number = +cu;
+        return this.model.findOne({ id: _id }).exec();
     }
 }

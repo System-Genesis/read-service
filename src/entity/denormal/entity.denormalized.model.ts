@@ -31,6 +31,6 @@ const entityDenormalizedSchema: Schema = new Schema(
     { collection: config.mongo.EntityDenormalizedCollectionName },
 );
 
-const DenormalizedEntityModel: Model<IDenormalizedEntity> = model('entity_dn', entityDenormalizedSchema);
+const EntityDenormalizedModel: Model<IDenormalizedEntity> = model('entity_dn', entityDenormalizedSchema);
 
-export default DenormalizedEntityModel;
+export default EntityDenormalizedModel;

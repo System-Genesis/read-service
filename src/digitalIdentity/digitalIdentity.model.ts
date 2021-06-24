@@ -1,8 +1,8 @@
 import { model, Schema, Model, Document } from 'mongoose';
-import IRole from './role.interface';
+import IDigitalIdentity from './digitalIdentity.interface';
 import config from '../config/index';
 
-const RoleSchema: Schema = new Schema(
+const DISchema: Schema = new Schema(
     {
         roleId: String,
         jobTitle: String,
@@ -14,9 +14,9 @@ const RoleSchema: Schema = new Schema(
         updatedAt: Date,
         source: String,
     },
-    { collection: config.mongo.RoleCollectionName },
+    { collection: config.mongo.DigitalIdentityCollectionName },
 );
 
-const RoleModel: Model<IRole & Document> = model('role', RoleSchema);
+const DigitalIdentityModel = model<IDigitalIdentity & Document>('digitalIdentity', DISchema);
 
-export { RoleModel, RoleSchema };
+export { DigitalIdentityModel, DISchema };

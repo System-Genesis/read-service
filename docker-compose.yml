@@ -21,7 +21,11 @@ services:
       - mongo
     command: >
       "mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/entityDNs.json --jsonArray
-      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/entities.json --jsonArray"
+      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/entities.json --jsonArray
+      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/digitalIdentities.json --jsonArray
+      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/digitalIdentitiesDNs.json --jsonArray
+      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/roles.json --jsonArray
+      && mongoimport --host mongo --port 27017 --db genesis --mode upsert --type json --file /data/organiztionGroups.json --jsonArray"
 
   feature:
     build: .

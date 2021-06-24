@@ -17,8 +17,10 @@ class EntityController {
     }
 
     static async getById(_req: Request, res: Response) {
+        const { expanded } = _req.query as { [key: string]: string };
+        const isExpanded = expanded === 'true';
         try {
-            const entities = await EntityManager.getById(_req.params.id);
+            const entities = await EntityManager.findById(_req.params.id, isExpanded);
             res.status(200).send(entities);
         } catch (error) {
             res.send({
@@ -27,6 +29,77 @@ class EntityController {
             });
         }
     }
+
+    // static async getByRole(_req: Request, res: Response) {
+    //     const { expanded } = _req.query as { [key: string]: string };
+    //     const { roleID } = _req.params as { [key: string]: string };
+    //     try {
+    //         const entities = await EntityManager.findByRole(roleID, expanded);
+    //         res.status(200).send(entities);
+    //     } catch (error) {
+    //         res.send({
+    //             msg: 'Not found',
+    //             status: 404,
+    //         });
+    //     }
+    // }
+
+    // static async getByIdentifier(_req: Request, res: Response) {
+    //     const { expanded } = _req.query as { [key: string]: string };
+    //     const { identifier } = _req.params as { [key: string]: string };
+    //     try {
+    //         const entities = await EntityManager.findByIdentifier(identifier, expanded);
+    //         res.status(200).send(entities);
+    //     } catch (error) {
+    //         res.send({
+    //             msg: 'Not found',
+    //             status: 404,
+    //         });
+    //     }
+    // }
+
+    static async getByDigitalIdentity(_req: Request, res: Response) {
+        const { expanded } = _req.query as { [key: string]: string };
+        const { digitalIdentityUniqueId } = _req.params as { [key: string]: string };
+        const isExpanded = expanded === 'true';
+        try {
+            const entities = await EntityManager.findByDigitalIdentity(digitalIdentityUniqueId, isExpanded);
+            res.status(200).send(entities);
+        } catch (error) {
+            res.send({
+                msg: 'Not found',
+                status: 404,
+            });
+        }
+    }
+
+    //     static async getByRole(_req: Request, res: Response) {
+    //         const { expanded } = _req.query as { [key: string]: string };
+    //         const { roleID } = _req.params as { [key: string]: string };
+    //         try {
+    //             const entities = await EntityManager.getByRole(roleID, expanded);
+    //             res.status(200).send(entities);
+    //         } catch (error) {
+    //             res.send({
+    //                 msg: 'Not found',
+    //                 status: 404,
+    //             });
+    //         }
+    //     }
+
+    //     static async getByRole(_req: Request, res: Response) {
+    //         const { expanded } = _req.query as { [key: string]: string };
+    //         const { roleID } = _req.params as { [key: string]: string };
+    //         try {
+    //             const entities = await EntityManager.getByRole(roleID, expanded);
+    //             res.status(200).send(entities);
+    //         } catch (error) {
+    //             res.send({
+    //                 msg: 'Not found',
+    //                 status: 404,
+    //             });
+    //         }
+    //     }
 }
 
 export default EntityController;

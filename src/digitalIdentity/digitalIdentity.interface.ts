@@ -1,4 +1,4 @@
-export interface IDigitalIdentity {
+export default interface IDigitalIdentity {
     // DI's Basic information
     type: string;
     source: string;

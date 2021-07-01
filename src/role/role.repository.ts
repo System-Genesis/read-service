@@ -7,7 +7,7 @@ export default class RoleRepository extends BaseRepository<IRole> {
         super(RoleModel);
     }
 
-    getByRoleId(roleID: string): Promise<IRole | null> {
+    getByRoleId(roleID: string, populated?: boolean): Promise<IRole | null> {
         return this.model.findOne({ roleID }).exec();
     }
 }

@@ -5,7 +5,9 @@
     "name": "city_name",
     "source": "city_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "1ew4r3d3d",
@@ -13,7 +15,9 @@
     "name": "wallmart",
     "source": "city_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "2ew4r3d3d",
@@ -21,7 +25,9 @@
     "name": "odyssey",
     "source": "city_name",
     "hierarchy": "city_name",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "3ew4r3d3d",
@@ -29,7 +35,9 @@
     "name": "bladerunners",
     "source": "city_name",
     "hierarchy": "city_name",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "4ew4r3d3d",
@@ -37,7 +45,9 @@
     "name": "possimus",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "5ew4r3d3d",
@@ -45,7 +55,9 @@
     "name": "id",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "6ew4r3d3d",
@@ -53,7 +65,9 @@
     "name": "temporibus",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "7ew4r3d3d",
@@ -61,7 +75,9 @@
     "name": "ipsa",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "8ew4r3d3d",
@@ -69,7 +85,9 @@
     "name": "molestiae",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "9ew4r3d3d",
@@ -77,7 +95,9 @@
     "name": "et",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "10ew4r3d3d",
@@ -85,7 +105,9 @@
     "name": "unknown",
     "source": "city_name",
     "hierarchy": "city_name",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "11ew4r3d3d",
@@ -93,7 +115,9 @@
     "name": "armagadon",
     "source": "city_name",
     "hierarchy": "city_name",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "12ew4r3d3d",
@@ -101,7 +125,9 @@
     "name": "inventore",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "13ew4r3d3d",
@@ -109,7 +135,9 @@
     "name": "beatae",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "14ew4r3d3d",
@@ -117,7 +145,9 @@
     "name": "ut",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "15ew4r3d3d",
@@ -125,7 +155,9 @@
     "name": "nobis",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "16ew4r3d3d",
@@ -133,7 +165,9 @@
     "name": "magnam",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "17ew4r3d3d",
@@ -141,7 +175,9 @@
     "name": "doloremque",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "18ew4r3d3d",
@@ -149,7 +185,9 @@
     "name": "molestias",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "19ew4r3d3d",
@@ -157,7 +195,9 @@
     "name": "aperiam",
     "source": "city_name",
     "hierarchy": "wallmart/id",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "20ew4r3d3d",
@@ -165,7 +205,9 @@
     "name": "sint",
     "source": "city_name",
     "hierarchy": "wallmart/possimus",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "21ew4r3d3d",
@@ -173,7 +215,9 @@
     "name": "debitis",
     "source": "city_name",
     "hierarchy": "wallmart/ipsa",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "22ew4r3d3d",
@@ -181,7 +225,9 @@
     "name": "quisquam",
     "source": "city_name",
     "hierarchy": "wallmart/temporibus",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "23ew4r3d3d",
@@ -189,7 +235,9 @@
     "name": "sed",
     "source": "city_name",
     "hierarchy": "wallmart/molestiae",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "24ew4r3d3d",
@@ -197,7 +245,9 @@
     "name": "fugiat",
     "source": "city_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "25ew4r3d3d",
@@ -205,7 +255,9 @@
     "name": "a",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "26ew4r3d3d",
@@ -213,7 +265,9 @@
     "name": "qui",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "27ew4r3d3d",
@@ -221,7 +275,9 @@
     "name": "nostrum",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "28ew4r3d3d",
@@ -229,7 +285,9 @@
     "name": "tempore",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "29ew4r3d3d",
@@ -237,7 +295,9 @@
     "name": "voluptatem",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "30ew4r3d3d",
@@ -245,7 +305,9 @@
     "name": "blanditiis",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "31ew4r3d3d",
@@ -253,7 +315,9 @@
     "name": "sapiente",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "32ew4r3d3d",
@@ -261,7 +325,9 @@
     "name": "cupiditate",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "33ew4r3d3d",
@@ -269,7 +335,9 @@
     "name": "voluptas",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "34ew4r3d3d",
@@ -277,7 +345,9 @@
     "name": "quam",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "35ew4r3d3d",
@@ -285,7 +355,9 @@
     "name": "quidem",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "36ew4r3d3d",
@@ -293,7 +365,9 @@
     "name": "amet",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "37ew4r3d3d",
@@ -301,7 +375,9 @@
     "name": "nihil",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "38ew4r3d3d",
@@ -309,7 +385,9 @@
     "name": "similique",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "39ew4r3d3d",
@@ -317,7 +395,9 @@
     "name": "ipsam",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "40ew4r3d3d",
@@ -325,7 +405,9 @@
     "name": "in",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "41ew4r3d3d",
@@ -333,7 +415,9 @@
     "name": "est",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "42ew4r3d3d",
@@ -341,7 +425,9 @@
     "name": "rerum",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "43ew4r3d3d",
@@ -349,7 +435,9 @@
     "name": "aspernatur",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "44ew4r3d3d",
@@ -357,7 +445,9 @@
     "name": "consectetur",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "45ew4r3d3d",
@@ -365,7 +455,9 @@
     "name": "iusto",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "46ew4r3d3d",
@@ -373,7 +465,9 @@
     "name": "neque",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "47ew4r3d3d",
@@ -381,7 +475,9 @@
     "name": "quo",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "48ew4r3d3d",
@@ -389,7 +485,9 @@
     "name": "ratione",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "49ew4r3d3d",
@@ -397,7 +495,9 @@
     "name": "libero",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "50ew4r3d3d",
@@ -405,7 +505,9 @@
     "name": "optio",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "51ew4r3d3d",
@@ -413,7 +515,9 @@
     "name": "unde",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "52ew4r3d3d",
@@ -421,7 +525,9 @@
     "name": "iste",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "53ew4r3d3d",
@@ -429,7 +535,9 @@
     "name": "incidunt",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "54ew4r3d3d",
@@ -437,7 +545,9 @@
     "name": "at",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "55ew4r3d3d",
@@ -445,7 +555,9 @@
     "name": "omnis",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "56ew4r3d3d",
@@ -453,7 +565,9 @@
     "name": "eum",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "57ew4r3d3d",
@@ -461,7 +575,9 @@
     "name": "eligendi",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "58ew4r3d3d",
@@ -469,7 +585,9 @@
     "name": "totam",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "59ew4r3d3d",
@@ -477,7 +595,9 @@
     "name": "perferendis",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "60ew4r3d3d",
@@ -485,7 +605,9 @@
     "name": "accusantium",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "61ew4r3d3d",
@@ -493,7 +615,9 @@
     "name": "quas",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "62ew4r3d3d",
@@ -501,7 +625,9 @@
     "name": "sequi",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "63ew4r3d3d",
@@ -509,7 +635,9 @@
     "name": "velit",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "64ew4r3d3d",
@@ -517,7 +645,9 @@
     "name": "vel",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "65ew4r3d3d",
@@ -525,7 +655,9 @@
     "name": "ea",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "66ew4r3d3d",
@@ -533,7 +665,9 @@
     "name": "ab",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "67ew4r3d3d",
@@ -541,7 +675,9 @@
     "name": "dolorem",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "68ew4r3d3d",
@@ -549,7 +685,9 @@
     "name": "vero",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "69ew4r3d3d",
@@ -557,7 +695,9 @@
     "name": "itaque",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "70ew4r3d3d",
@@ -565,7 +705,9 @@
     "name": "reiciendis",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "71ew4r3d3d",
@@ -573,7 +715,9 @@
     "name": "animi",
     "source": "city_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "72ew4r3d3d",
@@ -581,7 +725,9 @@
     "name": "consequuntur",
     "source": "city_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "73ew4r3d3d",
@@ -589,7 +735,9 @@
     "name": "quasi",
     "source": "city_name",
     "hierarchy": "wallmart/inventore",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "74ew4r3d3d",
@@ -597,7 +745,9 @@
     "name": "sit",
     "source": "city_name",
     "hierarchy": "wallmart/nobis",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "75ew4r3d3d",
@@ -605,7 +755,9 @@
     "name": "dolor",
     "source": "city_name",
     "hierarchy": "wallmart/magnam",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "76ew4r3d3d",
@@ -613,7 +765,9 @@
     "name": "dolores",
     "source": "city_name",
     "hierarchy": "wallmart/doloremque",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "77ew4r3d3d",
@@ -621,7 +775,9 @@
     "name": "deserunt",
     "source": "city_name",
     "hierarchy": "wallmart/molestias",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "78ew4r3d3d",
@@ -629,7 +785,9 @@
     "name": "corrupti",
     "source": "city_name",
     "hierarchy": "wallmart/qui",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "79ew4r3d3d",
@@ -637,7 +795,9 @@
     "name": "impedit",
     "source": "city_name",
     "hierarchy": "wallmart/inventore",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "80ew4r3d3d",
@@ -645,7 +805,9 @@
     "name": "eos",
     "source": "city_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "81ew4r3d3d",
@@ -653,7 +815,9 @@
     "name": "ipsum",
     "source": "city_name",
     "hierarchy": "wallmart/nostrum",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "82ew4r3d3d",
@@ -661,7 +825,9 @@
     "name": "eveniet",
     "source": "city_name",
     "hierarchy": "wallmart/tempore",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "83ew4r3d3d",
@@ -669,7 +835,9 @@
     "name": "autem",
     "source": "city_name",
     "hierarchy": "wallmart/blanditiis",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "84ew4r3d3d",
@@ -677,7 +845,9 @@
     "name": "assumenda",
     "source": "city_name",
     "hierarchy": "wallmart/amet",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "85ew4r3d3d",
@@ -685,7 +855,9 @@
     "name": "expedita",
     "source": "city_name",
     "hierarchy": "wallmart/ut",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "86ew4r3d3d",
@@ -693,7 +865,9 @@
     "name": "eius",
     "source": "city_name",
     "hierarchy": "wallmart/nihil",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "87ew4r3d3d",
@@ -701,7 +875,9 @@
     "name": "occaecati",
     "source": "city_name",
     "hierarchy": "wallmart/ut",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "88ew4r3d3d",
@@ -709,7 +885,9 @@
     "name": "maiores",
     "source": "city_name",
     "hierarchy": "wallmart/in",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "89ew4r3d3d",
@@ -717,7 +895,9 @@
     "name": "odio",
     "source": "city_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "90ew4r3d3d",
@@ -725,7 +905,9 @@
     "name": "soluta",
     "source": "city_name",
     "hierarchy": "wallmart/a",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "91ew4r3d3d",
@@ -733,7 +915,9 @@
     "name": "ullam",
     "source": "city_name",
     "hierarchy": "wallmart/optio",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "92ew4r3d3d",
@@ -741,7 +925,9 @@
     "name": "non",
     "source": "city_name",
     "hierarchy": "wallmart/iste",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "93ew4r3d3d",
@@ -749,7 +935,9 @@
     "name": "quia",
     "source": "city_name",
     "hierarchy": "wallmart/omnis",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "94ew4r3d3d",
@@ -757,7 +945,9 @@
     "name": "corporis",
     "source": "city_name",
     "hierarchy": "wallmart/omnis",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "95ew4r3d3d",
@@ -765,7 +955,9 @@
     "name": "adipisci",
     "source": "city_name",
     "hierarchy": "wallmart/eum",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "96ew4r3d3d",
@@ -773,7 +965,9 @@
     "name": "fugit",
     "source": "city_name",
     "hierarchy": "wallmart/at",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "97ew4r3d3d",
@@ -781,7 +975,9 @@
     "name": "aliquid",
     "source": "city_name",
     "hierarchy": "wallmart/quo",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "98ew4r3d3d",
@@ -789,7 +985,9 @@
     "name": "commodi",
     "source": "city_name",
     "hierarchy": "wallmart/perferendis",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "99ew4r3d3d",
@@ -797,7 +995,9 @@
     "name": "consequatur",
     "source": "city_name",
     "hierarchy": "wallmart/accusantium",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "100ew4r3d3d",
@@ -805,7 +1005,9 @@
     "name": "nemo",
     "source": "city_name",
     "hierarchy": "wallmart/voluptatem",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "101ew4r3d3d",
@@ -813,7 +1015,9 @@
     "name": "eaque",
     "source": "city_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "102ew4r3d3d",
@@ -821,7 +1025,9 @@
     "name": "quod",
     "source": "city_name",
     "hierarchy": "wallmart/qui",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "103ew4r3d3d",
@@ -829,7 +1035,9 @@
     "name": "quaerat",
     "source": "city_name",
     "hierarchy": "wallmart/voluptas",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "104ew4r3d3d",
@@ -837,7 +1045,9 @@
     "name": "maxime",
     "source": "city_name",
     "hierarchy": "wallmart/quisquam",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "105ew4r3d3d",
@@ -845,7 +1055,9 @@
     "name": "dolore",
     "source": "city_name",
     "hierarchy": "wallmart/ab",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "106ew4r3d3d",
@@ -853,7 +1065,9 @@
     "name": "exercitationem",
     "source": "city_name",
     "hierarchy": "wallmart/molestiae",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "107ew4r3d3d",
@@ -861,7 +1075,9 @@
     "name": "laboriosam",
     "source": "city_name",
     "hierarchy": "wallmart/quo",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "108ew4r3d3d",
@@ -869,7 +1085,9 @@
     "name": "enim",
     "source": "city_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "109ew4r3d3d",
@@ -877,7 +1095,9 @@
     "name": "facilis",
     "source": "city_name",
     "hierarchy": "wallmart/velit",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "110ew4r3d3d",
@@ -885,7 +1105,9 @@
     "name": "delectus",
     "source": "city_name",
     "hierarchy": "wallmart/animi",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "111ew4r3d3d",
@@ -893,7 +1115,9 @@
     "name": "interstellar",
     "source": "city_name",
     "hierarchy": "city_name",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "112ew4r3d3d",
@@ -901,7 +1125,9 @@
     "name": "labore",
     "source": "city_name",
     "hierarchy": "city_name/unknown",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "113ew4r3d3d",
@@ -909,7 +1135,9 @@
     "name": "dicta",
     "source": "city_name",
     "hierarchy": "city_name/unknown",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "114ew4r3d3d",
@@ -917,7 +1145,9 @@
     "name": "cum",
     "source": "city_name",
     "hierarchy": "city_name/unknown/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "115ew4r3d3d",
@@ -925,7 +1155,9 @@
     "name": "voluptates",
     "source": "city_name",
     "hierarchy": "city_name/unknown/labore",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "116ew4r3d3d",
@@ -933,7 +1165,9 @@
     "name": "quibusdam",
     "source": "city_name",
     "hierarchy": "city_name/armagadon/debitis",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "117ew4r3d3d",
@@ -941,7 +1175,9 @@
     "name": "dolorum",
     "source": "city_name",
     "hierarchy": "city_name/armagadon/nostrum",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "118ew4r3d3d",
@@ -949,7 +1185,9 @@
     "name": "quos",
     "source": "city_name",
     "hierarchy": "city_name/bladerunners/quaerat",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "119ew4r3d3d",
@@ -957,7 +1195,9 @@
     "name": "nulla",
     "source": "city_name",
     "hierarchy": "city_name/armagadon/voluptas/cupiditate",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "120ew4r3d3d",
@@ -965,7 +1205,9 @@
     "name": "ads6",
     "source": "es_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "121ew4r3d3d",
@@ -973,7 +1215,9 @@
     "name": "explicabo",
     "source": "city_name",
     "hierarchy": "city_name/armagadon/nostrum/dolorum/dolorem",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "122ew4r3d3d",
@@ -981,7 +1225,9 @@
     "name": "odit",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "123ew4r3d3d",
@@ -989,7 +1235,9 @@
     "name": "distinctio",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "124ew4r3d3d",
@@ -997,7 +1245,9 @@
     "name": "numquam",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "125ew4r3d3d",
@@ -1005,7 +1255,9 @@
     "name": "atque",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "126ew4r3d3d",
@@ -1013,7 +1265,9 @@
     "name": "earum",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "127ew4r3d3d",
@@ -1021,7 +1275,9 @@
     "name": "voluptatum",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "128ew4r3d3d",
@@ -1029,7 +1285,9 @@
     "name": "sunt",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "129ew4r3d3d",
@@ -1037,7 +1295,9 @@
     "name": "voluptatibus",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "130ew4r3d3d",
@@ -1045,7 +1305,9 @@
     "name": "recusandae",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "131ew4r3d3d",
@@ -1053,7 +1315,9 @@
     "name": "suscipit",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "132ew4r3d3d",
@@ -1061,7 +1325,9 @@
     "name": "fuga",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "133ew4r3d3d",
@@ -1069,7 +1335,9 @@
     "name": "aut",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "134ew4r3d3d",
@@ -1077,7 +1345,9 @@
     "name": "repellat",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "135ew4r3d3d",
@@ -1085,7 +1355,9 @@
     "name": "error",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "136ew4r3d3d",
@@ -1093,7 +1365,9 @@
     "name": "alias",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "137ew4r3d3d",
@@ -1101,7 +1375,9 @@
     "name": "asperiores",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "138ew4r3d3d",
@@ -1109,7 +1385,9 @@
     "name": "cumque",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "139ew4r3d3d",
@@ -1117,7 +1395,9 @@
     "name": "vitae",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "140ew4r3d3d",
@@ -1125,7 +1405,9 @@
     "name": "architecto",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "141ew4r3d3d",
@@ -1133,7 +1415,9 @@
     "name": "accusamus",
     "source": "city_name",
     "hierarchy": "city_name/interstellar/vero/ea/consequuntur",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "142ew4r3d3d",
@@ -1141,7 +1425,9 @@
     "name": "nisi",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "143ew4r3d3d",
@@ -1149,7 +1435,9 @@
     "name": "tempora",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "144ew4r3d3d",
@@ -1157,7 +1445,9 @@
     "name": "rem",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "145ew4r3d3d",
@@ -1165,7 +1455,9 @@
     "name": "officiis",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "146ew4r3d3d",
@@ -1173,7 +1465,9 @@
     "name": "quis",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "147ew4r3d3d",
@@ -1181,7 +1475,9 @@
     "name": "laudantium",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "148ew4r3d3d",
@@ -1189,7 +1485,9 @@
     "name": "minima",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "149ew4r3d3d",
@@ -1197,7 +1495,9 @@
     "name": "placeat",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "150ew4r3d3d",
@@ -1205,7 +1505,9 @@
     "name": "pariatur",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "151ew4r3d3d",
@@ -1213,7 +1515,9 @@
     "name": "ex",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "152ew4r3d3d",
@@ -1221,7 +1525,9 @@
     "name": "nesciunt",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "153ew4r3d3d",
@@ -1229,7 +1535,9 @@
     "name": "illo",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "154ew4r3d3d",
@@ -1237,7 +1545,9 @@
     "name": "veritatis",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "155ew4r3d3d",
@@ -1245,7 +1555,9 @@
     "name": "minus",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "156ew4r3d3d",
@@ -1253,7 +1565,9 @@
     "name": "ducimus",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "157ew4r3d3d",
@@ -1261,7 +1575,9 @@
     "name": "provident",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "158ew4r3d3d",
@@ -1269,7 +1585,9 @@
     "name": "modi",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "159ew4r3d3d",
@@ -1277,7 +1595,9 @@
     "name": "aliquam",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "160ew4r3d3d",
@@ -1285,7 +1605,9 @@
     "name": "ad",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "161ew4r3d3d",
@@ -1293,7 +1615,9 @@
     "name": "natus",
     "source": "es_name",
     "hierarchy": "wallmart/dolorem",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "162ew4r3d3d",
@@ -1301,7 +1625,9 @@
     "name": "voluptate",
     "source": "es_name",
     "hierarchy": "wallmart/et",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "163ew4r3d3d",
@@ -1309,7 +1635,9 @@
     "name": "iure",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "164ew4r3d3d",
@@ -1317,7 +1645,9 @@
     "name": "harum",
     "source": "es_name",
     "hierarchy": "wallmart/amet",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "165ew4r3d3d",
@@ -1325,7 +1655,9 @@
     "name": "illum",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "166ew4r3d3d",
@@ -1333,7 +1665,9 @@
     "name": "porro",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "167ew4r3d3d",
@@ -1341,7 +1675,9 @@
     "name": "excepturi",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "168ew4r3d3d",
@@ -1349,7 +1685,9 @@
     "name": "dignissimos",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "169ew4r3d3d",
@@ -1357,7 +1695,9 @@
     "name": "repudiandae",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "170ew4r3d3d",
@@ -1365,7 +1705,9 @@
     "name": "repellendus",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "171ew4r3d3d",
@@ -1373,7 +1715,9 @@
     "name": "culpa",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "172ew4r3d3d",
@@ -1381,7 +1725,9 @@
     "name": "mollitia",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "173ew4r3d3d",
@@ -1389,7 +1735,9 @@
     "name": "magni",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "174ew4r3d3d",
@@ -1397,7 +1745,9 @@
     "name": "perspiciatis",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "175ew4r3d3d",
@@ -1405,7 +1755,9 @@
     "name": "hic",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "176ew4r3d3d",
@@ -1413,7 +1765,9 @@
     "name": "praesentium",
     "source": "sf_name",
     "hierarchy": "earum",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "177ew4r3d3d",
@@ -1421,7 +1775,9 @@
     "name": "veniam",
     "source": "sf_name",
     "hierarchy": "fuga",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "178ew4r3d3d",
@@ -1429,7 +1785,9 @@
     "name": "doloribus",
     "source": "sf_name",
     "hierarchy": "odit",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "179ew4r3d3d",
@@ -1437,7 +1795,9 @@
     "name": "deleniti",
     "source": "sf_name",
     "hierarchy": "ipsa",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "180ew4r3d3d",
@@ -1445,7 +1805,9 @@
     "name": "quae",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "181ew4r3d3d",
@@ -1453,7 +1815,9 @@
     "name": "nam",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "182ew4r3d3d",
@@ -1461,7 +1825,9 @@
     "name": "esse",
     "source": "sf_name",
     "hierarchy": "",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "183ew4r3d3d",
@@ -1469,7 +1835,9 @@
     "name": "laborum",
     "source": "sf_name",
     "hierarchy": "ex",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "184ew4r3d3d",
@@ -1477,7 +1845,9 @@
     "name": "officia",
     "source": "sf_name",
     "hierarchy": "nesciunt",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "185ew4r3d3d",
@@ -1485,7 +1855,9 @@
     "name": "tenetur",
     "source": "es_name",
     "hierarchy": "wallmart/quidem/sequi",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "186ew4r3d3d",
@@ -1493,7 +1865,9 @@
     "name": "facere",
     "source": "sf_name",
     "hierarchy": "nesciunt",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "187ew4r3d3d",
@@ -1501,7 +1875,9 @@
     "name": "reprehenderit",
     "source": "es_name",
     "hierarchy": "wallmart",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "188ew4r3d3d",
@@ -1509,7 +1885,9 @@
     "name": "necessitatibus",
     "source": "sf_name",
     "hierarchy": "aut",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   },
   {
     "id": "189ew4r3d3d",
@@ -1517,6 +1895,8 @@
     "name": "saepe",
     "source": "sf_name",
     "hierarchy": "magni",
-    "status": "active"
+    "status": "active",
+    "directRole": [],
+    "directEntities": []
   }
 ]

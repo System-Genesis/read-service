@@ -7,8 +7,8 @@ export default class DigitalIdentityRepository extends BaseRepository<IDigitalId
         super(DigitalIdentityModel);
     }
 
-    findByUniqueId(uniqueId: string): Promise<IDigitalIdentity | null> {
-        const foundByUniqueId = this.model.findOne({ uniqueId }).exec();
+    findByUniqueId(uniqueId_: string): Promise<IDigitalIdentity | null> {
+        const foundByUniqueId = this.model.findOne({ uniqueId: uniqueId_ }).lean().exec();
         return foundByUniqueId;
     }
 }

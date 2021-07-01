@@ -1,7 +1,7 @@
 import { Request, Response, query } from 'express';
 
-export interface CustomRequestWithQuery extends Request {
-    query: { expanded: boolean };
+export interface CustomRequestWithQuery<T> extends Request {
+    query: T;
 }
 
 export interface CustomResponse<T> extends Response {

@@ -29,6 +29,16 @@ const EntitySchema: Schema = new Schema(
     { collection: config.mongo.EntityCollectionName },
 );
 
+EntitySchema.virtual('digitalIdentities', {
+    ref: 'digitalIdentity', // The model to use
+    localField: 'id', // Find people where `localField`
+    foreignField: 'entityId', // is equal to `foreignField`
+    // If `justOne` is true, 'members' will be a single doc as opposed to
+    // an array. `justOne` is false by default.
+    justOne: false,
+    options: { sort: { name: -1 }, limit: 5 }, // Query options, see http://bit.ly/mongoose-query-options
+});
+
 const EntityModel: Model<IEntity> = model('entity', EntitySchema);
 
 export { EntityModel, EntitySchema };

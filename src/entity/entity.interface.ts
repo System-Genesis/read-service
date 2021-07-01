@@ -17,7 +17,7 @@ interface IEntity extends Document {
     mail: string;
     job: string;
     phone: string;
-    mobilePHone: string;
+    mobilePhone: string;
     address: string;
     clearance: string; // string of number - enum
     sex?: string;

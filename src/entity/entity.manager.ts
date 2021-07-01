@@ -12,18 +12,23 @@ class EntityManager {
 
     static entityDenormalizedRepository: EntityDenormalizedRepository = new EntityDenormalizedRepository();
 
-    static async getAll() {
-        const entities = await EntityManager.entityRepository.getAll();
+    static async getAll(expanded: boolean = false) {
+        const repoToRetrieve = expanded ? EntityManager.entityDenormalizedRepository : EntityManager.entityRepository;
+        const entities = await repoToRetrieve.getAll();
         return entities;
     }
 
     static async findById(id: string, expanded: boolean = false) {
-        const repoToRetrieve = expanded ? EntityManager.entityDenormalizedRepository : EntityManager.entityRepository;
-        const entities = await repoToRetrieve.findById(id);
+        const entities = await EntityManager.entityRepository.findById(id, expanded);
         return entities;
     }
 
-    static async getByRole(roleID: string, expanded: boolean = false) {
+    static async findByIdentifier(identifier: string, expanded: boolean = false) {
+        const entities = await EntityManager.entityRepository.findByIdentifier(identifier, expanded);
+        return entities;
+    }
+
+    static async findByRole(roleID: string, expanded: boolean = false) {
         const foundRole = await EntityManager.roleRepository.getByRoleId(roleID);
         if (!foundRole) {
             throw Error();
@@ -34,7 +39,7 @@ class EntityManager {
             throw Error();
         }
         const { entityId } = foundDI;
-        EntityManager.entityRepository.findById(entityId);
+        EntityManager.entityRepository.findById(entityId, expanded);
     }
 
     static async findByDigitalIdentity(uniqueId: string, expanded: boolean = false) {
@@ -43,10 +48,19 @@ class EntityManager {
             throw new Error();
         }
         const entityID = foundDI.entityId;
-        const foundEntity = await EntityManager.entityRepository.findById(entityID);
+        const foundEntity = await EntityManager.entityRepository.findById(entityID, expanded);
         return foundEntity;
-        // const entityId = foundRole.entityId;
-        // return entities;
+    }
+
+    static async findUnderGroup(groupID: string, expanded: boolean = false) {
+        const foundEntities = await EntityManager.entityDenormalizedRepository.findUnderGroup(groupID);
+        return foundEntities;
+    }
+
+    static async findUnderHierarchy(hierarchy: string, expanded: boolean = false) {
+        const repoToRetrieve = expanded ? EntityManager.entityDenormalizedRepository : EntityManager.entityRepository;
+        const foundEntity = await repoToRetrieve.findUnderHierarchy(hierarchy);
+        return foundEntity;
     }
 }
 export default EntityManager;

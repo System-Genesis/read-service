@@ -16,9 +16,9 @@ export default class EntityDenormalizedRepository extends BaseRepository<IDenorm
         return this.model.findOne({ id: id_ }).exec();
     }
 
-    getAll(): Promise<IDenormalizedEntity[]> {
-        return this.model.find({}).exec();
-    }
+    // getAll(): Promise<IDenormalizedEntity[]> {
+    //     return this.model.find({}).exec();
+    // }
 
     findUnderGroup(groupID: string): Promise<IDenormalizedEntity[]> {
         return this.model.find({ 'digitalIdentities.role.directGroup': groupID }).exec();

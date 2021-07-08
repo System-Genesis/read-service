@@ -6,7 +6,7 @@ class EntityController {
 
     static async getAll(_req: Request, res: Response) {
         try {
-            const entities = await EntityManager.getAll();
+            const entities = await EntityManager.getAll(_req.query);
             res.status(200).send(entities);
         } catch (error) {
             res.send({

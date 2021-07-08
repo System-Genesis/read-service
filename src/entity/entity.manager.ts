@@ -1,7 +1,10 @@
+import IEntity from './entity.interface';
+import IDenormalizedEntity from './denormal/entity.denormalized.interface';
 import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './denormal/entity.denormalized.repository';
+import { optionalQueries, tranformIntoQuery } from './utils/filterQueries';
 
 class EntityManager {
     static entityRepository: EntityRepository = new EntityRepository();
@@ -12,9 +15,9 @@ class EntityManager {
 
     static entityDenormalizedRepository: EntityDenormalizedRepository = new EntityDenormalizedRepository();
 
-    static async getAll(expanded: boolean = false) {
+    static async getAll(queries: optionalQueries, expanded: boolean = false) {
         const repoToRetrieve = expanded ? EntityManager.entityDenormalizedRepository : EntityManager.entityRepository;
-        const entities = await repoToRetrieve.getAll();
+        const entities = await repoToRetrieve.find(tranformIntoQuery(queries));
         return entities;
     }
 
@@ -53,14 +56,23 @@ class EntityManager {
     }
 
     static async findUnderGroup(groupID: string, expanded: boolean = false) {
-        const foundEntities = await EntityManager.entityDenormalizedRepository.findUnderGroup(groupID);
+        const foundEntitiesDN = await EntityManager.entityDenormalizedRepository.findUnderGroup(groupID);
+        const foundEntitiesIds = foundEntitiesDN.map((entityDN) => entityDN.id);
+        let foundEntities: Promise<IEntity[]> | IDenormalizedEntity[] = foundEntitiesDN;
+        if (!expanded) {
+            foundEntities = EntityManager.entityRepository.findByIds(foundEntitiesIds);
+        }
         return foundEntities;
     }
 
     static async findUnderHierarchy(hierarchy: string, expanded: boolean = false) {
-        const repoToRetrieve = expanded ? EntityManager.entityDenormalizedRepository : EntityManager.entityRepository;
-        const foundEntity = await repoToRetrieve.findUnderHierarchy(hierarchy);
-        return foundEntity;
+        const foundEntitiesDN = await EntityManager.entityDenormalizedRepository.findUnderHierarchy(hierarchy);
+        const foundEntitiesIds = foundEntitiesDN.map((entityDN) => entityDN.id);
+        let foundEntities: Promise<IEntity[]> | IDenormalizedEntity[] = foundEntitiesDN;
+        if (!expanded) {
+            foundEntities = EntityManager.entityRepository.findByIds(foundEntitiesIds);
+        }
+        return foundEntities;
     }
 }
 export default EntityManager;

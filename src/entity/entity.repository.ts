@@ -7,37 +7,46 @@ export default class EntityRepository extends BaseRepository<IEntity> {
         super(EntityModel);
     }
 
-    getAll(): Promise<IEntity[]> {
-        return this.model.find({}).lean<IEntity[]>().exec();
-    }
-
     findByIdentifier(identifier: string, populated?: boolean): Promise<IEntity | null> {
-        const byPersonalNumber = this.model.findOne({ personalNumber: identifier });
-        const byIdentityCard = this.model.findOne({ identityCard: identifier });
-        const byUserId = this.model.findOne({ userID: identifier });
-        // TODO choose first found
-        const finalRes = byPersonalNumber || byIdentityCard || byUserId;
+        const identifierFields = ['personalNumber', 'identityCard', 'userID'];
+        const cond = identifierFields.map((key) => {
+            return { [key]: { $in: [identifier] } };
+        });
+
+        const findQuery = this.model.findOne({ $or: cond });
+        let foundRes = findQuery;
         if (populated) {
-            return finalRes
+            foundRes = findQuery
                 .populate({
                     path: 'digitalIdentities',
                     populate: {
                         path: 'role',
                     },
                 })
-                .lean<IEntity | null>()
-                .exec();
+                .lean<IEntity | null>();
         }
-        // TODO check why populate not working
-        return finalRes.exec();
+        return foundRes.exec();
     }
 
     findById(_id: string, populated?: boolean): Promise<IEntity | null> {
-        const found = this.model.findOne({ id: _id });
+        const findQuery = this.model.findOne({ id: _id });
+        let foundRes = findQuery;
         if (populated) {
-            return found.populate('digitalIdentities').lean<IEntity | null>().exec();
+            foundRes = findQuery
+                .populate({
+                    path: 'digitalIdentities',
+                    populate: {
+                        path: 'role',
+                    },
+                })
+                .lean<IEntity | null>();
         }
-        return found.lean<IEntity | null>().exec();
+        return foundRes.exec();
+    }
+
+    findByIds(_ids: string[]): Promise<IEntity[]> {
+        const findQuery = this.model.find({ id: { $in: _ids } });
+        return findQuery.exec();
     }
 
     findUnderHierarchy(hierarchy: string): Promise<IEntity[]> {

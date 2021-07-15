@@ -4,7 +4,8 @@ import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './denormal/entity.denormalized.repository';
-import { optionalQueries, tranformIntoQuery } from './utils/filterQueries';
+import { optionalQueries, tranformIntoQuery, removeDenormalizedFields } from './utils/filterQueries';
+import * as ApiErrors from '../core/ApiErrors';
 
 class EntityManager {
     static entityRepository: EntityRepository = new EntityRepository();
@@ -16,14 +17,19 @@ class EntityManager {
     static entityDenormalizedRepository: EntityDenormalizedRepository = new EntityDenormalizedRepository();
 
     static async getAll(queries: optionalQueries, expanded: boolean = false) {
-        const repoToRetrieve = expanded ? EntityManager.entityDenormalizedRepository : EntityManager.entityRepository;
-        const entities = await repoToRetrieve.find(tranformIntoQuery(queries));
-        return entities;
+        const entities = await EntityManager.entityDenormalizedRepository.find(tranformIntoQuery(queries));
+        const mappedEntities = entities.map((entity) => {
+            return removeDenormalizedFields(entity);
+        });
+        return mappedEntities;
     }
 
     static async findById(id: string, expanded: boolean = false) {
-        const entities = await EntityManager.entityRepository.findById(id, expanded);
-        return entities;
+        const entity = await EntityManager.entityRepository.findById(id, expanded);
+        if (!entity) {
+            throw new ApiErrors.NotFoundError();
+        }
+        return entity;
     }
 
     static async findByIdentifier(identifier: string, expanded: boolean = false) {
@@ -34,12 +40,12 @@ class EntityManager {
     static async findByRole(roleID: string, expanded: boolean = false) {
         const foundRole = await EntityManager.roleRepository.getByRoleId(roleID);
         if (!foundRole) {
-            throw Error();
+            throw new ApiErrors.NotFoundError();
         }
         const { digitalIndentityUniqueId } = foundRole;
         const foundDI = await EntityManager.digitalIdentityRepository.findByUniqueId(digitalIndentityUniqueId);
         if (!foundDI) {
-            throw Error();
+            throw new ApiErrors.NotFoundError();
         }
         const { entityId } = foundDI;
         EntityManager.entityRepository.findById(entityId, expanded);
@@ -48,7 +54,7 @@ class EntityManager {
     static async findByDigitalIdentity(uniqueId: string, expanded: boolean = false) {
         const foundDI = await EntityManager.digitalIdentityRepository.findByUniqueId(uniqueId);
         if (!foundDI) {
-            throw new Error();
+            throw new ApiErrors.NotFoundError();
         }
         const entityID = foundDI.entityId;
         const foundEntity = await EntityManager.entityRepository.findById(entityID, expanded);

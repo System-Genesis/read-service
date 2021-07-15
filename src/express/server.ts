@@ -4,7 +4,7 @@ import * as helmet from 'helmet';
 import * as logger from 'morgan';
 
 import { once } from 'events';
-import { errorMiddleware } from './error';
+import errorMiddleware from '../core/errorController';
 import appRouter from './router';
 
 class Server {

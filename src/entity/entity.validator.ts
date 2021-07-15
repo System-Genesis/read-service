@@ -1,9 +1,9 @@
 import { Request } from 'express';
 
-class FeatureValidator {
+class EntityValidator {
     static async somethingThatIsImpossibleToValidateWithSchema(_req: Request) {
         // Some validations
     }
 }
 
-export default FeatureValidator;
+export default EntityValidator;

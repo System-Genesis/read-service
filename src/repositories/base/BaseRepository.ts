@@ -11,11 +11,11 @@ export default abstract class BaseRepository<T> implements IRead<T> {
     }
 
     getAll(): Promise<T[]> {
-        return this.model.find().exec();
+        return this.model.find().lean<T[]>().exec();
     }
 
     find(queries: any): Promise<T[]> {
-        return this.model.find(queries).exec();
+        return this.model.find(queries).lean<T[]>().exec();
     }
 
     findOne(cond?: any, populateOptions?: string | Object, select?: string): Promise<T> {

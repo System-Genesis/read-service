@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import IDenormalizedDI from '../../digitalIdentity/denormal/digitalIdentity.denormalized.interface';
 
-interface IDenormalizedEntity extends Document {
+interface IDenormalizedEntityDTO extends Document {
     // Entity's Basic information
     id: string;
     displayName: string;
@@ -26,4 +26,4 @@ interface IDenormalizedEntity extends Document {
     digitalIdentities: [IDenormalizedDI];
 }
 
-export default IDenormalizedEntity;
+export default IDenormalizedEntityDTO;

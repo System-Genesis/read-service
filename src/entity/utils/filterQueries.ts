@@ -1,6 +1,7 @@
 import IDenormalizedEntity from '../denormal/entity.denormalized.interface';
 
 export type optionalQueries = {
+    expanded?: string;
     ids?: string[];
     rank?: string;
     entityType?: string;
@@ -8,6 +9,14 @@ export type optionalQueries = {
     status?: string;
     updateFrom?: Date;
     page?: string;
+    ruleFilters: string | string[];
+};
+
+export const extractFilters = (queryFilters: optionalQueries) => {
+    const extractedFilters = queryFilters;
+    delete extractedFilters.expanded;
+    delete extractedFilters.page;
+    return extractedFilters;
 };
 
 const queryParser = (queryObj: object): any => {
@@ -24,8 +33,9 @@ const queryParser = (queryObj: object): any => {
 
 export const tranformIntoQuery = (queries: optionalQueries) => {
     const getAllFilters = queryParser(queries);
-    const updatedFromFilter = { updatedAt: { $gte: getAllFilters.updatedFrom } };
-    getAllFilters.updatedFrom = getAllFilters.updatedFrom ? updatedFromFilter : undefined;
+    if (getAllFilters.updatedFrom) {
+        getAllFilters.updatedFrom = { updatedAt: { $gte: getAllFilters.updatedFrom } };
+    }
     return getAllFilters;
 };
 

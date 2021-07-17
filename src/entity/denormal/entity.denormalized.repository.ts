@@ -1,18 +1,29 @@
-import BaseRepository from '../../repositories/base/BaseRepository';
+import * as mongoose from 'mongoose';
 import IDenormalizedEntity from './entity.denormalized.interface';
 import EntityDenormalizedModel from './entity.denormalized.model';
 
-export default class EntityDenormalizedRepository extends BaseRepository<IDenormalizedEntity> {
+export default class EntityDenormalizedRepository {
+    protected model: mongoose.Model<IDenormalizedEntity & mongoose.Document>;
+
+    private static REMOVE_DENORMALIZED_FIELDS = '-digitalIdentities';
+
     constructor() {
-        super(EntityDenormalizedModel);
+        this.model = EntityDenormalizedModel;
     }
 
-    getAll(): Promise<IDenormalizedEntity[]> {
-        return this.model.find().lean<IDenormalizedEntity[]>().exec();
+    convertExcludedFields(fieldsToDelete: string[]): string {
+        return '-' + fieldsToDelete.join(' -')
     }
 
-    find(queries: any): Promise<IDenormalizedEntity[]> {
-        return this.model.find(queries).lean<IDenormalizedEntity[]>().exec();
+    find(queries: any, expanded: boolean, pageNumber: number, limit: number) {
+        let findQuery = this.model.find(queries);
+        if (!expanded) {
+            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS)
+        }
+        console.log({ limit, pageNumber, expanded, queries })
+        return findQuery
+            .lean()
+            .exec();
     }
 
     findOne(cond?: any, populateOptions?: string | Object, select?: string): Promise<IDenormalizedEntity> {
@@ -26,21 +37,24 @@ export default class EntityDenormalizedRepository extends BaseRepository<IDenorm
         return findQuery.lean<IDenormalizedEntity>().exec();
     }
 
-    findOr(keys: string[], values: string[], populate?: boolean) {
-        const cond = keys.map((key) => {
-            return { [key]: { $in: values } };
-        });
+    // findOr(keys: string[], values: string[], populate?: boolean) {
+    //     const cond = keys.map((key) => {
+    //         return { [key]: { $in: values } };
+    //     });
 
-        return this.find({ $or: cond });
-    }
+    //     return this.find({ $or: cond });
+    // }
 
     getByRole(roleID: string): Promise<IDenormalizedEntity[]> {
         return this.model.find({ roleID }).lean<IDenormalizedEntity[]>().exec();
     }
 
-    findById(id_: string): Promise<IDenormalizedEntity | null> {
+    findById(id_: string) {
         // const idNum: number = Number(id_);
-        return this.model.findOne({ id: id_ }).lean<IDenormalizedEntity | null>().exec();
+        return this.model.findOne({ id: id_ })
+            .select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS)
+            .lean()
+            .exec();
     }
 
     // getAll(): Promise<IDenormalizedEntity[]> {

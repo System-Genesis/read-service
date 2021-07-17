@@ -8,8 +8,6 @@ const RoleSchema: Schema = new Schema(
         jobTitle: String,
         digitalIndentityUniqueId: String,
         directGroup: String,
-        hierarchy: String,
-        hierarchyIds: [String],
         createdAt: Date,
         updatedAt: Date,
         source: String,

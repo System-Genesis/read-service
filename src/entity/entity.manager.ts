@@ -4,7 +4,7 @@ import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './denormal/entity.denormalized.repository';
-import { optionalQueries, tranformIntoQuery, removeDenormalizedFields } from './utils/filterQueries';
+import { optionalQueries, tranformIntoQuery } from './utils/filterQueries';
 import * as ApiErrors from '../core/ApiErrors';
 
 class EntityManager {
@@ -16,12 +16,16 @@ class EntityManager {
 
     static entityDenormalizedRepository: EntityDenormalizedRepository = new EntityDenormalizedRepository();
 
-    static async getAll(queries: optionalQueries, expanded: boolean = false) {
-        const entities = await EntityManager.entityDenormalizedRepository.find(tranformIntoQuery(queries));
-        const mappedEntities = entities.map((entity) => {
-            return removeDenormalizedFields(entity);
-        });
-        return mappedEntities;
+
+    static async getAll(queries: optionalQueries, expanded: boolean = false, pageNum: number = 0) {
+        const entities = await EntityManager.entityDenormalizedRepository.find(tranformIntoQuery(queries), expanded, 1, 10);
+        // if (!expanded) {
+        //     const mappedEntities = entities.map((entity) => {
+        //         return removeDenormalizedFields(entity);
+        //     });
+        //     return mappedEntities;
+        // }
+        return entities;
     }
 
     static async findById(id: string, expanded: boolean = false) {

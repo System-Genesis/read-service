@@ -19,6 +19,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": ["<node_internals>/"],
+      "program": "${workspaceFolder}/src/index.ts",
+      "preLaunchTask": "npm: build",
+      "outFiles": ["${workspaceFolder}//*/.js"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Seed",
       "program": "${workspaceFolder}/src/tests/db/db.seed.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",

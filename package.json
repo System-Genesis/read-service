@@ -9,7 +9,7 @@
     "test": "jest --coverage",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "dev:server": "NODE_ENV=dev nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev:server": "set NODE_ENV=dev&& nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc.js 'src/**/*.ts' --check",

@@ -4,7 +4,7 @@ import { wrapController } from '../utils/express';
 import ValidateRequest from '../utils/joi';
 import * as EntityValidators from './entity.validator.schema';
 
-const EntityRouter: Router = Router();
+const RoleRouter: Router = Router();
 
 EntityRouter.get('/', ValidateRequest(EntityValidators.getEntitiesByCustomFilters), wrapController(EntityController.getAll));
 EntityRouter.get('/id/:id', ValidateRequest(EntityValidators.getEntitiesById), wrapController(EntityController.getById));
@@ -28,4 +28,4 @@ EntityRouter.get(
 
 // EntityRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 
-export default EntityRouter;
+export default RoleRouter;

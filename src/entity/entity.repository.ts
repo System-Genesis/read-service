@@ -9,12 +9,8 @@ export default class EntityRepository {
         this.model = EntityModel;
     }
 
-    getAll(): Promise<IEntity[]> {
-        return this.model.find().lean<IEntity[]>().exec();
-    }
-
-    find(queries: any): Promise<IEntity[]> {
-        return this.model.find(queries).exec();
+    find(queries: any, pageNumber: number, limit: number): Promise<IEntity[]> {
+        return this.model.find(queries, { skip: 10, limit: 5 }).lean<IEntity[]>().exec();
     }
 
     findOne(cond?: any, populateOptions?: string | Object, select?: string): Promise<IEntity> {
@@ -28,13 +24,13 @@ export default class EntityRepository {
         return findQuery.lean<IEntity>().exec();
     }
 
-    findOr(keys: string[], values: string[], populate?: boolean) {
-        const cond = keys.map((key) => {
-            return { [key]: { $in: values } };
-        });
+    // findOr(keys: string[], values: string[], populate?: boolean) {
+    //     const cond = keys.map((key) => {
+    //         return { [key]: { $in: values } };
+    //     });
 
-        return this.find({ $or: cond });
-    }
+    //     return this.find({ $or: cond });
+    // }
 
     findByIdentifier(identifier: string, populated?: boolean): Promise<IEntity | null> {
         const identifierFields = ['personalNumber', 'identityCard', 'userID'];
@@ -57,7 +53,7 @@ export default class EntityRepository {
         return foundRes.exec();
     }
 
-    findById(_id: string, populated?: boolean): Promise<IEntity | null> {
+    findById(_id: string, populated?: boolean) {
         const findQuery = this.model.findOne({ id: _id });
         let foundRes = findQuery;
         if (populated) {
@@ -68,9 +64,8 @@ export default class EntityRepository {
                         path: 'role',
                     },
                 })
-                .lean<IEntity | null>();
         }
-        return foundRes.lean<IEntity | null>().exec();
+        return foundRes.lean().exec();
     }
 
     findByIds(_ids: string[]): Promise<IEntity[]> {

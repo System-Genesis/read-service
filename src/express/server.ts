@@ -38,6 +38,10 @@ class Server {
         this.http = this.app.listen(this.port);
         await once(this.http, 'listening');
     }
+
+    async stop() {
+        this.http.close();
+    }
 }
 
 export default Server;

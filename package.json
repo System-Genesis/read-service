@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node --async-stack-traces ./dist/index.js",
     "dev": "npm run build && npm start",
-    "test": "jest --coverage",
+    "test": "jest --forceExit --detectOpenHandles --coverage --verbose",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "dev:server": "set NODE_ENV=dev&& nodemon src/index.ts",
+    "dev:server": "NODE_ENV=dev nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc.js 'src/**/*.ts' --check",
@@ -30,6 +30,7 @@
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
     "neverthrow": "^4.2.2",
+    "qs": "^6.10.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {

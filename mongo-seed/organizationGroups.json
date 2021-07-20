@@ -10,6 +10,7 @@
   {
     "id": "1ew4r3d3d",
     "ancestors": [],
+    "directGroup": "",
     "name": "wallmart",
     "source": "city_name",
     "hierarchy": "",
@@ -17,9 +18,7 @@
   },
   {
     "id": "2ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d"],
     "name": "odyssey",
     "source": "city_name",
     "hierarchy": "city_name",
@@ -27,9 +26,7 @@
   },
   {
     "id": "3ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d"],
     "name": "bladerunners",
     "source": "city_name",
     "hierarchy": "city_name",
@@ -37,9 +34,7 @@
   },
   {
     "id": "4ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "possimus",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -47,9 +42,7 @@
   },
   {
     "id": "5ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "id",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -57,9 +50,7 @@
   },
   {
     "id": "6ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "temporibus",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -67,9 +58,7 @@
   },
   {
     "id": "7ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ipsa",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -77,9 +66,7 @@
   },
   {
     "id": "8ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "directGroup": "1ew4r3d3d",
     "name": "molestiae",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -95,9 +82,7 @@
   },
   {
     "id": "10ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d"],
     "name": "unknown",
     "source": "city_name",
     "hierarchy": "city_name",
@@ -105,9 +90,7 @@
   },
   {
     "id": "11ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d"],
     "name": "armagadon",
     "source": "city_name",
     "hierarchy": "city_name",
@@ -115,9 +98,7 @@
   },
   {
     "id": "12ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "inventore",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -125,9 +106,7 @@
   },
   {
     "id": "13ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "beatae",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -135,9 +114,7 @@
   },
   {
     "id": "14ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ut",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -145,9 +122,7 @@
   },
   {
     "id": "15ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "nobis",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -155,9 +130,7 @@
   },
   {
     "id": "16ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "magnam",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -165,9 +138,7 @@
   },
   {
     "id": "17ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "doloremque",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -175,9 +146,7 @@
   },
   {
     "id": "18ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "molestias",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -185,10 +154,7 @@
   },
   {
     "id": "19ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "5ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "5ew4r3d3d"],
     "name": "aperiam",
     "source": "city_name",
     "hierarchy": "wallmart/id",
@@ -196,10 +162,7 @@
   },
   {
     "id": "20ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "4ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "4ew4r3d3d"],
     "name": "sint",
     "source": "city_name",
     "hierarchy": "wallmart/possimus",
@@ -207,10 +170,7 @@
   },
   {
     "id": "21ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "7ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "7ew4r3d3d"],
     "name": "debitis",
     "source": "city_name",
     "hierarchy": "wallmart/ipsa",
@@ -218,10 +178,7 @@
   },
   {
     "id": "22ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "6ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "6ew4r3d3d"],
     "name": "quisquam",
     "source": "city_name",
     "hierarchy": "wallmart/temporibus",
@@ -229,10 +186,7 @@
   },
   {
     "id": "23ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "8ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "8ew4r3d3d"],
     "name": "sed",
     "source": "city_name",
     "hierarchy": "wallmart/molestiae",
@@ -240,10 +194,7 @@
   },
   {
     "id": "24ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "9ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "9ew4r3d3d"],
     "name": "fugiat",
     "source": "city_name",
     "hierarchy": "wallmart/et",
@@ -251,9 +202,7 @@
   },
   {
     "id": "25ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "a",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -261,9 +210,7 @@
   },
   {
     "id": "26ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "qui",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -271,9 +218,7 @@
   },
   {
     "id": "27ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "nostrum",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -281,9 +226,7 @@
   },
   {
     "id": "28ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "tempore",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -291,9 +234,7 @@
   },
   {
     "id": "29ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "voluptatem",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -301,9 +242,7 @@
   },
   {
     "id": "30ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "blanditiis",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -311,9 +250,7 @@
   },
   {
     "id": "31ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "sapiente",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -321,9 +258,7 @@
   },
   {
     "id": "32ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "cupiditate",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -331,9 +266,7 @@
   },
   {
     "id": "33ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "voluptas",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -341,9 +274,7 @@
   },
   {
     "id": "34ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "quam",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -351,9 +282,7 @@
   },
   {
     "id": "35ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "quidem",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -361,9 +290,7 @@
   },
   {
     "id": "36ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "amet",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -371,9 +298,7 @@
   },
   {
     "id": "37ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "nihil",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -381,9 +306,7 @@
   },
   {
     "id": "38ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "similique",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -391,9 +314,7 @@
   },
   {
     "id": "39ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ipsam",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -401,9 +322,7 @@
   },
   {
     "id": "40ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "in",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -411,9 +330,7 @@
   },
   {
     "id": "41ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "est",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -421,9 +338,7 @@
   },
   {
     "id": "42ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "rerum",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -431,9 +346,7 @@
   },
   {
     "id": "43ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "aspernatur",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -441,9 +354,7 @@
   },
   {
     "id": "44ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "consectetur",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -451,9 +362,7 @@
   },
   {
     "id": "45ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "iusto",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -461,9 +370,7 @@
   },
   {
     "id": "46ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "neque",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -471,9 +378,7 @@
   },
   {
     "id": "47ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "quo",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -481,9 +386,7 @@
   },
   {
     "id": "48ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ratione",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -491,9 +394,7 @@
   },
   {
     "id": "49ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "libero",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -501,9 +402,7 @@
   },
   {
     "id": "50ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "optio",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -511,9 +410,7 @@
   },
   {
     "id": "51ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "unde",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -521,9 +418,7 @@
   },
   {
     "id": "52ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "iste",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -531,9 +426,7 @@
   },
   {
     "id": "53ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "incidunt",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -541,9 +434,7 @@
   },
   {
     "id": "54ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "at",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -551,9 +442,7 @@
   },
   {
     "id": "55ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "omnis",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -561,9 +450,7 @@
   },
   {
     "id": "56ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "eum",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -571,9 +458,7 @@
   },
   {
     "id": "57ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "eligendi",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -581,9 +466,7 @@
   },
   {
     "id": "58ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "totam",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -591,9 +474,7 @@
   },
   {
     "id": "59ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "perferendis",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -601,9 +482,7 @@
   },
   {
     "id": "60ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "accusantium",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -611,9 +490,7 @@
   },
   {
     "id": "61ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "quas",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -621,9 +498,7 @@
   },
   {
     "id": "62ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "sequi",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -631,9 +506,7 @@
   },
   {
     "id": "63ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "velit",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -641,9 +514,7 @@
   },
   {
     "id": "64ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "vel",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -651,9 +522,7 @@
   },
   {
     "id": "65ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ea",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -661,9 +530,7 @@
   },
   {
     "id": "66ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ab",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -671,9 +538,7 @@
   },
   {
     "id": "67ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "dolorem",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -681,9 +546,7 @@
   },
   {
     "id": "68ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "vero",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -691,9 +554,7 @@
   },
   {
     "id": "69ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "itaque",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -701,9 +562,7 @@
   },
   {
     "id": "70ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "reiciendis",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -711,9 +570,7 @@
   },
   {
     "id": "71ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "animi",
     "source": "city_name",
     "hierarchy": "wallmart",
@@ -721,10 +578,7 @@
   },
   {
     "id": "72ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "9ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "9ew4r3d3d"],
     "name": "consequuntur",
     "source": "city_name",
     "hierarchy": "wallmart/et",
@@ -732,10 +586,7 @@
   },
   {
     "id": "73ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "12ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "12ew4r3d3d"],
     "name": "quasi",
     "source": "city_name",
     "hierarchy": "wallmart/inventore",
@@ -743,10 +594,7 @@
   },
   {
     "id": "74ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "15ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "15ew4r3d3d"],
     "name": "sit",
     "source": "city_name",
     "hierarchy": "wallmart/nobis",
@@ -754,10 +602,7 @@
   },
   {
     "id": "75ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "16ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "16ew4r3d3d"],
     "name": "dolor",
     "source": "city_name",
     "hierarchy": "wallmart/magnam",
@@ -765,10 +610,7 @@
   },
   {
     "id": "76ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "17ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "17ew4r3d3d"],
     "name": "dolores",
     "source": "city_name",
     "hierarchy": "wallmart/doloremque",
@@ -776,10 +618,7 @@
   },
   {
     "id": "77ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "18ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "18ew4r3d3d"],
     "name": "deserunt",
     "source": "city_name",
     "hierarchy": "wallmart/molestias",
@@ -787,10 +626,7 @@
   },
   {
     "id": "78ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "26ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "26ew4r3d3d"],
     "name": "corrupti",
     "source": "city_name",
     "hierarchy": "wallmart/qui",
@@ -798,10 +634,7 @@
   },
   {
     "id": "79ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "12ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "12ew4r3d3d"],
     "name": "impedit",
     "source": "city_name",
     "hierarchy": "wallmart/inventore",
@@ -809,10 +642,7 @@
   },
   {
     "id": "80ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "9ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "9ew4r3d3d"],
     "name": "eos",
     "source": "city_name",
     "hierarchy": "wallmart/et",
@@ -820,10 +650,7 @@
   },
   {
     "id": "81ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "27ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "27ew4r3d3d"],
     "name": "ipsum",
     "source": "city_name",
     "hierarchy": "wallmart/nostrum",
@@ -831,10 +658,7 @@
   },
   {
     "id": "82ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "28ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "28ew4r3d3d"],
     "name": "eveniet",
     "source": "city_name",
     "hierarchy": "wallmart/tempore",
@@ -842,10 +666,7 @@
   },
   {
     "id": "83ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "30ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "30ew4r3d3d"],
     "name": "autem",
     "source": "city_name",
     "hierarchy": "wallmart/blanditiis",
@@ -853,10 +674,7 @@
   },
   {
     "id": "84ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "36ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "36ew4r3d3d"],
     "name": "assumenda",
     "source": "city_name",
     "hierarchy": "wallmart/amet",
@@ -864,10 +682,7 @@
   },
   {
     "id": "85ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "14ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "14ew4r3d3d"],
     "name": "expedita",
     "source": "city_name",
     "hierarchy": "wallmart/ut",
@@ -875,10 +690,7 @@
   },
   {
     "id": "86ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "37ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "37ew4r3d3d"],
     "name": "eius",
     "source": "city_name",
     "hierarchy": "wallmart/nihil",
@@ -886,10 +698,7 @@
   },
   {
     "id": "87ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "14ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "14ew4r3d3d"],
     "name": "occaecati",
     "source": "city_name",
     "hierarchy": "wallmart/ut",
@@ -897,10 +706,7 @@
   },
   {
     "id": "88ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "40ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "40ew4r3d3d"],
     "name": "maiores",
     "source": "city_name",
     "hierarchy": "wallmart/in",
@@ -908,10 +714,7 @@
   },
   {
     "id": "89ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "9ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "9ew4r3d3d"],
     "name": "odio",
     "source": "city_name",
     "hierarchy": "wallmart/et",
@@ -919,10 +722,7 @@
   },
   {
     "id": "90ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "25ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "25ew4r3d3d"],
     "name": "soluta",
     "source": "city_name",
     "hierarchy": "wallmart/a",
@@ -930,10 +730,7 @@
   },
   {
     "id": "91ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "50ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "50ew4r3d3d"],
     "name": "ullam",
     "source": "city_name",
     "hierarchy": "wallmart/optio",
@@ -941,10 +738,7 @@
   },
   {
     "id": "92ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "52ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "52ew4r3d3d"],
     "name": "non",
     "source": "city_name",
     "hierarchy": "wallmart/iste",
@@ -952,10 +746,7 @@
   },
   {
     "id": "93ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "55ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "55ew4r3d3d"],
     "name": "quia",
     "source": "city_name",
     "hierarchy": "wallmart/omnis",
@@ -963,10 +754,7 @@
   },
   {
     "id": "94ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "55ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "55ew4r3d3d"],
     "name": "corporis",
     "source": "city_name",
     "hierarchy": "wallmart/omnis",
@@ -974,10 +762,7 @@
   },
   {
     "id": "95ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "56ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "56ew4r3d3d"],
     "name": "adipisci",
     "source": "city_name",
     "hierarchy": "wallmart/eum",
@@ -985,10 +770,7 @@
   },
   {
     "id": "96ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "54ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "54ew4r3d3d"],
     "name": "fugit",
     "source": "city_name",
     "hierarchy": "wallmart/at",
@@ -996,10 +778,7 @@
   },
   {
     "id": "97ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "47ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "47ew4r3d3d"],
     "name": "aliquid",
     "source": "city_name",
     "hierarchy": "wallmart/quo",
@@ -1007,10 +786,7 @@
   },
   {
     "id": "98ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "59ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "59ew4r3d3d"],
     "name": "commodi",
     "source": "city_name",
     "hierarchy": "wallmart/perferendis",
@@ -1018,10 +794,7 @@
   },
   {
     "id": "99ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "60ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "60ew4r3d3d"],
     "name": "consequatur",
     "source": "city_name",
     "hierarchy": "wallmart/accusantium",
@@ -1029,10 +802,7 @@
   },
   {
     "id": "100ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "29ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "29ew4r3d3d"],
     "name": "nemo",
     "source": "city_name",
     "hierarchy": "wallmart/voluptatem",
@@ -1040,10 +810,7 @@
   },
   {
     "id": "101ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "9ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "9ew4r3d3d"],
     "name": "eaque",
     "source": "city_name",
     "hierarchy": "wallmart/et",
@@ -1051,10 +818,7 @@
   },
   {
     "id": "102ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "26ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "26ew4r3d3d"],
     "name": "quod",
     "source": "city_name",
     "hierarchy": "wallmart/qui",
@@ -1062,10 +826,7 @@
   },
   {
     "id": "103ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "33ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "33ew4r3d3d"],
     "name": "quaerat",
     "source": "city_name",
     "hierarchy": "wallmart/voluptas",
@@ -1081,10 +842,7 @@
   },
   {
     "id": "105ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "66ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "66ew4r3d3d"],
     "name": "dolore",
     "source": "city_name",
     "hierarchy": "wallmart/ab",
@@ -1092,10 +850,7 @@
   },
   {
     "id": "106ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "8ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "8ew4r3d3d"],
     "name": "exercitationem",
     "source": "city_name",
     "hierarchy": "wallmart/molestiae",
@@ -1103,10 +858,7 @@
   },
   {
     "id": "107ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "47ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "47ew4r3d3d"],
     "name": "laboriosam",
     "source": "city_name",
     "hierarchy": "wallmart/quo",
@@ -1114,10 +866,7 @@
   },
   {
     "id": "108ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "9ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "9ew4r3d3d"],
     "name": "enim",
     "source": "city_name",
     "hierarchy": "wallmart/et",
@@ -1125,10 +874,7 @@
   },
   {
     "id": "109ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "63ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "63ew4r3d3d"],
     "name": "facilis",
     "source": "city_name",
     "hierarchy": "wallmart/velit",
@@ -1136,10 +882,7 @@
   },
   {
     "id": "110ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "71ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "71ew4r3d3d"],
     "name": "delectus",
     "source": "city_name",
     "hierarchy": "wallmart/animi",
@@ -1147,9 +890,7 @@
   },
   {
     "id": "111ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d"],
     "name": "interstellar",
     "source": "city_name",
     "hierarchy": "city_name",
@@ -1157,10 +898,7 @@
   },
   {
     "id": "112ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d",
-      "10ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d", "10ew4r3d3d"],
     "name": "labore",
     "source": "city_name",
     "hierarchy": "city_name/unknown",
@@ -1168,10 +906,7 @@
   },
   {
     "id": "113ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d",
-      "10ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d", "10ew4r3d3d"],
     "name": "dicta",
     "source": "city_name",
     "hierarchy": "city_name/unknown",
@@ -1187,11 +922,7 @@
   },
   {
     "id": "115ew4r3d3d",
-    "ancestors": [
-      "0ew4r3d3d",
-      "10ew4r3d3d",
-      "112ew4r3d3d"
-    ],
+    "ancestors": ["0ew4r3d3d", "10ew4r3d3d", "112ew4r3d3d"],
     "name": "voluptates",
     "source": "city_name",
     "hierarchy": "city_name/unknown/labore",
@@ -1231,9 +962,7 @@
   },
   {
     "id": "120ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "ads6",
     "source": "es_name",
     "hierarchy": "wallmart",
@@ -1561,10 +1290,7 @@
   },
   {
     "id": "161ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "67ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "67ew4r3d3d"],
     "name": "natus",
     "source": "es_name",
     "hierarchy": "wallmart/dolorem",
@@ -1588,10 +1314,7 @@
   },
   {
     "id": "164ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d",
-      "36ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d", "36ew4r3d3d"],
     "name": "harum",
     "source": "es_name",
     "hierarchy": "wallmart/amet",
@@ -1687,9 +1410,7 @@
   },
   {
     "id": "176ew4r3d3d",
-    "ancestors": [
-      "126ew4r3d3d"
-    ],
+    "ancestors": ["126ew4r3d3d"],
     "name": "praesentium",
     "source": "sf_name",
     "hierarchy": "earum",
@@ -1697,9 +1418,7 @@
   },
   {
     "id": "177ew4r3d3d",
-    "ancestors": [
-      "132ew4r3d3d"
-    ],
+    "ancestors": ["132ew4r3d3d"],
     "name": "veniam",
     "source": "sf_name",
     "hierarchy": "fuga",
@@ -1707,9 +1426,7 @@
   },
   {
     "id": "178ew4r3d3d",
-    "ancestors": [
-      "122ew4r3d3d"
-    ],
+    "ancestors": ["122ew4r3d3d"],
     "name": "doloribus",
     "source": "sf_name",
     "hierarchy": "odit",
@@ -1749,9 +1466,7 @@
   },
   {
     "id": "183ew4r3d3d",
-    "ancestors": [
-      "151ew4r3d3d"
-    ],
+    "ancestors": ["151ew4r3d3d"],
     "name": "laborum",
     "source": "sf_name",
     "hierarchy": "ex",
@@ -1759,9 +1474,7 @@
   },
   {
     "id": "184ew4r3d3d",
-    "ancestors": [
-      "152ew4r3d3d"
-    ],
+    "ancestors": ["152ew4r3d3d"],
     "name": "officia",
     "source": "sf_name",
     "hierarchy": "nesciunt",
@@ -1777,9 +1490,7 @@
   },
   {
     "id": "186ew4r3d3d",
-    "ancestors": [
-      "152ew4r3d3d"
-    ],
+    "ancestors": ["152ew4r3d3d"],
     "name": "facere",
     "source": "sf_name",
     "hierarchy": "nesciunt",
@@ -1787,9 +1498,7 @@
   },
   {
     "id": "187ew4r3d3d",
-    "ancestors": [
-      "1ew4r3d3d"
-    ],
+    "ancestors": ["1ew4r3d3d"],
     "name": "reprehenderit",
     "source": "es_name",
     "hierarchy": "wallmart",
@@ -1797,9 +1506,7 @@
   },
   {
     "id": "188ew4r3d3d",
-    "ancestors": [
-      "133ew4r3d3d"
-    ],
+    "ancestors": ["133ew4r3d3d"],
     "name": "necessitatibus",
     "source": "sf_name",
     "hierarchy": "aut",
@@ -1807,9 +1514,7 @@
   },
   {
     "id": "189ew4r3d3d",
-    "ancestors": [
-      "173ew4r3d3d"
-    ],
+    "ancestors": ["173ew4r3d3d"],
     "name": "saepe",
     "source": "sf_name",
     "hierarchy": "magni",

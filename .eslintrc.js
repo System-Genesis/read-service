@@ -24,6 +24,7 @@ module.exports = {
     },
     ignorePatterns: ['dist'],
     rules: {
+        'no-shadow': 'off',
         'import/extensions': [
             'error',
             'ignorePackages',

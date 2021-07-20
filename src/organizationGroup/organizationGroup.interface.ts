@@ -1,4 +1,4 @@
-export interface IOrganizationGroup {
+export interface IGroup {
     // OG's Basic information
     id: string;
     name: string;

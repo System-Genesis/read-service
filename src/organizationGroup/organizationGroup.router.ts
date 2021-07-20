@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import RoleController from './role.controller';
+import GroupController from './organizationGroup.controller';
 import { wrapController } from '../utils/express';
 // import ValidateRequest from '../utils/joi';
 // import * as EntityValidators from './entity.validator.schema';
 
-const RoleRouter: Router = Router();
+const GroupRouter: Router = Router();
 
 // RoleRouter.get('/', wrapController(RoleController.getAll));
-RoleRouter.get('/id/:id', wrapController(RoleController.getById));
+GroupRouter.get('/id/:id', wrapController(GroupController.getById));
 // RoleRouter.get(
 //     '/identifier/:identifier',
 //     ValidateRequest(EntityValidators.getEntitiesByIdentifier),
@@ -28,4 +28,4 @@ RoleRouter.get('/id/:id', wrapController(RoleController.getById));
 
 // RoleRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 
-export default RoleRouter;
+export default GroupRouter;

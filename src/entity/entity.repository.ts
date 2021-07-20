@@ -57,13 +57,12 @@ export default class EntityRepository {
         const findQuery = this.model.findOne({ id: _id });
         let foundRes = findQuery;
         if (populated) {
-            foundRes = findQuery
-                .populate({
-                    path: 'digitalIdentities',
-                    populate: {
-                        path: 'role',
-                    },
-                })
+            foundRes = findQuery.populate({
+                path: 'digitalIdentities',
+                populate: {
+                    path: 'role',
+                },
+            });
         }
         return foundRes.lean().exec();
     }

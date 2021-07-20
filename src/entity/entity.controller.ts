@@ -2,25 +2,23 @@ import { Request, Response } from 'express';
 // import * as qs from 'qs';
 
 import EntityManager from './entity.manager';
-import { optionalQueries } from './utils/filterQueries';
+import { optionalQueries, extractFilters } from './utils/filterQueries';
+import { extractEntitiesExcluders, RuleFilter } from './utils/scopeRules';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
-    static extractFilters(queryFilters: optionalQueries) {
-        const extractedFilters = queryFilters;
-        delete extractedFilters.expanded;
-        delete extractedFilters.page;
-        Object.keys(extractedFilters).forEach(key => extractedFilters[key] === undefined ? delete extractedFilters[key] : {});
-        // const ruleFilters = qs.parse(JSON.parse(JSON.stringify(queryFilters.ruleFilters.toString())));
-        return extractedFilters;
-    };
 
     static async getAll(_req: Request, res: Response) {
         const { expanded, page } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const queries = EntityController.extractFilters(_req.query as any);
-        console.log(queries)
-        const entities = await EntityManager.getAll(queries, isExpanded, parseInt(page, 10));
+        const ruleFiltersQuery = _req.query.ruleFilters;
+        if (!ruleFiltersQuery) {
+            throw new Error();
+        }
+        // const ruleFilters = JSON.parse(ruleFiltersQuery.toString());
+        const scopeExcluders = extractEntitiesExcluders(ruleFiltersQuery as RuleFilter[]);
+        const userQueries: optionalQueries = extractFilters(_req.query as any);
+        const entities = await EntityManager.getAll(userQueries, isExpanded, parseInt(page, 10), scopeExcluders);
         res.status(200).send(entities);
     }
 

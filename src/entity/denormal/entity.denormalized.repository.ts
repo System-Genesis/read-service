@@ -11,19 +11,17 @@ export default class EntityDenormalizedRepository {
         this.model = EntityDenormalizedModel;
     }
 
-    convertExcludedFields(fieldsToDelete: string[]): string {
-        return '-' + fieldsToDelete.join(' -')
-    }
+    convertExcludedFields = (fieldsToDelete: string[]): string => {
+        return `-${fieldsToDelete.join(' -')}`;
+    };
 
     find(queries: any, expanded: boolean, pageNumber: number, limit: number) {
         let findQuery = this.model.find(queries);
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS)
+            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
         }
-        console.log({ limit, pageNumber, expanded, queries })
-        return findQuery
-            .lean()
-            .exec();
+        // console.log({ limit, pageNumber, expanded, queries });
+        return findQuery.lean().exec();
     }
 
     findOne(cond?: any, populateOptions?: string | Object, select?: string): Promise<IDenormalizedEntity> {
@@ -51,10 +49,7 @@ export default class EntityDenormalizedRepository {
 
     findById(id_: string) {
         // const idNum: number = Number(id_);
-        return this.model.findOne({ id: id_ })
-            .select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS)
-            .lean()
-            .exec();
+        return this.model.findOne({ id: id_ }).select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS).lean().exec();
     }
 
     // getAll(): Promise<IDenormalizedEntity[]> {

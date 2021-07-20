@@ -7,31 +7,72 @@ export default class RoleRepository extends BaseRepository<IRole> {
         super(RoleModel);
     }
 
-    getByRoleId(roleID: string, populated?: boolean): Promise<IRole | null> {
-        const found = this.model.findOne({ roleID }).exec();
-        this.model.aggregate([
-            { "$match": { "_id": 5 } },
-            {
-                "$graphLookup": {
-                    "from": "roles",
-                    "startWith": "$_id",
-                    "connectFromField": "_id",
-                    "connectToField": "ancestors",
-                    "as": "people",
-                    "depthField": "depth",
-                }
-            },
-            {
-                "$addFields": {
-                    "people": {
-                        "$filter": {
-                            "input": "$people",
-                            "cond": { "$eq": ["$$this.last", "Dor"] }
-                        }
-                    }
-                }
-            }
-        ])
-        return found;
+    ancestorsToHierarchy = (ancestors: any[]) => {
+        const hierarchyIds = ancestors.map((ancestor) => ancestor.id);
+        const hierarchy = ancestors.map((ancestor) => ancestor.name).join('/');
+        return { hierarchy, hierarchyIds };
+    };
+
+    async getByRoleId(roleId: string) {
+        // let found = this.model.findOne({ roleId }).exec();
+        const rolesWithAncestors = await this.model
+            .aggregate([
+                { $match: { roleId } },
+                {
+                    $graphLookup: {
+                        from: 'organizationGroups',
+                        startWith: '$directGroup',
+                        connectFromField: 'directGroup',
+                        connectToField: 'id',
+                        as: 'ancestors',
+                        maxDepth: 100,
+                    },
+                },
+            ])
+            .exec();
+        // const rolesWithChildren = await this.model
+        //     .aggregate([
+        //         { $match: { roleId } },
+        //         {
+        //             $graphLookup: {
+        //                 from: 'organizationGroups',
+        //                 startWith: '$directGroup',
+        //                 connectFromField: 'id',
+        //                 connectToField: 'directGroup',
+        //                 as: 'children',
+        //                 maxDepth: 100,
+        //             },
+        //         },
+        //     ])
+        //     .exec();
+        if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
+        let [roleWithAncestors] = rolesWithAncestors;
+        const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
+        roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, ancestors: hierarchyIds });
+        return roleWithAncestors;
+    }
+
+    async getByDigitalIdentity(uniqueId: string) {
+        // let found = this.model.findOne({ roleId }).exec();
+        const rolesWithAncestors = await this.model
+            .aggregate([
+                { $match: { digitalIdentityUniqueId: uniqueId } },
+                {
+                    $graphLookup: {
+                        from: 'organizationGroups',
+                        startWith: '$directGroup',
+                        connectFromField: 'directGroup',
+                        connectToField: 'id',
+                        as: 'ancestors',
+                        maxDepth: 100,
+                    },
+                },
+            ])
+            .exec();
+        if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
+        let [roleWithAncestors] = rolesWithAncestors;
+        const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
+        roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, ancestors: hierarchyIds });
+        return roleWithAncestors;
     }
 }

@@ -846,13 +846,12 @@
     "directGroup": "104"
   },
   {
-    "hierarchyIds": ["1ew4r3d3d", "8ew4r3d3d"],
+    "directGroup": "8ew4r3d3d",
     "roleId": "m309452312@city",
     "jobTitle": "District Accountability Developer",
     "digitalIdentityUniqueId": "m309452312@city.com",
     "hierarchy": "wallmart/molestiae/exercitationem",
-    "source": "city_name",
-    "directGroup": "106"
+    "source": "city_name"
   },
   {
     "hierarchyIds": ["1ew4r3d3d", "47ew4r3d3d"],

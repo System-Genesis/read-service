@@ -5,6 +5,7 @@ import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './denormal/entity.denormalized.repository';
 import { optionalQueries, tranformIntoQuery } from './utils/filterQueries';
+import { entitiesExcluders } from './utils/scopeRules';
 import * as ApiErrors from '../core/ApiErrors';
 
 class EntityManager {
@@ -16,8 +17,9 @@ class EntityManager {
 
     static entityDenormalizedRepository: EntityDenormalizedRepository = new EntityDenormalizedRepository();
 
-
-    static async getAll(queries: optionalQueries, expanded: boolean = false, pageNum: number = 0) {
+    static async getAll(queries: optionalQueries, expanded: boolean = false, pageNum: number = 0, scopeExcluders: entitiesExcluders) {
+        const { digitalIdentity } = scopeExcluders;
+        console.log(digitalIdentity);
         const entities = await EntityManager.entityDenormalizedRepository.find(tranformIntoQuery(queries), expanded, 1, 10);
         // if (!expanded) {
         //     const mappedEntities = entities.map((entity) => {

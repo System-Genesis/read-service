@@ -12,6 +12,7 @@ const config = {
         DigitalIdentityCollectionName: env.get('DI_COLLECTION_NAME').required().asString(),
         DigitalIdentityDenormalizedCollectionName: env.get('DI_DENORMALIZED_COLLECTION_NAME').required().asString(),
         RoleCollectionName: env.get('ROLE_COLLECTION_NAME').required().asString(),
+        OrganzationGroupsCollectionName: env.get('OG_COLLECTION_NAME').required().asString(),
         pageSize: 10,
         limit: 10,
     },

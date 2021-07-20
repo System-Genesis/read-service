@@ -1,4 +1,4 @@
-export interface OrganizationGroupDTO {
+export interface GroupDTO {
     // OG's Basic information
     id: string;
     name: string;

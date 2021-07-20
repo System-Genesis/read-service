@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-syntax */
+import * as mongoose from 'mongoose';
 import { Response } from 'express';
-import setupDB from '../tests/db/test-setup';
 import * as supertest from 'supertest';
+import * as qs from 'qs';
 // import EntityController from './entity.controller';
 // import { EntityModel } from './entity.model';
 
@@ -11,9 +12,18 @@ const server = new Server(8000);
 server.start();
 const request = supertest(server.app);
 
-setupDB('genesis', true);
-
 describe('Entity Unit Tests', () => {
+    beforeAll(async () => {
+        await mongoose.connect(`mongodb://127.0.0.1:28000/genesis`, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+        });
+    });
+    afterAll(async () => {
+        await mongoose.connection.close();
+        server.stop();
+    });
     let res: Response;
     it('Should return entity by id', async () => {
         res = await request.get('/entity/id/73dr4e3s233');
@@ -42,12 +52,12 @@ describe('Entity Unit Tests', () => {
     });
 
     it('Should return entities with entity type filter', async () => {
-        res = await request.get('/entity').query({ entityType: 'digimon' });
+        res = await request.get('/entity').query({ entityType: 'digimon', page: '1' });
         expect(res['body'].every((entity) => entity.entityType === 'digimon')).toBeTruthy();
     });
 
     it('Should return entities with custom filter expanded', async () => {
-        res = await request.get('/entity').query({ entityType: 'digimon', expanded: true });
+        res = await request.get('/entity').query({ entityType: 'digimon', page: '1', expanded: true });
         expect(res['body'].every((entity) => entity.entityType === 'digimon')).toBeTruthy();
         expect(res['body'].every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
         expect(
@@ -59,8 +69,19 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entities with updated from filter', async () => {
         const dateFromQuery = '2021-06-06T07:25:45.363Z';
-        res = await request.get('/entity').query({ updateFrom: dateFromQuery });
+        res = await request.get('/entity').query({ updateFrom: dateFromQuery, page: '1' });
         expect(res['body'].every((entity) => entity.updateFrom >= dateFromQuery)).toBeTruthy();
+    });
+
+    it('Should return entities with entity type filter and rule scope not es', async () => {
+        res = await request.get('/entity').query(
+            qs.stringify({
+                ruleFilters: [{ field: 'source', values: ['!es_name'], entityType: 'digitalIdentity' }],
+                entityType: 'digimon',
+                page: '1',
+            }),
+        );
+        expect(res['body'].every((entity) => entity.entityType === 'digimon')).toBeTruthy();
     });
     // it('Should return user by digitalIdentity', async () => {
     //     res = await request.get('/entity/digitalIdentity/e261976729@city.com');

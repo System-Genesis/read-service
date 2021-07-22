@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 import EntityManager from './entity.manager';
 import { optionalQueries, extractFilters } from './utils/filterQueries';
-import { extractEntitiesExcluders, RuleFilter } from './utils/scopeRules';
+import { RuleFilter } from './utils/scopeRules';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
@@ -11,14 +11,13 @@ class EntityController {
     static async getAll(_req: Request, res: Response) {
         const { expanded, page } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const ruleFiltersQuery = _req.query.ruleFilters;
+        const ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
         if (!ruleFiltersQuery) {
             throw new Error();
         }
-        // const ruleFilters = JSON.parse(ruleFiltersQuery.toString());
-        const scopeExcluders = extractEntitiesExcluders(ruleFiltersQuery as RuleFilter[]);
+        const ruleFilters = JSON.parse(ruleFiltersQuery.toString());
         const userQueries: optionalQueries = extractFilters(_req.query as any);
-        const entities = await EntityManager.getAll(userQueries, isExpanded, parseInt(page, 10), scopeExcluders);
+        const entities = await EntityManager.getAll(userQueries, ruleFilters, isExpanded, parseInt(page, 10));
         res.status(200).send(entities);
     }
 

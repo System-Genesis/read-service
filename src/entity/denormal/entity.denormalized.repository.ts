@@ -15,8 +15,8 @@ export default class EntityDenormalizedRepository {
         return `-${fieldsToDelete.join(' -')}`;
     };
 
-    find(queries: any, expanded: boolean, pageNumber: number, limit: number) {
-        let findQuery = this.model.find(queries);
+    find(queries: any, scopeQuery: any, expanded: boolean, pageNumber: number, limit: number) {
+        let findQuery = this.model.find({ ...queries, ...scopeQuery });
         if (!expanded) {
             findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
         }

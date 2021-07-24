@@ -16,7 +16,10 @@ export default class EntityDenormalizedRepository {
     };
 
     find(queries: any, scopeQuery: any, expanded: boolean, pageNumber: number, limit: number) {
-        let findQuery = this.model.find({ ...queries, ...scopeQuery });
+        let findQuery = this.model
+            .find({ ...queries, ...scopeQuery })
+            .skip(pageNumber * 10)
+            .limit(10);
         if (!expanded) {
             findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
         }
@@ -60,7 +63,10 @@ export default class EntityDenormalizedRepository {
         return this.model.find({ 'digitalIdentities.role.directGroup': groupID }).lean<IDenormalizedEntity[]>().exec();
     }
 
-    findUnderHierarchy(hierarchy: string): Promise<IDenormalizedEntity[]> {
-        return this.model.find({ hierarchy }).lean<IDenormalizedEntity[]>().exec();
+    findUnderHierarchy(hierarchyToQuery: string): Promise<IDenormalizedEntity[]> {
+        return this.model
+            .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' } })
+            .lean<IDenormalizedEntity[]>()
+            .exec();
     }
 }

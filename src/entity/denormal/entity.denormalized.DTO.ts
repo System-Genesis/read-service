@@ -5,6 +5,7 @@ interface IDenormalizedEntityDTO extends Document {
     // Entity's Basic information
     id: string;
     displayName: string;
+    hierarchy: string;
     entityType: string; // enum
     identityCard: string;
     personalNumber: string;

@@ -37,8 +37,8 @@ class EntityManager {
     static async getAll(userFilters: RuleFilter[], scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
         const scopeQuery = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
         const transformedQuery = extractUserFilters(userFilters, EntityManager.mapFieldName);
-        console.log('transformedQuery: ', transformedQuery);
-        const entities = await EntityManager.entityDenormalizedRepository.find(transformedQuery, scopeQuery, expanded, 1, 10);
+
+        const entities = await EntityManager.entityDenormalizedRepository.find(transformedQuery, scopeQuery, expanded, pageNum, 10);
         // if (!expanded) {
         //     const mappedEntities = entities.map((entity) => {
         //         return removeDenormalizedFields(entity);

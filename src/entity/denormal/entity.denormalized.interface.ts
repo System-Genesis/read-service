@@ -5,6 +5,8 @@ interface IDenormalizedEntity extends Document {
     // Entity's Basic information
     id: string;
     displayName: string;
+    hierarchy: string;
+    hierarchyIds: string[];
     entityType: string; // enum
     identityCard: string;
     personalNumber: string;

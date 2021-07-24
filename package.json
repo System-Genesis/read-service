@@ -6,10 +6,11 @@
   "scripts": {
     "start": "node --async-stack-traces ./dist/index.js",
     "dev": "npm run build && npm start",
-    "test": "jest --forceExit --detectOpenHandles --coverage --verbose",
+    "test": "jest  --coverage",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "dev:server": "NODE_ENV=dev nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev:linux": "NODE_ENV=dev nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev:windows": "set NODE_ENV=dev&& nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --config .prettierrc.js 'src/**/*.ts' --check",

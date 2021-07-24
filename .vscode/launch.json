@@ -10,11 +10,15 @@
       "name": "Launch Index",
       "program": "${workspaceFolder}/src/index.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",
-      "env": { "NODE_ENV": "dev" },
+      "env": {
+        "NODE_ENV": "dev"
+      },
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ]
     },
     {
       "type": "node",
@@ -25,17 +29,24 @@
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ]
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Jest Tests",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["-i"],
+      // "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "program": "./node_modules/jest/bin/jest.js",
+      "args": [
+        "-i"
+      ],
       "preLaunchTask": "tsc: build - tsconfig.json",
       "internalConsoleOptions": "openOnSessionStart",
-      "outFiles": ["${workspaceRoot}/dist/**/*"],
+      "outFiles": [
+        "${workspaceRoot}/dist/**/*"
+      ],
       "envFile": "${workspaceRoot}/.env.dev"
     }
   ]

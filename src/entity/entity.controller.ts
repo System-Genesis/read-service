@@ -2,22 +2,26 @@ import { Request, Response } from 'express';
 // import * as qs from 'qs';
 
 import EntityManager from './entity.manager';
-import { optionalQueries, extractFilters } from './utils/filterQueries';
-import { RuleFilter } from './utils/scopeRules';
+import { extractFilters } from './utils/filterQueries';
+import { optionalQueries } from './utils/types';
+
+// import { RuleFilter } from './utils/scopeRules';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
     static async getAll(_req: Request, res: Response) {
-        const { expanded, page } = _req.query as { [key: string]: string };
+        const { expanded, page, userFilters, ruleFilters } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
-        if (!ruleFiltersQuery) {
-            throw new Error();
-        }
-        const ruleFilters = JSON.parse(ruleFiltersQuery.toString());
+        console.log('userFilters: ', userFilters);
+        const ruleFiltersQuery = ruleFilters ? JSON.parse(ruleFilters) : [];
+        const userFiltersQuery = userFilters ? JSON.parse(userFilters) : [];
+        console.log('userFiltersQuery: ', userFiltersQuery);
+
         const userQueries: optionalQueries = extractFilters(_req.query as any);
-        const entities = await EntityManager.getAll(userQueries, ruleFilters, isExpanded, parseInt(page, 10));
+        console.log('userQueries: ', userQueries);
+
+        const entities = await EntityManager.getAll(userFiltersQuery, ruleFiltersQuery, isExpanded, parseInt(page, 10));
         res.status(200).send(entities);
     }
 

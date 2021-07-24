@@ -20,7 +20,7 @@ export default class EntityDenormalizedRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
         }
-        // console.log({ limit, pageNumber, expanded, queries });
+        //
         return findQuery.lean().exec();
     }
 

@@ -50,9 +50,10 @@ export const getEntitiesByHierarchy = getRequestBaseSchema.keys({
 
 export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
     query: {
-        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()).required(),
+        userFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.string().valid(...expandedTypes),
-        ids: Joi.array().items(Joi.string()),
+        ids: Joi.alternatives().try(Joi.array(), Joi.string()),
         rank: Joi.string(),
         entityType: Joi.string(),
         digitalIdentitySource: Joi.string(),

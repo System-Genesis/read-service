@@ -4,9 +4,9 @@ import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './denormal/entity.denormalized.repository';
-import { optionalQueries, tranformIntoQuery } from './utils/filterQueries';
+import { extractUserFilters } from './utils/filterQueries';
 import { extractScopesQuery } from './utils/repository.scope.excluders';
-import { EntityTypes, RuleFilter } from './utils/scopeRules';
+import { EntityTypes, RuleFilter } from './utils/types';
 
 import * as ApiErrors from '../core/ApiErrors';
 
@@ -25,9 +25,20 @@ class EntityManager {
         [EntityTypes.ROLE, 'digitalIdentities.role.'],
     ]);
 
-    static async getAll(queries: optionalQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
+    static mapFieldName = new Map<string, string>([
+        ['ids', 'id'],
+        ['updatedFrom', 'updatedAt'],
+        ['entityType', 'entityType'],
+        ['rank', 'rank'],
+        ['digitalIdentities.source', 'digitalIdentities.source'],
+        ['status', 'status'],
+    ]);
+
+    static async getAll(userFilters: RuleFilter[], scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
         const scopeQuery = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
-        const entities = await EntityManager.entityDenormalizedRepository.find(tranformIntoQuery(queries), scopeQuery, expanded, 1, 10);
+        const transformedQuery = extractUserFilters(userFilters, EntityManager.mapFieldName);
+        console.log('transformedQuery: ', transformedQuery);
+        const entities = await EntityManager.entityDenormalizedRepository.find(transformedQuery, scopeQuery, expanded, 1, 10);
         // if (!expanded) {
         //     const mappedEntities = entities.map((entity) => {
         //         return removeDenormalizedFields(entity);

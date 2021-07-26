@@ -53,11 +53,21 @@ export const transformQuery = (queryObj: optionalQueries, mapField: Map<string, 
     return query;
 };
 
-export const extractUserFilters = (filters: RuleFilter[], mapField) => {
+// export const extractUserFilters = (filters: RuleFilter[], mapField) => {
+//     const query = {};
+//     filters.forEach((filter) => {
+//         const { field, entityType, values } = filter;
+//         const deducedQuery = mapFieldQueryFunc.get(field)(values);
+//         const deducedField = mapField.get(field);
+//         query[deducedField] = deducedQuery;
+//     });
+//     return query;
+// };
+
+export const extractUserQueries = (filters: optionalQueries, mapField) => {
     const query = {};
-    filters.forEach((filter) => {
-        const { field, entityType, values } = filter;
-        const deducedQuery = mapFieldQueryFunc.get(field)(values);
+    Object.entries(filters).forEach(([field, value]) => {
+        const deducedQuery = mapFieldQueryFunc.get(field)(value);
         const deducedField = mapField.get(field);
         query[deducedField] = deducedQuery;
     });

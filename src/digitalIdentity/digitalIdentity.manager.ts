@@ -1,24 +1,29 @@
-import RoleRepository from './role.repository';
+import DigitalIdentityRepository from './digitalIdentity.repository';
+import RoleRepository from '../role/role.repository';
 import * as ApiErrors from '../core/ApiErrors';
-import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 
-class RoleManager {
-    static roleRepository: RoleRepository = new RoleRepository();
-
+class DigitalIdentityManager {
     static digitalIdentityRepository: DigitalIdentityRepository = new DigitalIdentityRepository();
 
+    static roleRepository: RoleRepository = new RoleRepository();
+
     static async findByRoleId(roleId: string) {
-        const role = await RoleManager.roleRepository.findByRoleId(roleId);
-        if (!role) {
+        const foundRole = await DigitalIdentityManager.roleRepository.findByRoleId(roleId);
+        if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }
-        return role;
+        const { digitalIdentityUniqueId } = foundRole;
+        const foundDI = await DigitalIdentityManager.digitalIdentityRepository.findByUniqueId(digitalIdentityUniqueId);
+        if (!foundDI) {
+            throw new ApiErrors.NotFoundError();
+        }
+        return foundDI;
     }
 
-    static async findByDigitalIdentity(uniqueId: string) {
-        const foundEntity = await RoleManager.roleRepository.findByDigitalIdentity(uniqueId);
-        return foundEntity;
-    }
+    // static async findByDigitalIdentity(uniqueId: string) {
+    //     const foundEntity = await RoleManager.digitalIdentityRepository.findByDigitalIdentity(uniqueId);
+    //     return foundEntity;
+    // }
 
     // static async findUnderGroup(groupID: string, expanded: boolean = false) {
     //     const foundEntitiesDN = await EntityManager.entityDenormalizedRepository.findUnderGroup(groupID);

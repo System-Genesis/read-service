@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node --async-stack-traces ./dist/index.js",
     "dev": "npm run build && npm start",
-    "test": "jest  --coverage",
+    "test-entities": "jest  --verbose --runInBand -- src/entity/entity2.spec.ts",
+    "test-digitalIdentities": "jest  --verbose --runInBand -- src/digitalIdentity/digitalIdentity.spec.ts",
+    "test-roles": "jest  --verbose --runInBand -- src/role/role.spec.ts",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "dev:linux": "NODE_ENV=dev nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",

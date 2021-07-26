@@ -32,13 +32,13 @@ export default class EntityRepository {
     //     return this.find({ $or: cond });
     // }
 
-    findByIdentifier(identifier: string, populated?: boolean): Promise<IEntity | null> {
+    findByIdentifier(identifier: string, excluders, populated?: boolean): Promise<IEntity | null> {
         const identifierFields = ['personalNumber', 'identityCard', 'userID'];
         const cond = identifierFields.map((key) => {
             return { [key]: { $in: [identifier] } };
         });
 
-        const findQuery = this.model.findOne({ $or: cond });
+        const findQuery = this.model.findOne({ $or: cond, ...excluders });
         let foundRes = findQuery;
         if (populated) {
             foundRes = findQuery
@@ -53,8 +53,8 @@ export default class EntityRepository {
         return foundRes.exec();
     }
 
-    findById(_id: string, populated?: boolean) {
-        const findQuery = this.model.findOne({ id: _id });
+    findById(_id: string, excluders, populated?: boolean) {
+        const findQuery = this.model.findOne({ id: _id, ...excluders });
         let foundRes = findQuery;
         if (populated) {
             foundRes = findQuery.populate({

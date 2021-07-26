@@ -4,9 +4,9 @@ import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './denormal/entity.denormalized.repository';
-import { extractUserFilters } from './utils/filterQueries';
+import { extractUserQueries } from './utils/filterQueries';
 import { extractScopesQuery } from './utils/repository.scope.excluders';
-import { EntityTypes, RuleFilter } from './utils/types';
+import { EntityTypes, RuleFilter, optionalQueries } from './utils/types';
 
 import * as ApiErrors from '../core/ApiErrors';
 
@@ -34,22 +34,18 @@ class EntityManager {
         ['status', 'status'],
     ]);
 
-    static async getAll(userFilters: RuleFilter[], scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
+    static async getAll(userQueries: optionalQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
         const scopeQuery = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
-        const transformedQuery = extractUserFilters(userFilters, EntityManager.mapFieldName);
+        const transformedQuery = extractUserQueries(userQueries, EntityManager.mapFieldName);
 
         const entities = await EntityManager.entityDenormalizedRepository.find(transformedQuery, scopeQuery, expanded, pageNum, 10);
-        // if (!expanded) {
-        //     const mappedEntities = entities.map((entity) => {
-        //         return removeDenormalizedFields(entity);
-        //     });
-        //     return mappedEntities;
-        // }
+
         return entities;
     }
 
-    static async findById(id: string, expanded: boolean = false) {
-        const entity = await EntityManager.entityRepository.findById(id, expanded);
+    static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        const scopeQuery = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const entity = await EntityManager.entityRepository.findById(id, scopeQuery, expanded);
         if (!entity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -61,18 +57,19 @@ class EntityManager {
         return entities;
     }
 
-    static async findByRole(roleID: string, expanded: boolean = false) {
-        const foundRole = await EntityManager.roleRepository.getByRoleId(roleID);
+    static async findByRole(roleId: string, expanded: boolean = false) {
+        const foundRole = await EntityManager.roleRepository.findByRoleId(roleId);
         if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }
-        const { digitalIndentityUniqueId } = foundRole;
-        const foundDI = await EntityManager.digitalIdentityRepository.findByUniqueId(digitalIndentityUniqueId);
+        const { digitalIdentityUniqueId } = foundRole;
+        const foundDI = await EntityManager.digitalIdentityRepository.findByUniqueId(digitalIdentityUniqueId);
         if (!foundDI) {
             throw new ApiErrors.NotFoundError();
         }
         const { entityId } = foundDI;
-        EntityManager.entityRepository.findById(entityId, expanded);
+        const foundEntity = EntityManager.entityRepository.findById(entityId, expanded);
+        return foundEntity;
     }
 
     static async findByDigitalIdentity(uniqueId: string, expanded: boolean = false) {

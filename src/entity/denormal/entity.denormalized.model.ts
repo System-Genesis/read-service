@@ -1,5 +1,4 @@
-import { PaginateModel, model, Schema, Model, Document } from 'mongoose';
-import * as mongoosePaginate from 'mongoose-paginate';
+import { model, Schema, Model, Document } from 'mongoose';
 import IDenormalizedEntity from './entity.denormalized.interface';
 import { DIDenormalizedSchema } from '../../digitalIdentity/denormal/digitalIdentity.denormalized.model';
 import config from '../../config/index';
@@ -32,7 +31,7 @@ const entityDenormalizedSchema: Schema = new Schema(
     { collection: config.mongo.EntityDenormalizedCollectionName },
 );
 
-entityDenormalizedSchema.plugin(mongoosePaginate);
+// entityDenormalizedSchema.plugin(mongoosePaginate);
 
 const EntityDenormalizedModel = model<IDenormalizedEntity>('entity_dn', entityDenormalizedSchema);
 export default EntityDenormalizedModel;

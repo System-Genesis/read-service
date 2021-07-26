@@ -11,7 +11,7 @@ const server = new Server(8000);
 server.start();
 const request = supertest(server.app);
 
-describe('Role Tests', () => {
+describe('Digital Identity Tests', () => {
     beforeAll(async () => {
         await mongoose.connect(`mongodb://127.0.0.1:28000/genesis`, {
             useNewUrlParser: true,
@@ -24,19 +24,15 @@ describe('Role Tests', () => {
         server.stop();
     });
 
-    it('Should return role by roleId', async () => {
-        const res = await request.get('/roles/id/e261976729@city');
+    it('Should return DI by uniqueID', async () => {
+        const res = await request.get('/digitalIdentities/e261976729@city.com');
         expect(res.status).toBe(200);
-        expect(res.body.roleId).toBe('e261976729@city');
-        expect(res.body.hierarchy).toContain('/');
-        expect(res.body.ancestors.length).toBeGreaterThan(0);
+        expect(res.body.uniqueId).toBe('e261976729@city');
     });
 
-    it('Should return role by digitalIdentityUniqueID', async () => {
-        const res = await request.get('/roles/digitalIdentity/e261976729@city.com');
+    it('Should return DI by roleId', async () => {
+        const res = await request.get('/digitalIdentities/role/e261976729@city');
         expect(res.status).toBe(200);
-        expect(res.body.roleId).toBe('e261976729@city');
-        expect(res.body.hierarchy).toContain('/');
-        expect(res.body.ancestors.length).toBeGreaterThan(0);
+        expect(res.body.uniqueId).toBe('e261976729@city');
     });
 });

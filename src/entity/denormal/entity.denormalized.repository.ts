@@ -46,7 +46,7 @@ export default class EntityDenormalizedRepository {
     //     return this.find({ $or: cond });
     // }
 
-    getByRole(roleID: string): Promise<IDenormalizedEntity[]> {
+    findByRole(roleID: string): Promise<IDenormalizedEntity[]> {
         return this.model.find({ roleID }).lean<IDenormalizedEntity[]>().exec();
     }
 
@@ -54,10 +54,6 @@ export default class EntityDenormalizedRepository {
         // const idNum: number = Number(id_);
         return this.model.findOne({ id: id_ }).select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS).lean().exec();
     }
-
-    // getAll(): Promise<IDenormalizedEntity[]> {
-    //     return this.model.find({}).exec();
-    // }
 
     findUnderGroup(groupID: string): Promise<IDenormalizedEntity[]> {
         return this.model.find({ 'digitalIdentities.role.directGroup': groupID }).lean<IDenormalizedEntity[]>().exec();

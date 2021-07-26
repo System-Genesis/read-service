@@ -1,10 +1,12 @@
-import BaseRepository from '../repositories/base/BaseRepository';
+import * as mongoose from 'mongoose';
 import IRole from './role.interface';
 import { RoleModel } from './role.model';
 
-export default class RoleRepository extends BaseRepository<IRole> {
+export default class RoleRepository {
+    protected model: mongoose.Model<IRole & mongoose.Document>;
+
     constructor() {
-        super(RoleModel);
+        this.model = RoleModel;
     }
 
     ancestorsToHierarchy = (ancestors: any[]) => {
@@ -13,8 +15,12 @@ export default class RoleRepository extends BaseRepository<IRole> {
         return { hierarchy, hierarchyIds };
     };
 
-    async getByRoleId(roleId: string) {
-        // let found = this.model.findOne({ roleId }).exec();
+    // findByRoleId(roleId: string) {
+    //     const findQuery = this.model.findOne({ roleId });
+    //     return findQuery.lean().exec();
+    // }
+
+    async findByRoleId(roleId: string) {
         const rolesWithAncestors = await this.model
             .aggregate([
                 { $match: { roleId } },
@@ -30,21 +36,7 @@ export default class RoleRepository extends BaseRepository<IRole> {
                 },
             ])
             .exec();
-        // const rolesWithChildren = await this.model
-        //     .aggregate([
-        //         { $match: { roleId } },
-        //         {
-        //             $graphLookup: {
-        //                 from: 'organizationGroups',
-        //                 startWith: '$directGroup',
-        //                 connectFromField: 'id',
-        //                 connectToField: 'directGroup',
-        //                 as: 'children',
-        //                 maxDepth: 100,
-        //             },
-        //         },
-        //     ])
-        //     .exec();
+
         if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
         let [roleWithAncestors] = rolesWithAncestors;
         const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
@@ -52,7 +44,7 @@ export default class RoleRepository extends BaseRepository<IRole> {
         return roleWithAncestors;
     }
 
-    async getByDigitalIdentity(uniqueId: string) {
+    async findByDigitalIdentity(uniqueId: string) {
         // let found = this.model.findOne({ roleId }).exec();
         const rolesWithAncestors = await this.model
             .aggregate([

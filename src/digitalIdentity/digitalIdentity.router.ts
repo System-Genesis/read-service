@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import RoleController from './role.controller';
+import DigitalIdentityController from './digitalIdentity.controller';
 import { wrapController } from '../utils/express';
 // import ValidateRequest from '../utils/joi';
 // import * as EntityValidators from './entity.validator.schema';
 
-const RoleRouter: Router = Router();
+const DigitalIdentityRouter: Router = Router();
 
 // RoleRouter.get('/', wrapController(RoleController.getAll));
-RoleRouter.get('/:roleId', wrapController(RoleController.getByRoleId));
-RoleRouter.get('/digitalIdentity/:digitalIdentityUniqueId', wrapController(RoleController.getByDigitalIdentityUniqueId));
+DigitalIdentityRouter.get('/:uniqueId', wrapController(DigitalIdentityController.getByDigitalIdentityUniqueId));
+DigitalIdentityRouter.get('/role/:roleId', wrapController(DigitalIdentityController.getByRoleId));
 // RoleRouter.get(
 //     '/identifier/:identifier',
 //     ValidateRequest(EntityValidators.getEntitiesByIdentifier),
@@ -29,4 +29,4 @@ RoleRouter.get('/digitalIdentity/:digitalIdentityUniqueId', wrapController(RoleC
 
 // RoleRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 
-export default RoleRouter;
+export default DigitalIdentityRouter;

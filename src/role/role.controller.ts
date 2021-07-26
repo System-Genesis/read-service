@@ -6,11 +6,14 @@ import RoleManager from './role.manager';
 class RoleController {
     static entityManager: RoleManager = new RoleManager();
 
-    static async getById(_req: Request, res: Response) {
-        const { expanded } = _req.query as { [key: string]: string };
-        const isExpanded = expanded === 'true';
-        const entities = await RoleManager.findById(_req.params.id, isExpanded);
-        res.status(200).send(entities);
+    static async getByRoleId(_req: Request, res: Response) {
+        const foundRole = await RoleManager.findByRoleId(_req.params.roleId);
+        res.status(200).send(foundRole);
+    }
+
+    static async getByDigitalIdentityUniqueId(_req: Request, res: Response) {
+        const foundRole = await RoleManager.findByDigitalIdentity(_req.params.digitalIdentityUniqueId);
+        res.status(200).send(foundRole);
     }
 }
 

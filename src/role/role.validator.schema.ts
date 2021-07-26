@@ -8,7 +8,6 @@ const expandedTypes = ['true', 'false'];
 const getRequestBaseSchema = Joi.object({
     query: {
         expanded: Joi.string().valid(...expandedTypes),
-        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
     body: {},
 });

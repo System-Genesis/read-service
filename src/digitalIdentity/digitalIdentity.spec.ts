@@ -25,14 +25,14 @@ describe('Digital Identity Tests', () => {
     });
 
     it('Should return DI by uniqueID', async () => {
-        const res = await request.get('/digitalIdentities/e261976729@city.com');
+        const res = await request.get('/digitalIdentities/gf603940726@city.com');
         expect(res.status).toBe(200);
-        expect(res.body.uniqueId).toBe('e261976729@city');
+        expect(res.body.uniqueId).toBe('gf603940726@city.com');
     });
 
     it('Should return DI by roleId', async () => {
         const res = await request.get('/digitalIdentities/role/e261976729@city');
         expect(res.status).toBe(200);
-        expect(res.body.uniqueId).toBe('e261976729@city');
+        expect(res.body.uniqueId).toBe('e261976729@city.com');
     });
 });

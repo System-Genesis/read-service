@@ -9,23 +9,7 @@ const RoleRouter: Router = Router();
 // RoleRouter.get('/', wrapController(RoleController.getAll));
 RoleRouter.get('/:roleId', wrapController(RoleController.getByRoleId));
 RoleRouter.get('/digitalIdentity/:digitalIdentityUniqueId', wrapController(RoleController.getByDigitalIdentityUniqueId));
-// RoleRouter.get(
-//     '/identifier/:identifier',
-//     ValidateRequest(EntityValidators.getEntitiesByIdentifier),
-//     wrapController(EntityController.getByIdentifier),
-// );
-// RoleRouter.get(
-//     '/digitalIdentity/:digitalIdentityUniqueId',
-//     ValidateRequest(EntityValidators.getEntitiesByDigitalIdentity),
-//     wrapController(EntityController.getByDigitalIdentity),
-// );
-// RoleRouter.get('/role/:roleId', ValidateRequest(EntityValidators.getEntitiesByRole), wrapController(EntityController.getByRole));
-// RoleRouter.get('/group/:groupId', ValidateRequest(EntityValidators.getEntitiesByGroup), wrapController(EntityController.getUnderGroup));
-// RoleRouter.get(
-//     '/hierarchy/:hierarchy',
-//     ValidateRequest(EntityValidators.getEntitiesByHierarchy),
-//     wrapController(EntityController.getUnderHierarchy),
-// );
+RoleRouter.get('/group/:groupId', wrapController(RoleController.getByGroupId));
 
 // RoleRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 

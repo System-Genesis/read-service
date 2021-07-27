@@ -12,7 +12,7 @@ class DigitalIdentityController {
     }
 
     static async getByDigitalIdentityUniqueId(_req: Request, res: Response) {
-        const foundRole = await DigitalIdentityManager.findByUniqId(_req.params.digitalIdentityUniqueId);
+        const foundRole = await DigitalIdentityManager.findByUniqueId(_req.params.uniqueId);
         res.status(200).send(foundRole);
     }
 }

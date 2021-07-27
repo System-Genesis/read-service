@@ -8,17 +8,32 @@ class RoleManager {
     static digitalIdentityRepository: DigitalIdentityRepository = new DigitalIdentityRepository();
 
     static async findByRoleId(roleId: string) {
-        const role = await RoleManager.roleRepository.findByRoleId(roleId);
-        if (!role) {
+        const foundRole = await RoleManager.roleRepository.findByRoleId(roleId);
+        if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }
-        return role;
+        return foundRole;
     }
 
     static async findByDigitalIdentity(uniqueId: string) {
-        const foundEntity = await RoleManager.roleRepository.findByDigitalIdentity(uniqueId);
-        return foundEntity;
+        const foundRole = await RoleManager.roleRepository.findByDigitalIdentity(uniqueId);
+        return foundRole;
     }
+
+    static async findByGroup(groupId: string, direct: boolean = true, pageNum: number) {
+        let foundRole;
+        if (direct) {
+            foundRole = await RoleManager.roleRepository.findInGroupId(groupId);
+        } else {
+            foundRole = await RoleManager.roleRepository.findUnderGroupId(groupId);
+        }
+        return foundRole;
+    }
+
+    // static async findUnderHierarchy(groupId: string, direct: boolean = true, pageNum: number) {
+    //     const foundRole = await RoleManager.roleRepository.findByGroupId(groupId);
+    //     return foundRole;
+    // }
 
     // static async findUnderGroup(groupID: string, expanded: boolean = false) {
     //     const foundEntitiesDN = await EntityManager.entityDenormalizedRepository.findUnderGroup(groupID);

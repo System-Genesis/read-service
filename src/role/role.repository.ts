@@ -15,10 +15,17 @@ export default class RoleRepository {
         return { hierarchy, hierarchyIds };
     };
 
-    // findByRoleId(roleId: string) {
-    //     const findQuery = this.model.findOne({ roleId });
-    //     return findQuery.lean().exec();
-    // }
+    findInGroupId(groupId: string) {
+        const findQuery = this.model.find({ directGroup: groupId });
+        return findQuery.lean().exec();
+    }
+
+    findUnderGroupId(groupId: string) {
+        const findQuery = this.model.find({
+            hierarchyIds: groupId,
+        });
+        return findQuery.lean().exec();
+    }
 
     async findByRoleId(roleId: string) {
         const rolesWithAncestors = await this.model
@@ -40,7 +47,7 @@ export default class RoleRepository {
         if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
         let [roleWithAncestors] = rolesWithAncestors;
         const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
-        roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, ancestors: hierarchyIds });
+        roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, hierarchyIds });
         return roleWithAncestors;
     }
 
@@ -64,7 +71,7 @@ export default class RoleRepository {
         if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
         let [roleWithAncestors] = rolesWithAncestors;
         const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
-        roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, ancestors: hierarchyIds });
+        roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, hierarchyIds });
         return roleWithAncestors;
     }
 }

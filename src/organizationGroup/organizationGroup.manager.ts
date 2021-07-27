@@ -5,7 +5,7 @@ class GroupManager {
     static groupRepository: GroupRepository = new GroupRepository();
 
     static async findById(id: string, expanded: boolean = false) {
-        const group = await GroupManager.groupRepository.getById(id);
+        const group = await GroupManager.groupRepository.getAncestorsFromGroup(id);
         if (!group) {
             throw new ApiErrors.NotFoundError();
         }

@@ -11,18 +11,19 @@ class EntityController {
     static extractEntityQueries(_req: Request) {
         const { expanded, page } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
+        const pageNum = parseInt(page, 10);
 
         let ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
         ruleFiltersQuery = typeof ruleFiltersQuery === 'string' ? JSON.parse(ruleFiltersQuery) : ruleFiltersQuery;
         // ruleFilters = ruleFilters ?
 
         const userQueries: optionalQueries = extractFilters(_req.query as any);
-        return { isExpanded, page, ruleFiltersQuery, userQueries };
+        return { isExpanded, pageNum, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { isExpanded, page, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
-        const entities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, parseInt(page, 10));
+        const { isExpanded, pageNum, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
+        const entities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageNum);
         res.status(200).send(entities);
     }
 

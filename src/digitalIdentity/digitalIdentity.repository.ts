@@ -13,9 +13,4 @@ export default class DigitalIdentityRepository {
         const foundByUniqueId = this.model.findOne({ uniqueId: uniqueId_ }).lean().exec();
         return foundByUniqueId;
     }
-
-    // findByRoleId(roleId: string): Promise<IDigitalIdentity | null> {
-    //     const foundByUniqueId = this.model.findOne({ source }).lean().exec();
-    //     return foundByUniqueId;
-    // }
 }

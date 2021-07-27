@@ -7,7 +7,7 @@ import GroupRouter from '../organizationGroup/organizationGroup.router';
 const appRouter = Router();
 
 appRouter.use('/entities', EntityRouter);
-appRouter.use('/roles', RoleRouter);
+appRouter.use('/digitalIdentities', DigitalIdentityRouter);
 appRouter.use('/roles', RoleRouter);
 appRouter.use('/groups', GroupRouter);
 

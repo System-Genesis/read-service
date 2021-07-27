@@ -25,11 +25,11 @@ describe('Role Tests', () => {
     });
 
     it('Should return role by roleId', async () => {
-        const res = await request.get('/roles/id/e261976729@city');
+        const res = await request.get('/roles/e261976729@city');
         expect(res.status).toBe(200);
         expect(res.body.roleId).toBe('e261976729@city');
         expect(res.body.hierarchy).toContain('/');
-        expect(res.body.ancestors.length).toBeGreaterThan(0);
+        expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
     });
 
     it('Should return role by digitalIdentityUniqueID', async () => {
@@ -37,6 +37,22 @@ describe('Role Tests', () => {
         expect(res.status).toBe(200);
         expect(res.body.roleId).toBe('e261976729@city');
         expect(res.body.hierarchy).toContain('/');
-        expect(res.body.ancestors.length).toBeGreaterThan(0);
+        expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
+    });
+
+    it('Should return role by direct groupId', async () => {
+        const res = await request.get('/roles/group/2');
+        expect(res.status).toBe(200);
+        expect(res.body.roleId).toBe('e261976729@city');
+        expect(res.body.hierarchy).toContain('/');
+        expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
+    });
+
+    it('Should return role under groupId', async () => {
+        const res = await request.get('/roles/group/2');
+        expect(res.status).toBe(200);
+        expect(res.body.roleId).toBe('e261976729@city');
+        expect(res.body.hierarchy).toContain('/');
+        expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
     });
 });

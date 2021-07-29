@@ -4,7 +4,6 @@ export interface IGroup {
     name: string;
     ancestors: string[];
     hierarchy: string;
-    akaUnit: string;
     status: string;
     isLeaf: boolean;
     createdAt: Date;

@@ -4,13 +4,15 @@ import config from '../config/index';
 
 const GroupSchema: Schema = new Schema(
     {
-        roleId: String,
-        jobTitle: String,
-        digitalIndentityUniqueId: String,
-        directGroup: String,
+        id: String,
+        name: String,
+        source: String,
+        ancestors: [String],
+        hierarchy: String,
+        status: String,
+        isLeaf: Boolean,
         createdAt: Date,
         updatedAt: Date,
-        source: String,
     },
     { collection: config.mongo.OrganzationGroupsCollectionName },
 );

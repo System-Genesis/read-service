@@ -17,6 +17,7 @@ export const extractScopesQuery = (excluders: RuleFilter[], mapField) => {
     const query = {};
     excluders.forEach((excluder) => {
         const { field, entityType, values } = excluder;
+
         const deducedQuery = mapFieldQuery.get(field)(values);
         const deducedField = `${mapField.get(entityType)}${field}`;
         query[deducedField] = deducedQuery;

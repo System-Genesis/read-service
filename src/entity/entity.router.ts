@@ -7,7 +7,7 @@ import * as EntityValidators from './entity.validator.schema';
 const EntityRouter: Router = Router();
 
 EntityRouter.get('/', ValidateRequest(EntityValidators.getEntitiesByCustomFilters), wrapController(EntityController.getAll));
-EntityRouter.get('/id/:id', ValidateRequest(EntityValidators.getEntitiesById), wrapController(EntityController.getById));
+EntityRouter.get('/:id', ValidateRequest(EntityValidators.getEntitiesById), wrapController(EntityController.getById));
 EntityRouter.get(
     '/identifier/:identifier',
     ValidateRequest(EntityValidators.getEntitiesByIdentifier),

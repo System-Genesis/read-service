@@ -34,46 +34,41 @@ class EntityController {
     }
 
     static async getByIdentifier(_req: Request, res: Response) {
-        const { expanded } = _req.query as { [key: string]: string };
-        const isExpanded = expanded === 'true';
+        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { identifier } = _req.params as { [key: string]: string };
-        const entities = await EntityManager.findByIdentifier(identifier, isExpanded);
+        const entities = await EntityManager.findByIdentifier(identifier, ruleFiltersQuery, isExpanded);
         res.status(200).send(entities);
     }
 
     static async getByDigitalIdentity(_req: Request, res: Response) {
-        const { expanded } = _req.query as { [key: string]: string };
+        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { digitalIdentityUniqueId } = _req.params as { [key: string]: string };
-        const isExpanded = expanded === 'true';
 
-        const entities = await EntityManager.findByDigitalIdentity(digitalIdentityUniqueId, isExpanded);
+        const entities = await EntityManager.findByDigitalIdentity(digitalIdentityUniqueId, ruleFiltersQuery, isExpanded);
         res.status(200).send(entities);
     }
 
     static async getByRole(_req: Request, res: Response) {
-        const { expanded } = _req.query as { [key: string]: string };
-        const isExpanded = expanded === 'true';
+        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { roleId } = _req.params as { [key: string]: string };
 
-        const entities = await EntityManager.findByRole(roleId, isExpanded);
+        const entities = await EntityManager.findByRole(roleId, ruleFiltersQuery, isExpanded);
         res.status(200).send(entities);
     }
 
     static async getUnderGroup(_req: Request, res: Response) {
-        const { expanded } = _req.query as { [key: string]: string };
-        const isExpanded = expanded === 'true';
+        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { groupId } = _req.params as { [key: string]: string };
 
-        const entities = await EntityManager.findUnderGroup(groupId, isExpanded);
+        const entities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded);
         res.status(200).send(entities);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
-        const { expanded } = _req.query as { [key: string]: string };
+        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
-        const isExpanded = expanded === 'true';
 
-        const entities = await EntityManager.findUnderHierarchy(hierarchy, isExpanded);
+        const entities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded);
         res.status(200).send(entities);
     }
 }

@@ -1,8 +1,9 @@
 import { model, Schema, Document } from 'mongoose';
 import IDigitalIdentity from './digitalIdentity.interface';
+import { RoleSchema } from '../role/role.model';
 import config from '../config/index';
 
-const DISchema: Schema = new Schema(
+const DigitalIdentitySchema: Schema = new Schema(
     {
         roleId: String,
         jobTitle: String,
@@ -13,19 +14,11 @@ const DISchema: Schema = new Schema(
         createdAt: Date,
         updatedAt: Date,
         source: String,
+        role: RoleSchema,
     },
     { collection: config.mongo.DigitalIdentityCollectionName },
 );
 
-DISchema.virtual('role', {
-    ref: 'role', // The model to use
-    localField: 'uniqueId', // Find people where `localField`
-    foreignField: 'digitalIdentityUniqueId', // is equal to `foreignField`
-    // If `justOne` is true, 'members' will be a single doc as opposed to
-    // an array. `justOne` is false by default.
-    justOne: true,
-});
+const DigitalIdentityModel = model<IDigitalIdentity & Document>('digitalIdentity', DigitalIdentitySchema);
 
-const DigitalIdentityModel = model<IDigitalIdentity & Document>('digitalIdentity', DISchema);
-
-export { DigitalIdentityModel, DISchema };
+export { DigitalIdentityModel, DigitalIdentitySchema };

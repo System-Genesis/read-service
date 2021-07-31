@@ -1,5 +1,5 @@
 {
-  "name": "rabaz-team-typescript-template",
+  "name": "read-service",
   "version": "1.0.0",
   "description": "",
   "main": "",
@@ -19,7 +19,7 @@
     "prettier:fix": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
     "clean": "rimraf dist"
   },
-  "author": "Alexander Gurevich",
+  "author": "NoamYes",
   "license": "ISC",
   "dependencies": {
     "@joi/date": "^2.1.0",

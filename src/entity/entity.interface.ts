@@ -1,9 +1,12 @@
 import { Document } from 'mongoose';
+import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
 
 interface IEntity extends Document {
     // Entity's Basic information
     id: string;
     displayName: string;
+    hierarchy: string;
+    hierarchyIds: string[];
     entityType: string; // enum
     identityCard: string;
     personalNumber: string;
@@ -22,6 +25,7 @@ interface IEntity extends Document {
     clearance: string; // string of number - enum
     sex?: string;
     birthDate?: Date;
+    digitalIdentities: [IDigitalIdentity];
 }
 
 export default IEntity;

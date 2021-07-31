@@ -1,5 +1,6 @@
 import { model, Schema, Model } from 'mongoose';
 import IEntity from './entity.interface';
+import { DigitalIdentitySchema } from '../digitalIdentity/digitalIdentity.model';
 import config from '../config/index';
 
 const EntitySchema: Schema = new Schema(
@@ -25,19 +26,10 @@ const EntitySchema: Schema = new Schema(
         clearance: String, // String of number - enum
         sex: String,
         birthDate: Date,
+        digitalIdentities: [DigitalIdentitySchema],
     },
-    { collection: config.mongo.EntityCollectionName },
+    { collection: config.mongo.EntityDenormalizedCollectionName },
 );
-
-EntitySchema.virtual('digitalIdentities', {
-    ref: 'digitalIdentity', // The model to use
-    localField: 'id', // Find people where `localField`
-    foreignField: 'entityId', // is equal to `foreignField`
-    // If `justOne` is true, 'members' will be a single doc as opposed to
-    // an array. `justOne` is false by default.
-    justOne: false,
-    options: { sort: { name: -1 }, limit: 5 }, // Query options, see http://bit.ly/mongoose-query-options
-});
 
 const EntityModel: Model<IEntity> = model('entity', EntitySchema);
 

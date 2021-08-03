@@ -2,8 +2,7 @@
 import * as mongoose from 'mongoose';
 import { Response } from 'express';
 import * as supertest from 'supertest';
-// import EntityController from './entity.controller';
-// import { EntityModel } from './entity.model';
+import * as qs from 'qs';
 
 import Server from '../express/server';
 
@@ -24,15 +23,57 @@ describe('Digital Identity Tests', () => {
         server.stop();
     });
 
-    it('Should return DI by uniqueID', async () => {
-        const res = await request.get('/digitalIdentities/gf603940726@city.com');
-        expect(res.status).toBe(200);
-        expect(res.body.uniqueId).toBe('gf603940726@city.com');
+    it('Should return DI from city by uniqueId', async () => {
+        const qsQuery = qs.stringify({
+            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'digitalIdentity' }],
+        });
+        try {
+            const res = await request.get('/digitalIdentities/e467333225@city.com').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(res.body.uniqueId).toBe('e467333225@city.com');
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
     });
 
-    it('Should return DI by roleId', async () => {
-        const res = await request.get('/digitalIdentities/role/e261976729@city');
-        expect(res.status).toBe(200);
-        expect(res.body.uniqueId).toBe('e261976729@city.com');
+    it('Shouldnt return DI from city by uniqueId', async () => {
+        const qsQuery = qs.stringify({
+            ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
+        });
+        try {
+            const res = await request.get('/digitalIdentities/e467333225@city.com').query(qsQuery);
+            expect(res.status).toBe(404);
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
+    it('Should return DI from city by roleId', async () => {
+        const qsQuery = qs.stringify({
+            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'digitalIdentity' }],
+        });
+        try {
+            const res = await request.get('/digitalIdentities/role/e467333225@city').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(res.body.uniqueId).toBe('e467333225@city.com');
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
+    it('Should return DIs with updated from filter', async () => {
+        try {
+            const dateFromQuery = '2021-06-06T07:25:45.363Z';
+            const qsQuery = qs.stringify({
+                ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+                updatedAt: dateFromQuery,
+                page: '1',
+            });
+            const res = await request.get('/digitalIdentities').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(res.body.every((di) => di.updatedAt >= dateFromQuery)).toBeTruthy();
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
     });
 });

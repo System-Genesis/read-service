@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 // import * as qs from 'qs';
 
 import EntityManager from './entity.manager';
-import { extractFilters } from './utils/filterQueries';
-import { optionalQueries, RuleFilter } from './utils/types';
+import { extractFilters } from './utils/queryParsers';
+import { RuleFilter } from '../shared/types';
+import { EntityQueries } from './utils/types';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
@@ -17,7 +18,7 @@ class EntityController {
         ruleFiltersQuery = typeof ruleFiltersQuery === 'string' ? JSON.parse(ruleFiltersQuery) : ruleFiltersQuery;
         // ruleFilters = ruleFilters ?
 
-        const userQueries: optionalQueries = extractFilters(_req.query as any);
+        const userQueries: EntityQueries = extractFilters(_req.query as any);
         return { isExpanded, pageNum, ruleFiltersQuery, userQueries };
     }
 

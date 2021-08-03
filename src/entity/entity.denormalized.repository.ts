@@ -5,7 +5,7 @@ import { EntityModel } from './entity.model';
 export default class EntityDenormalizedRepository {
     protected model: mongoose.Model<IEntity & mongoose.Document>;
 
-    private static REMOVE_DENORMALIZED_FIELDS = '-digitalIdentities';
+    private static DENORMALIZED_FIELDS = '-digitalIdentities';
 
     constructor() {
         this.model = EntityModel;
@@ -21,7 +21,7 @@ export default class EntityDenormalizedRepository {
             .skip(pageNumber * 10)
             .limit(10);
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         //
         return findQuery.lean().exec();
@@ -30,7 +30,7 @@ export default class EntityDenormalizedRepository {
     findOne(cond: any, excluders, expanded?: boolean): Promise<IEntity> {
         let findQuery = this.model.findOne({ cond, ...excluders });
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>().exec();
     }
@@ -52,7 +52,7 @@ export default class EntityDenormalizedRepository {
         const findQuery = this.model.findOne({ $or: cond, ...excluders });
         let foundRes = findQuery;
         if (!expanded) {
-            foundRes = foundRes.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            foundRes = foundRes.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return foundRes.lean<IEntity | null>().exec();
     }
@@ -60,7 +60,7 @@ export default class EntityDenormalizedRepository {
     findByUniqueId(uniqueId: string, excluders, expanded?: boolean): Promise<IEntity> {
         let findQuery = this.model.findOne({ 'digitalIdentities.uniqueId': uniqueId, ...excluders });
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>().exec();
     }
@@ -68,16 +68,16 @@ export default class EntityDenormalizedRepository {
     findByRole(roleID: string, excluders, expanded?: boolean): Promise<IEntity> {
         let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': roleID, ...excluders });
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>().exec();
     }
 
     findById(id_: string, excluders, expanded?: boolean) {
         // const idNum: number = Number(id_);
-        let findQuery = this.model.findOne({ id: id_, ...excluders }).select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+        let findQuery = this.model.findOne({ id: id_, ...excluders }).select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>().exec();
     }
@@ -85,7 +85,7 @@ export default class EntityDenormalizedRepository {
     findUnderGroup(groupID: string, excluders, expanded?: boolean): Promise<IEntity[]> {
         let findQuery = this.model.find({ 'digitalIdentities.role.directGroup': groupID, ...excluders });
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>().exec();
     }
@@ -93,7 +93,7 @@ export default class EntityDenormalizedRepository {
     findUnderHierarchy(hierarchyToQuery: string, excluders, expanded?: boolean): Promise<IEntity[]> {
         let findQuery = this.model.find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders });
         if (!expanded) {
-            findQuery = findQuery.select(EntityDenormalizedRepository.REMOVE_DENORMALIZED_FIELDS);
+            findQuery = findQuery.select(EntityDenormalizedRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>().exec();
     }

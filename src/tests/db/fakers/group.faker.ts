@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as faker from 'faker';
 import { mongo } from 'mongoose';
-import { IOrganizationGroup } from '../../../organizationGroup/organizationGroup.interface';
+import { IOrganizationGroup } from '../../../group/group.interface';
 
 import enums from '../../../config/enums';
 

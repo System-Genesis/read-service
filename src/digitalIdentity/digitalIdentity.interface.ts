@@ -1,3 +1,5 @@
+import IRole from '../role/role.interface';
+
 export default interface IDigitalIdentity {
     // DI's Basic information
     type: string;
@@ -8,5 +10,5 @@ export default interface IDigitalIdentity {
     createdAt: Date;
     updatedAt: Date;
     isRoleAttachable: boolean;
-    roleID: string;
+    role: IRole;
 }

@@ -137,10 +137,15 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entities with updated from filter', async () => {
         try {
-            const dateFromQuery = '2021-06-06T07:25:45.363Z';
-            const res = await request.get('/entities').query({ updateFrom: dateFromQuery, page: '1' });
+            const dateFromQuery = '2021-07-27';
+            const qsQuery = qs.stringify({
+                ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
+                updatedAt: dateFromQuery,
+                page: '1',
+            });
+            const res = await request.get('/entities').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.every((entity) => entity.updateFrom >= dateFromQuery)).toBeTruthy();
+            expect(res.body.every((entity) => entity.updatedAt >= dateFromQuery)).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }

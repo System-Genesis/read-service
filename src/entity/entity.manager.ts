@@ -4,9 +4,11 @@ import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import EntityDenormalizedRepository from './entity.denormalized.repository';
-import { extractUserQueries } from './utils/filterQueries';
-import { extractScopesQuery } from './utils/repository.scope.excluders';
-import { EntityTypes, RuleFilter, optionalQueries } from './utils/types';
+import { EntityQueries } from './utils/types';
+import { mapFieldQueryFunc, extractFilters } from './utils/queryParsers';
+import { extractUserQueries } from '../shared/filterQueries';
+import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import { EntityTypes, RuleFilter } from '../shared/types';
 
 import * as ApiErrors from '../core/ApiErrors';
 
@@ -17,7 +19,7 @@ class EntityManager {
 
     static entityDenormalizedRepository: EntityDenormalizedRepository = new EntityDenormalizedRepository();
 
-    static getDotFieldEntityDN = new Map<EntityTypes, any>([
+    static getDotField = new Map<EntityTypes, any>([
         [EntityTypes.ENTITY, ''],
         [EntityTypes.DI, 'digitalIdentities.'],
         [EntityTypes.ROLE, 'digitalIdentities.role.'],
@@ -32,9 +34,9 @@ class EntityManager {
         ['status', 'status'],
     ]);
 
-    static async getAll(userQueries: optionalQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
-        const transformedQuery = extractUserQueries(userQueries, EntityManager.mapFieldName);
+    static async getAll(userQueries: EntityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
+        const transformedQuery = extractUserQueries(userQueries, EntityManager.mapFieldName, mapFieldQueryFunc);
 
         const entities = await EntityManager.entityDenormalizedRepository.find(transformedQuery, scopeExcluder, expanded, pageNum, 10);
 
@@ -42,7 +44,7 @@ class EntityManager {
     }
 
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const entity = await EntityManager.entityDenormalizedRepository.findById(id, scopeExcluder, expanded);
         if (!entity) {
             throw new ApiErrors.NotFoundError();
@@ -51,13 +53,13 @@ class EntityManager {
     }
 
     static async findByIdentifier(identifier: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const entities = await EntityManager.entityDenormalizedRepository.findByIdentifier(identifier, scopeExcluder, expanded);
         return entities;
     }
 
     static async findByRole(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntity = EntityManager.entityDenormalizedRepository.findByRole(roleId, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
@@ -66,7 +68,7 @@ class EntityManager {
     }
 
     static async findByDigitalIdentity(uniqueId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntity = await EntityManager.entityDenormalizedRepository.findByUniqueId(uniqueId, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
@@ -75,13 +77,13 @@ class EntityManager {
     }
 
     static async findUnderGroup(groupID: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntities = await EntityManager.entityDenormalizedRepository.findUnderGroup(groupID, scopeExcluder, expanded);
         return foundEntities;
     }
 
     static async findUnderHierarchy(hierarchy: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
-        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotFieldEntityDN);
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntities = await EntityManager.entityDenormalizedRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded);
         return foundEntities;
     }

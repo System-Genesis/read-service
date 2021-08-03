@@ -2,7 +2,7 @@ import { Router } from 'express';
 import EntityRouter from '../entity/entity.router';
 import DigitalIdentityRouter from '../digitalIdentity/digitalIdentity.router';
 import RoleRouter from '../role/role.router';
-import GroupRouter from '../organizationGroup/organizationGroup.router';
+import GroupRouter from '../group/group.router';
 
 const appRouter = Router();
 

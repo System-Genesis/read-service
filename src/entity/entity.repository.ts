@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import * as mongoose from 'mongoose';
 import IEntity from './entity.interface';
 import { EntityModel } from './entity.model';
@@ -5,21 +6,43 @@ import { EntityModel } from './entity.model';
 export default class EntityRepository {
     protected model: mongoose.Model<IEntity & mongoose.Document>;
 
+    private static DENORMALIZED_FIELDS = '-digitalIdentities';
+
     constructor() {
         this.model = EntityModel;
     }
 
-    find(queries: any, pageNumber: number, limit: number): Promise<IEntity[]> {
-        return this.model.find(queries, { skip: 10, limit: 5 }).lean<IEntity[]>().exec();
+    convertExcludedFields = (fieldsToDelete: string[]): string => {
+        return `-${fieldsToDelete.join(' -')}`;
+    };
+
+    static createPagniationQuery = (_id: string) => {
+        return {
+            _id: { $gt: Types.ObjectId(_id) },
+        };
+    };
+
+    find(queries: any, scopeQuery: any, expanded: boolean, page: number | string, pageSize: number): Promise<IEntity[]> {
+        let findQuery: mongoose.Query<(IEntity & mongoose.Document<any, any>)[], IEntity & mongoose.Document<any, any>, {}>;
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({ ...queries, ...scopeQuery })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize);
+        } else {
+            const pageQuery = EntityRepository.createPagniationQuery(page);
+            findQuery = this.model.find({ ...queries, ...pageQuery, ...scopeQuery }).limit(pageSize);
+        }
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity[]>().exec();
     }
 
-    findOne(cond?: any, populateOptions?: string | Object, select?: string): Promise<IEntity> {
-        let findQuery = this.model.findOne(cond);
-        if (populateOptions) {
-            findQuery = findQuery.populate(populateOptions);
-        }
-        if (select) {
-            findQuery = findQuery.select(select);
+    findOne(cond: any, excluders, expanded: boolean): Promise<IEntity> {
+        let findQuery = this.model.findOne({ cond, ...excluders });
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>().exec();
     }
@@ -32,7 +55,7 @@ export default class EntityRepository {
     //     return this.find({ $or: cond });
     // }
 
-    findByIdentifier(identifier: string, excluders, populated?: boolean): Promise<IEntity | null> {
+    findByIdentifier(identifier: string, excluders, expanded: boolean): Promise<IEntity | null> {
         const identifierFields = ['personalNumber', 'identityCard', 'userID'];
         const cond = identifierFields.map((key) => {
             return { [key]: { $in: [identifier] } };
@@ -40,39 +63,68 @@ export default class EntityRepository {
 
         const findQuery = this.model.findOne({ $or: cond, ...excluders });
         let foundRes = findQuery;
-        if (populated) {
-            foundRes = findQuery
-                .populate({
-                    path: 'digitalIdentities',
-                    populate: {
-                        path: 'role',
-                    },
-                })
-                .lean<IEntity | null>();
+        if (!expanded) {
+            foundRes = foundRes.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return foundRes.exec();
+        return foundRes.lean<IEntity | null>().exec();
     }
 
-    findById(_id: string, excluders, populated?: boolean) {
-        const findQuery = this.model.findOne({ id: _id, ...excluders });
-        let foundRes = findQuery;
-        if (populated) {
-            foundRes = findQuery.populate({
-                path: 'digitalIdentities',
-                populate: {
-                    path: 'role',
-                },
-            });
+    findByUniqueId(uniqueId: string, excluders, expanded: boolean): Promise<IEntity> {
+        let findQuery = this.model.findOne({ 'digitalIdentities.uniqueId': uniqueId, ...excluders });
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return foundRes.lean().exec();
+        return findQuery.lean<IEntity>().exec();
     }
 
-    findByIds(_ids: string[]): Promise<IEntity[]> {
-        const findQuery = this.model.find({ id: { $in: _ids } });
+    findByRole(roleID: string, excluders, expanded: boolean): Promise<IEntity> {
+        let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': roleID, ...excluders });
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity>().exec();
+    }
+
+    findById(id_: string, excluders, expanded: boolean) {
+        // const idNum: number = Number(id_);
+        let findQuery = this.model.findOne({ id: id_, ...excluders }).select(EntityRepository.DENORMALIZED_FIELDS);
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity>().exec();
+    }
+
+    findUnderGroup(groupID: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IEntity[]> {
+        let findQuery: mongoose.Query<(IEntity & mongoose.Document<any, any>)[], IEntity & mongoose.Document<any, any>, {}>;
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({ 'digitalIdentities.role.directGroup': groupID, ...excluders })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize);
+        } else {
+            const pageQuery = EntityRepository.createPagniationQuery(page);
+            findQuery = this.model.find({ 'digitalIdentities.role.directGroup': groupID, ...excluders, ...pageQuery }).limit(pageSize);
+        }
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
         return findQuery.lean<IEntity[]>().exec();
     }
 
-    findUnderHierarchy(hierarchy: string): Promise<IEntity[]> {
-        return this.model.find({ hierarchy }).lean<IEntity[]>().exec();
+    findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IEntity[]> {
+        let findQuery: mongoose.Query<(IEntity & mongoose.Document<any, any>)[], IEntity & mongoose.Document<any, any>, {}>;
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize);
+        } else {
+            const pageQuery = EntityRepository.createPagniationQuery(page);
+            findQuery = this.model.find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery }).limit(pageSize);
+        }
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity[]>().exec();
     }
 }

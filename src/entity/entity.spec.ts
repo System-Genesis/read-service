@@ -1,13 +1,18 @@
+/* eslint-disable no-await-in-loop */
 import { query } from 'express';
 /* eslint-disable no-restricted-syntax */
 import * as mongoose from 'mongoose';
 import { Response } from 'express';
 import * as supertest from 'supertest';
 import * as qs from 'qs';
-// import EntityController from './entity.controller';
+// import allEntitiesDB from '../../mongo-seed/entityDNs.json';
+// import EntityControlleimportr from './entity.controller';
 // import { EntityModel } from './entity.model';
 
 import Server from '../express/server';
+import EntityDenormalizedModel from './denormal/entity.denormalized.model';
+
+const allEntitiesDB = require('../../mongo-seed/entityDNs');
 
 const server = new Server(8000);
 server.start();
@@ -87,52 +92,89 @@ describe('Entity Unit Tests', () => {
     it('Should return entities under hierarchy string', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            limit: '10',
             expanded: true,
         });
         const encodedHierarchy = encodeURIComponent('wallmart/nobis/sit');
         const res = await request.get(`/entities/hierarchy/${encodedHierarchy}`).query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.entities.length).toBeGreaterThan(0);
     });
 
     it('Should return entities under group id', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            limit: '10',
             expanded: true,
         });
         const res = await request.get('/entities/group/2ew4r3d3d').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.entities.length).toBeGreaterThan(0);
     });
 
     it('Should return entities with entity type filter', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
             entityType: 'digimon',
-            page: '1',
+            limit: '10',
             expanded: true,
         });
         const res = await request.get('/entities').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.every((entity) => entity.entityType === 'digimon')).toBeTruthy();
+        expect(res.body.entities.every((entity) => entity.entityType === 'digimon')).toBeTruthy();
     });
 
     it('Should return entities with custom filter expanded', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
             entityType: 'digimon',
-            page: '1',
+            limit: '10',
             expanded: true,
         });
         const res = await request.get('/entities').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.every((entity) => entity.entityType === 'digimon')).toBeTruthy();
-        expect(res.body.every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
-        // expect(
-        //     res.body.every((entity) => {
-        //         return entity.digitalIdentities.every((DI) => DI.role !== undefined);
-        //     }),
-        // ).toBeTruthy();
+        expect(res.body.entities.length).toBe(10);
+        expect(res.body.entities.every((entity) => entity.entityType === 'digimon')).toBeTruthy();
+        expect(res.body.entities.every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
+    });
+
+    it('Should return first page of all digimon entities', async () => {
+        const qsQuery = qs.stringify({
+            ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            entityType: 'digimon',
+            limit: '10',
+            expanded: true,
+        });
+        const res = await request.get('/entities').query(qsQuery);
+        expect(res.status).toBe(200);
+        expect(res.body.entities.every((entity) => entity.entityType === 'digimon')).toBeTruthy();
+        expect(res.body.entities.every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
+    });
+
+    it('Should iterate through all pages of all entities', async () => {
+        try {
+            let page;
+            let foundEntities = [];
+            while (true) {
+                const qsQuery = qs.stringify({
+                    ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+                    page,
+                    limit: '200',
+                    expanded: true,
+                });
+                const res = await request.get('/entities').query(qsQuery);
+                expect(res.status).toBe(200);
+                foundEntities = foundEntities.concat(res.body.entities);
+                const { nextPage } = res.body;
+                if (res.body.entities.length === 0 || !nextPage) {
+                    break;
+                }
+                page = nextPage;
+            }
+            expect(foundEntities.length).toBe(allEntitiesDB.length);
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
     });
 
     it('Should return entities with updated from filter', async () => {
@@ -142,10 +184,11 @@ describe('Entity Unit Tests', () => {
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
                 updatedAt: dateFromQuery,
                 page: '1',
+                limit: '10',
             });
             const res = await request.get('/entities').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.every((entity) => entity.updatedAt >= dateFromQuery)).toBeTruthy();
+            expect(res.body.entities.every((entity) => entity.updatedAt >= dateFromQuery)).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -158,17 +201,14 @@ describe('Entity Unit Tests', () => {
                     ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
                     entityType: 'digimon',
                     page: '1',
+                    limit: '10',
                     expanded: true,
                 }),
             );
             expect(res.status).toBe(200);
-            expect(res.body.every((entity) => entity.digitalIdentities.every((di) => di.source !== 'city_name'))).toBeTruthy();
+            expect(res.body.entities.every((entity) => entity.digitalIdentities.every((di) => di.source !== 'city_name'))).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
     });
-    // it('Should return user by digitalIdentity', async () => {
-    //     const res = await request.get('/entities/digitalIdentity/e261976729@city.com');
-    //     expect(res.body.digitalIdentities).toContainEqual(expect.objectContaining({ personalNumber: '8257994' }));
-    // });
 });

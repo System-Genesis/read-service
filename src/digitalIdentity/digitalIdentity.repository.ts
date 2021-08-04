@@ -11,7 +11,7 @@ export default class DigitalIdentityRepository {
         this.model = DigitalIdentityModel;
     }
 
-    findByQuery(query: any, excluders, expanded?: boolean) {
+    findByQuery(query: any, excluders, expanded?: boolean): Promise<IDigitalIdentity[] | null> {
         let findQuery = this.model.find({ query, ...excluders });
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
@@ -27,7 +27,7 @@ export default class DigitalIdentityRepository {
         return findQuery.lean<IDigitalIdentity>().exec();
     }
 
-    findByRoleId(roleId: string, excluders, expanded?: boolean) {
+    findByRoleId(roleId: string, excluders, expanded?: boolean): Promise<IDigitalIdentity | null> {
         let findQuery = this.model.findOne({ 'role.roleId': roleId, ...excluders });
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);

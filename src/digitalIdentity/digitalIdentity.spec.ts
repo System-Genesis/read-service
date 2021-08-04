@@ -61,6 +61,22 @@ describe('Digital Identity Tests', () => {
         }
     });
 
+    it('Should return all DIs expanded', async () => {
+        try {
+            const qsQuery = qs.stringify({
+                ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+                page: '1',
+                expanded: true,
+            });
+            const res = await request.get('/digitalIdentities').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(res.body.length).toBeGreaterThan(0);
+            expect(res.body.some((di) => di.role !== undefined)).toBeTruthy();
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
     it('Should return DIs with updated from filter', async () => {
         try {
             const dateFromQuery = '2021-06-06T07:25:45.363Z';
@@ -71,6 +87,7 @@ describe('Digital Identity Tests', () => {
             });
             const res = await request.get('/digitalIdentities').query(qsQuery);
             expect(res.status).toBe(200);
+            expect(res.body.length).toBeGreaterThan(0);
             expect(res.body.every((di) => di.updatedAt >= dateFromQuery)).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();

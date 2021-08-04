@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node --async-stack-traces ./dist/index.js",
     "dev": "npm run build && npm start",
-    "test-entities": "jest  --verbose --runInBand -- src/entity/entity.spec.ts",
+    "test-entities": "jest  --verbose --runInBand  -- src/entity/entity.spec.ts",
     "test-digitalIdentities": "jest  --verbose --runInBand -- src/digitalIdentity/digitalIdentity.spec.ts",
     "test-roles": "jest  --verbose --runInBand -- src/role/role.spec.ts",
     "test-groups": "jest  --verbose --runInBand -- src/group/group.spec.ts",

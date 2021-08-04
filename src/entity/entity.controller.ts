@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-// import * as qs from 'qs';
+import { Types } from 'mongoose';
 
 import EntityManager from './entity.manager';
 import { extractFilters } from './utils/queryParsers';
@@ -10,22 +10,22 @@ class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
     static extractEntityQueries(_req: Request) {
-        const { expanded, page } = _req.query as { [key: string]: string };
+        const { expanded, page, limit } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const pageNum = parseInt(page, 10);
-
+        const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
+        let pageSize = parseInt(limit, 10);
+        pageSize = pageSize < 1000 ? pageSize : 1000;
         let ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
         ruleFiltersQuery = typeof ruleFiltersQuery === 'string' ? JSON.parse(ruleFiltersQuery) : ruleFiltersQuery;
-        // ruleFilters = ruleFilters ?
 
         const userQueries: EntityQueries = extractFilters(_req.query as any);
-        return { isExpanded, pageNum, ruleFiltersQuery, userQueries };
+        return { isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { isExpanded, pageNum, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
-        const entities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageNum);
-        res.status(200).send(entities);
+        const { isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
+        const { entities, nextPage } = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send({ entities, nextPage });
     }
 
     static async getById(_req: Request, res: Response) {
@@ -58,19 +58,19 @@ class EntityController {
     }
 
     static async getUnderGroup(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
+        const { isExpanded, pageId, pageSize, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { groupId } = _req.params as { [key: string]: string };
 
-        const entities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded);
-        res.status(200).send(entities);
+        const { entities, nextPage } = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send({ entities, nextPage });
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
+        const { isExpanded, pageId, pageSize, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
 
-        const entities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded);
-        res.status(200).send(entities);
+        const { entities, nextPage } = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send({ entities, nextPage });
     }
 }
 

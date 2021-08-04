@@ -25,7 +25,7 @@ export default {
     // the first element is the default value
     SERVICE_TYPE: { A: 'A', B: 'B', C: 'C', D: 'D', E: 'E', F: 'F', G: 'G', H: 'H' },
 
-    DATA_SOURCE: {
+    SOURCE: {
         aka: 'aka',
         es: 'es_name',
         ads: 'ads_name',

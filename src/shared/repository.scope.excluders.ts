@@ -13,6 +13,7 @@ export const mapFieldQuery = new Map<ScopeFields, any>([
     [ScopeFields.HIERARCHY, hierarchiesExcluder],
     [ScopeFields.SOURCE, otherFieldsExcluder],
 ]);
+
 export const extractScopesQuery = (excluders: RuleFilter[], mapField) => {
     const query = {};
     excluders.forEach((excluder) => {

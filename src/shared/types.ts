@@ -15,8 +15,3 @@ export type RuleFilter = {
     values: string[];
     entityType: EntityTypes;
 };
-
-export const enum QueryFields {
-    IDS = 'ids',
-    DATE = 'date',
-}

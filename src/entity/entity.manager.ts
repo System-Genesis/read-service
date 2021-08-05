@@ -4,7 +4,7 @@ import IDenormalizedEntity from './denormal/entity.denormalized.interface';
 import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
-import { EntityQueries } from './utils/types';
+import { EntityQueries, RequestQueryFields } from './utils/types';
 import { mapFieldQueryFunc } from './utils/queryParsers';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/repository.scope.excluders';
@@ -42,7 +42,7 @@ class EntityManager {
         pageSize: number,
     ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const transformedQuery = extractUserQueries(userQueries, EntityManager.mapFieldName, mapFieldQueryFunc);
+        const transformedQuery = extractUserQueries<EntityQueries>(userQueries, EntityManager.mapFieldName, mapFieldQueryFunc);
 
         const entities = await EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, page, pageSize);
         const nextPage = entities.length ? entities[entities.length - 1]._id : null;

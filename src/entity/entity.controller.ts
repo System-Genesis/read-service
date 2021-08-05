@@ -2,23 +2,18 @@ import { Request, Response } from 'express';
 import { Types } from 'mongoose';
 
 import EntityManager from './entity.manager';
-import { extractFilters } from './utils/queryParsers';
-import { RuleFilter } from '../shared/types';
-import { EntityQueries } from './utils/types';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
     static extractEntityQueries(_req: Request) {
-        const { expanded, page, limit } = _req.query as { [key: string]: string };
+        const { expanded, page, limit, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
         const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
         let pageSize = parseInt(limit, 10);
         pageSize = pageSize < 1000 ? pageSize : 1000;
-        let ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
-        ruleFiltersQuery = typeof ruleFiltersQuery === 'string' ? JSON.parse(ruleFiltersQuery) : ruleFiltersQuery;
+        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
 
-        const userQueries: EntityQueries = extractFilters(_req.query as any);
         return { isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries };
     }
 

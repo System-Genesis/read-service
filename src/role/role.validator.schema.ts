@@ -1,65 +1,60 @@
 import * as BaseJoi from 'joi';
 import JoiDate from '@joi/date';
 
-const Joi = BaseJoi.extend(JoiDate);
+import enums from '../config/enums';
 
-const expandedTypes = ['true', 'false'];
+const Joi = BaseJoi.extend(JoiDate);
 
 const getRequestBaseSchema = Joi.object({
     query: {
-        expanded: Joi.string().valid(...expandedTypes),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
     body: {},
 });
 
-export const getEntitiesByRole = getRequestBaseSchema.keys({
+export const getRolesByCustomFilters = getRequestBaseSchema.keys({
+    query: {
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
+        page: Joi.string(),
+        limit: Joi.string().required(),
+    },
+});
+
+export const getRoleById = getRequestBaseSchema.keys({
     params: {
         roleId: Joi.string().required(),
     },
 });
 
-export const getEntitiesByDigitalIdentity = getRequestBaseSchema.keys({
+export const getRoleByDIUniqueId = getRequestBaseSchema.keys({
     params: {
         digitalIdentityUniqueId: Joi.string().required(),
     },
 });
 
-export const getEntitiesById = getRequestBaseSchema.keys({
-    params: {
-        id: Joi.string().required(),
+export const getRolesByGroupId = getRequestBaseSchema.keys({
+    query: {
+        page: Joi.string(),
+        limit: Joi.string().required(),
+        direct: Joi.boolean(),
+        expanded: Joi.boolean(),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
-});
-
-export const getEntitiesByIdentifier = getRequestBaseSchema.keys({
-    params: {
-        identifier: Joi.string().required(),
-    },
-});
-
-export const getEntitiesByGroup = getRequestBaseSchema.keys({
     params: {
         groupId: Joi.string().required(),
     },
 });
 
-export const getEntitiesByHierarchy = getRequestBaseSchema.keys({
+export const getRolesByHierarchy = getRequestBaseSchema.keys({
+    query: {
+        page: Joi.string(),
+        limit: Joi.string().required(),
+        direct: Joi.boolean(),
+        expanded: Joi.boolean(),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+    },
     params: {
         hierarchy: Joi.string().required(),
-    },
-});
-
-export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
-    query: {
-        // ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()).required(),
-        ruleFilters: Joi.array(),
-        // userFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
-        expanded: Joi.string().valid(...expandedTypes),
-        ids: Joi.alternatives().try(Joi.array(), Joi.string()),
-        rank: Joi.string(),
-        entityType: Joi.string(),
-        digitalIdentitySource: Joi.string(),
-        status: Joi.string(),
-        updateFrom: Joi.date().format('YYYY-MM-DD').utc(),
-        page: Joi.string().required(),
     },
 });

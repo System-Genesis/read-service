@@ -38,12 +38,24 @@ export const getEntitiesByIdentifier = getRequestBaseSchema.keys({
 });
 
 export const getEntitiesByGroup = getRequestBaseSchema.keys({
+    query: {
+        page: Joi.string(),
+        limit: Joi.number().max(1000),
+        expanded: Joi.string().valid(...expandedTypes),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+    },
     params: {
         groupId: Joi.string().required(),
     },
 });
 
 export const getEntitiesByHierarchy = getRequestBaseSchema.keys({
+    query: {
+        page: Joi.string(),
+        limit: Joi.number().max(1000),
+        expanded: Joi.string().valid(...expandedTypes),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+    },
     params: {
         hierarchy: Joi.string().required(),
     },
@@ -61,6 +73,7 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         digitalIdentitySource: Joi.string(),
         status: Joi.string(),
         updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
-        page: Joi.string().required(),
+        page: Joi.string(),
+        limit: Joi.number().max(1000),
     },
 });

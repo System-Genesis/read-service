@@ -66,6 +66,7 @@ describe('Digital Identity Tests', () => {
             const qsQuery = qs.stringify({
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
                 page: '1',
+                limit: '10',
                 expanded: true,
             });
             const res = await request.get('/digitalIdentities').query(qsQuery);

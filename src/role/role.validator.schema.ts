@@ -17,11 +17,11 @@ export const getRolesByCustomFilters = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
         page: Joi.string(),
-        limit: Joi.string().required(),
+        limit: Joi.number().max(1000),
     },
 });
 
-export const getRoleById = getRequestBaseSchema.keys({
+export const getRoleByRoleId = getRequestBaseSchema.keys({
     params: {
         roleId: Joi.string().required(),
     },
@@ -36,7 +36,7 @@ export const getRoleByDIUniqueId = getRequestBaseSchema.keys({
 export const getRolesByGroupId = getRequestBaseSchema.keys({
     query: {
         page: Joi.string(),
-        limit: Joi.string().required(),
+        limit: Joi.number().max(1000),
         direct: Joi.boolean(),
         expanded: Joi.boolean(),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
@@ -49,7 +49,7 @@ export const getRolesByGroupId = getRequestBaseSchema.keys({
 export const getRolesByHierarchy = getRequestBaseSchema.keys({
     query: {
         page: Joi.string(),
-        limit: Joi.string().required(),
+        limit: Joi.number().max(1000),
         direct: Joi.boolean(),
         expanded: Joi.boolean(),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),

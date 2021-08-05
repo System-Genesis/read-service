@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { Types } from 'mongoose';
 import IRole from './role.interface';
 import { RoleModel } from './role.model';
 
@@ -9,11 +10,11 @@ export default class RoleRepository {
         this.model = RoleModel;
     }
 
-    // ancestorsToHierarchy = (ancestors: any[], excluders) => {
-    //     const hierarchyIds = ancestors.map((ancestor) => ancestor.id);
-    //     const hierarchy = ancestors.map((ancestor) => ancestor.name).join('/');
-    //     return { hierarchy, hierarchyIds };
-    // };
+    static createPagniationQuery = (_id: string) => {
+        return {
+            _id: { $gt: Types.ObjectId(_id) },
+        };
+    };
 
     findByQuery(query: any, excluders) {
         const findQuery = this.model.find({ query, ...excluders });
@@ -43,51 +44,18 @@ export default class RoleRepository {
         return findQuery.lean().exec();
     }
 
-    // async findByRoleId(roleId: string) {
-    //     const rolesWithAncestors = await this.model
-    //         .aggregate([
-    //             { $match: { roleId } },
-    //             {
-    //                 $graphLookup: {
-    //                     from: 'groups',
-    //                     startWith: '$directGroup',
-    //                     connectFromField: 'directGroup',
-    //                     connectToField: 'id',
-    //                     as: 'ancestors',
-    //                     maxDepth: 100,
-    //                 },
-    //             },
-    //         ])
-    //         .exec();
+    findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IRole[]> {
+        let findQuery: mongoose.Query<(IRole & mongoose.Document<any, any>)[], IRole & mongoose.Document<any, any>, {}>;
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize);
+        } else {
+            const pageQuery = RoleRepository.createPagniationQuery(page);
+            findQuery = this.model.find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery }).limit(pageSize);
+        }
 
-    //     if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
-    //     let [roleWithAncestors] = rolesWithAncestors;
-    //     const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
-    //     roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, hierarchyIds });
-    //     return roleWithAncestors;
-    // }
-
-    // async findByDigitalIdentity(uniqueId: string) {
-    //     // let found = this.model.findOne({ roleId }).exec();
-    //     const rolesWithAncestors = await this.model
-    //         .aggregate([
-    //             { $match: { digitalIdentityUniqueId: uniqueId } },
-    //             {
-    //                 $graphLookup: {
-    //                     from: 'groups',
-    //                     startWith: '$directGroup',
-    //                     connectFromField: 'directGroup',
-    //                     connectToField: 'id',
-    //                     as: 'ancestors',
-    //                     maxDepth: 100,
-    //                 },
-    //             },
-    //         ])
-    //         .exec();
-    //     if (!rolesWithAncestors || rolesWithAncestors.length !== 1) throw new Error();
-    //     let [roleWithAncestors] = rolesWithAncestors;
-    //     const { hierarchy, hierarchyIds } = this.ancestorsToHierarchy(roleWithAncestors.ancestors);
-    //     roleWithAncestors = Object.assign(roleWithAncestors, { hierarchy, hierarchyIds });
-    //     return roleWithAncestors;
-    // }
+        return findQuery.lean<IRole[]>().exec();
+    }
 }

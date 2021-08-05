@@ -46,6 +46,14 @@ class RoleController {
         const foundRoles = await RoleManager.findByGroup(_req.params.groupId, ruleFiltersQuery, isDirect, pageNum);
         res.status(200).send(foundRoles);
     }
+
+    static async getUnderHierarchy(_req: Request, res: Response) {
+        const { isExpanded, pageId, pageSize, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
+        const { hierarchy } = _req.params as { [key: string]: string };
+
+        const { entities, nextPage } = await RoleManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send({ entities, nextPage });
+    }
 }
 
 export default RoleController;

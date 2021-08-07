@@ -6,8 +6,8 @@ export const extractFilters = (queryFilters) => {
     return extractedFilters;
 };
 
-const updatedFromQuery = (updatedFrom: Date) => {
-    return { $gte: updatedFrom };
+const updatedFromQuery = (updatedFrom: string) => {
+    return { $gte: new Date(updatedFrom) };
 };
 
 const basicQuery = (value) => {

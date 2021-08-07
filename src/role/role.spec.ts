@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import * as mongoose from 'mongoose';
 import { Response } from 'express';
@@ -7,6 +8,7 @@ import * as qs from 'qs';
 // import { EntityModel } from './entity.model';
 
 import Server from '../express/server';
+const allRolesDB = require('../../mongo-seed/roleDNs');
 
 const server = new Server(8000);
 server.start();
@@ -66,29 +68,32 @@ describe('Role Tests', () => {
     it('Should return role by direct groupId', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
+            limit: '10',
             direct: true,
         });
         const res = await request.get('/roles/group/19ew4r3d3d').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.roles.length).toBeGreaterThan(0);
     });
 
     it('Should return role under groupId', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
+            limit: '10',
         });
         const res = await request.get('/roles/group/1ew4r3d3d').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.roles.length).toBeGreaterThan(0);
     });
 
     it('Shouldnt return any role under groupId from city', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'role' }],
+            limit: '10',
         });
-        const res = await request.get('/roles/group/1ew4r3d3d').query(qsQuery);
+        const res = await request.get('/roles/group/14ew4r3d3d').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.roles.length).toBe(0);
     });
 
     it('Should return roles with updated from filter', async () => {
@@ -96,12 +101,38 @@ describe('Role Tests', () => {
             const dateFromQuery = '2021-06-06T07:25:45.363Z';
             const qsQuery = qs.stringify({
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
-                updatedAt: dateFromQuery,
+                updatedFrom: dateFromQuery,
+                limit: '10',
                 page: '1',
             });
             const res = await request.get('/roles').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.every((role) => role.updatedAt >= dateFromQuery)).toBeTruthy();
+            expect(res.body.roles.every((role) => role.updatedAt >= dateFromQuery)).toBeTruthy();
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
+    it('Should iterate through all pages of all roles', async () => {
+        try {
+            let page;
+            let foundRoles = [];
+            while (true) {
+                const qsQuery = qs.stringify({
+                    ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
+                    page,
+                    limit: '100',
+                });
+                const res = await request.get('/roles').query(qsQuery);
+                expect(res.status).toBe(200);
+                foundRoles = foundRoles.concat(res.body.roles);
+                const { nextPage } = res.body;
+                if (res.body.roles.length === 0 || !nextPage) {
+                    break;
+                }
+                page = nextPage;
+            }
+            expect(foundRoles.length).toBe(allRolesDB.length);
         } catch (err) {
             expect(!err).toBeTruthy();
         }

@@ -1,8 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import RoleRepository from './role.repository';
 import * as ApiErrors from '../core/ApiErrors';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import pageWrapper from '../shared/pageWrapper';
 import { roleQueries } from './utils/types';
 import { mapFieldQueryFunc } from './utils/queryParsers';
 import { EntityTypes, RuleFilter } from '../shared/types';
@@ -14,11 +16,12 @@ class RoleManager {
 
     static mapFieldName = new Map<string, string>([['updatedFrom', 'updatedAt']]);
 
-    static async getAll(userQueries: roleQueries, scopeExcluders: RuleFilter[], pageNum: number = 0) {
+    static async getAll(userQueries: roleQueries, scopeExcluders: RuleFilter[], page: number | string, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         const transformedQuery = extractUserQueries(userQueries, RoleManager.mapFieldName, mapFieldQueryFunc);
-        const foundGroups = await RoleManager.roleRepository.findByQuery(transformedQuery, scopeExcluder);
-        return foundGroups;
+        const roles = await RoleManager.roleRepository.findByQuery(transformedQuery, scopeExcluder, page, pageSize);
+        const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
+        return { roles: paginatedResults, nextPage };
     }
 
     static async findByRoleId(roleId: string, scopeExcluders: RuleFilter[]) {
@@ -39,20 +42,23 @@ class RoleManager {
         return foundRole;
     }
 
-    static async findByGroup(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, pageNum: number) {
+    static async findByGroup(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number | string, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        let foundRole;
+        let roles;
         if (direct) {
-            foundRole = await RoleManager.roleRepository.findInGroupId(groupId, scopeExcluder);
+            roles = await RoleManager.roleRepository.findInGroupId(groupId, scopeExcluder, page, pageSize);
         } else {
-            foundRole = await RoleManager.roleRepository.findUnderGroupId(groupId, scopeExcluder);
+            roles = await RoleManager.roleRepository.findUnderGroupId(groupId, scopeExcluder, page, pageSize);
         }
-        return foundRole;
+        const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
+        return { roles: paginatedResults, nextPage };
     }
 
-    // static async findUnderHierarchy(groupId: string, direct: boolean = true, pageNum: number) {
-    //     const foundRole = await RoleManager.roleRepository.findByGroupId(groupId);
-    //     return foundRole;
-    // }
+    static async findUnderHierarchy(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number | string, pageSize: number) {
+        const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
+        const roles = await RoleManager.roleRepository.findUnderHierarchy(groupId, scopeExcluder, page, pageSize);
+        const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
+        return { roles: paginatedResults, nextPage };
+    }
 }
 export default RoleManager;

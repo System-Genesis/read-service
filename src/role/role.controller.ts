@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Types } from 'mongoose';
 // import * as qs from 'qs';
 import { extractFilters } from './utils/queryParsers';
 import { RuleFilter } from '../shared/types';
@@ -10,22 +11,22 @@ class RoleController {
     static roleManager: RoleManager = new RoleManager();
 
     static extractRoleQueries(_req: Request) {
-        const { page, direct } = _req.query as { [key: string]: string };
-        const pageNum = parseInt(page, 10);
+        const { page, limit, ruleFilters, direct, ...userQueries } = _req.query as { [key: string]: string };
+        const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
+        let pageSize = parseInt(limit, 10);
+        pageSize = pageSize < 1000 ? pageSize : 1000;
 
-        let ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
-        ruleFiltersQuery = typeof ruleFiltersQuery === 'string' ? JSON.parse(ruleFiltersQuery) : ruleFiltersQuery;
-        const isDirect = direct === 'true';
+        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
 
-        const userQueries: roleQueries = extractFilters(_req.query as any);
-        return { isDirect, pageNum, ruleFiltersQuery, userQueries };
+        return { isDirect, pageId, pageSize, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { pageNum, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
-        const userQueries: roleQueries = extractFilters(_req.query as any);
-        const groups = await RoleManager.getAll(userQueries, ruleFiltersQuery);
-        res.status(200).send(groups);
+        const { pageId, pageSize, ruleFiltersQuery, userQueries } = RoleController.extractRoleQueries(_req);
+
+        const resRoles = await RoleManager.getAll(userQueries, ruleFiltersQuery, pageId, pageSize);
+        res.status(200).send(resRoles);
     }
 
     static async getByRoleId(_req: Request, res: Response) {
@@ -42,17 +43,18 @@ class RoleController {
     }
 
     static async getByGroupId(_req: Request, res: Response) {
-        const { isDirect, pageNum, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
-        const foundRoles = await RoleManager.findByGroup(_req.params.groupId, ruleFiltersQuery, isDirect, pageNum);
-        res.status(200).send(foundRoles);
+        const { isDirect, pageId, pageSize, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
+
+        const resRoles = await RoleManager.findByGroup(_req.params.groupId, ruleFiltersQuery, isDirect, pageId, pageSize);
+        res.status(200).send(resRoles);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
-        const { isExpanded, pageId, pageSize, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
+        const { isDirect, pageId, pageSize, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
 
-        const { entities, nextPage } = await RoleManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
-        res.status(200).send({ entities, nextPage });
+        const resRoles = await RoleManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isDirect, pageId, pageSize);
+        res.status(200).send(resRoles);
     }
 }
 

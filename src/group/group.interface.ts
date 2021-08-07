@@ -6,6 +6,7 @@ interface IGroup extends Document {
     // OG's Basic information
     id: string;
     name: string;
+    source: string;
     ancestors: string[];
     hierarchy: string;
     akaUnit: string;

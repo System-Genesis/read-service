@@ -8,6 +8,7 @@ import { EntityQueries, RequestQueryFields } from './utils/types';
 import { mapFieldQueryFunc } from './utils/queryParsers';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 import * as ApiErrors from '../core/ApiErrors';
@@ -45,8 +46,8 @@ class EntityManager {
         const transformedQuery = extractUserQueries<EntityQueries>(userQueries, EntityManager.mapFieldName, mapFieldQueryFunc);
 
         const entities = await EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, page, pageSize);
-        const nextPage = entities.length ? entities[entities.length - 1]._id : null;
-        return { entities, nextPage };
+        const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
+        return { entities: paginatedResults, nextPage };
     }
 
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
@@ -60,8 +61,8 @@ class EntityManager {
 
     static async findByIdentifier(identifier: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const entities = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, expanded);
-        return entities;
+        const foundEntity = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, expanded);
+        return foundEntity;
     }
 
     static async findByRole(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
@@ -85,8 +86,8 @@ class EntityManager {
     static async findUnderGroup(groupID: string, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number | string, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const entities = await EntityManager.entityRepository.findUnderGroup(groupID, scopeExcluder, expanded, page, pageSize);
-        const nextPage = entities.length ? entities[entities.length - 1]._id : null;
-        return { entities, nextPage };
+        const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
+        return { entities: paginatedResults, nextPage };
     }
 
     static async findUnderHierarchy(
@@ -98,8 +99,8 @@ class EntityManager {
     ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const entities = await EntityManager.entityRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
-        const nextPage = entities.length ? entities[entities.length - 1]._id : null;
-        return { entities, nextPage };
+        const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
+        return { entities: paginatedResults, nextPage };
     }
 }
 

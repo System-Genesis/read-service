@@ -28,10 +28,10 @@ export default class EntityRepository {
             findQuery = this.model
                 .find({ ...queries, ...scopeQuery })
                 .skip((page - 1) * pageSize)
-                .limit(pageSize);
+                .limit(pageSize + 1);
         } else {
             const pageQuery = EntityRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ ...queries, ...pageQuery, ...scopeQuery }).limit(pageSize);
+            findQuery = this.model.find({ ...queries, ...pageQuery, ...scopeQuery }).limit(pageSize + 1);
         }
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
@@ -100,10 +100,10 @@ export default class EntityRepository {
             findQuery = this.model
                 .find({ 'digitalIdentities.role.directGroup': groupID, ...excluders })
                 .skip((page - 1) * pageSize)
-                .limit(pageSize);
+                .limit(pageSize + 1);
         } else {
             const pageQuery = EntityRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ 'digitalIdentities.role.directGroup': groupID, ...excluders, ...pageQuery }).limit(pageSize);
+            findQuery = this.model.find({ 'digitalIdentities.role.directGroup': groupID, ...excluders, ...pageQuery }).limit(pageSize + 1);
         }
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
@@ -117,10 +117,12 @@ export default class EntityRepository {
             findQuery = this.model
                 .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
                 .skip((page - 1) * pageSize)
-                .limit(pageSize);
+                .limit(pageSize + 1);
         } else {
             const pageQuery = EntityRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery }).limit(pageSize);
+            findQuery = this.model
+                .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery })
+                .limit(pageSize + 1);
         }
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);

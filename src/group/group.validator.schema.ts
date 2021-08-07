@@ -17,7 +17,7 @@ const getRequestBaseSchema = Joi.object({
 
 export const getGroupById = getRequestBaseSchema.keys({
     params: {
-        groupId: Joi.string().required(),
+        id: Joi.string().required(),
     },
 });
 
@@ -30,7 +30,7 @@ export const getChildren = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
     params: {
-        groupId: Joi.string().required(),
+        id: Joi.string().required(),
     },
 });
 
@@ -50,7 +50,7 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
     query: {
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.string().valid(...expandedTypes),
-        source: Joi.string().valid(Object.values(enums.SOURCE)),
+        source: Joi.string().valid(...Object.values(enums.SOURCE)),
         updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
         page: Joi.string(),
         limit: Joi.number().max(1000),

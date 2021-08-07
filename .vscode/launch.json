@@ -37,7 +37,7 @@
       "program": "./node_modules/jest/bin/jest.js",
       "args": ["--forceExit", "-i"],
       "preLaunchTask": "tsc: build - tsconfig.json",
-      "internalConsoleOptions": "openOnSessionStart",
+      "internalConsoleOptions": "neverOpen",
       "outFiles": ["${workspaceRoot}/dist/**/*"],
       "envFile": "${workspaceRoot}/.env.dev"
     }

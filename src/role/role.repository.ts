@@ -16,44 +16,91 @@ export default class RoleRepository {
         };
     };
 
-    findByQuery(query: any, excluders) {
-        const findQuery = this.model.find({ query, ...excluders });
+    findByQuery(query: any, excluders, page: number | string, pageSize: number): Promise<IRole[]> {
+        let findQuery: mongoose.Query<(IRole & mongoose.Document<any, any>)[], IRole & mongoose.Document<any, any>, {}>;
+
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({
+                    ...query,
+                    ...excluders,
+                })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize + 1);
+        } else {
+            // TODO: chain find
+            const pageQuery = RoleRepository.createPagniationQuery(page);
+            findQuery = this.model
+                .find({
+                    ...query,
+                    ...excluders,
+                    ...pageQuery,
+                })
+                .limit(pageSize + 1);
+        }
         return findQuery.lean<IRole[]>().exec();
     }
 
-    findByRoleId(roleId: string, excluders) {
+    findByRoleId(roleId: string, excluders): Promise<IRole> {
         const findQuery = this.model.findOne({ roleId, ...excluders });
-        return findQuery.lean().exec();
+        return findQuery.lean<IRole>().exec();
     }
 
-    findByDigitalIdentity(uniqueId: string, excluders) {
+    findByDigitalIdentity(uniqueId: string, excluders): Promise<IRole> {
         const findQuery = this.model.findOne({ digitalIdentityUniqueId: uniqueId, ...excluders });
-        return findQuery.lean().exec();
+        return findQuery.lean<IRole>().exec();
     }
 
-    findInGroupId(groupId: string, excluders) {
-        const findQuery = this.model.find({ directGroup: groupId, ...excluders });
-        return findQuery.lean().exec();
+    findInGroupId(groupId: string, excluders, page: number | string, pageSize: number): Promise<IRole[]> {
+        let findQuery: mongoose.Query<(IRole & mongoose.Document<any, any>)[], IRole & mongoose.Document<any, any>, {}>;
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({ directGroup: groupId, ...excluders })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize + 1);
+        } else {
+            const pageQuery = RoleRepository.createPagniationQuery(page);
+            findQuery = this.model.find({ directGroup: groupId, ...excluders, ...pageQuery }).limit(pageSize + 1);
+        }
+        return findQuery.lean<IRole[]>().exec();
     }
 
-    findUnderGroupId(groupId: string, excluders) {
-        const findQuery = this.model.find({
-            hierarchyIds: groupId,
-            ...excluders,
-        });
-        return findQuery.lean().exec();
+    findUnderGroupId(groupId: string, excluders, page: number | string, pageSize: number): Promise<IRole[]> {
+        let findQuery: mongoose.Query<(IRole & mongoose.Document<any, any>)[], IRole & mongoose.Document<any, any>, {}>;
+        if (typeof page === 'number') {
+            findQuery = this.model
+                .find({
+                    hierarchyIds: groupId,
+                    ...excluders,
+                })
+                .skip((page - 1) * pageSize)
+                .limit(pageSize + 1);
+        } else {
+            const pageQuery = RoleRepository.createPagniationQuery(page);
+
+            findQuery = this.model
+                .find({
+                    hierarchyIds: groupId,
+                    ...excluders,
+                    ...pageQuery,
+                })
+                .limit(pageSize + 1);
+        }
+        return findQuery.lean<IRole[]>().exec();
     }
 
-    findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IRole[]> {
+    findUnderHierarchy(hierarchyToQuery: string, excluders, page: number | string, pageSize: number): Promise<IRole[]> {
         let findQuery: mongoose.Query<(IRole & mongoose.Document<any, any>)[], IRole & mongoose.Document<any, any>, {}>;
         if (typeof page === 'number') {
             findQuery = this.model
                 .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
                 .skip((page - 1) * pageSize)
-                .limit(pageSize);
+                .limit(pageSize + 1);
         } else {
             const pageQuery = RoleRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery }).limit(pageSize);
+            findQuery = this.model
+                .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery })
+                .limit(pageSize + 1);
         }
 
         return findQuery.lean<IRole[]>().exec();

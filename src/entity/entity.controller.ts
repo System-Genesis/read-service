@@ -8,7 +8,7 @@ class EntityController {
 
     static extractEntityQueries(_req: Request) {
         const { expanded, page, limit, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
-        const isExpanded = expanded === 'true';
+        const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
         const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
         let pageSize = parseInt(limit, 10);
         pageSize = pageSize < 1000 ? pageSize : 1000;
@@ -19,8 +19,8 @@ class EntityController {
 
     static async getAll(_req: Request, res: Response) {
         const { isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
-        const { entities, nextPage } = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageId, pageSize);
-        res.status(200).send({ entities, nextPage });
+        const resEntities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send(resEntities);
     }
 
     static async getById(_req: Request, res: Response) {
@@ -56,16 +56,16 @@ class EntityController {
         const { isExpanded, pageId, pageSize, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { groupId } = _req.params as { [key: string]: string };
 
-        const { entities, nextPage } = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded, pageId, pageSize);
-        res.status(200).send({ entities, nextPage });
+        const resEntities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send(resEntities);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
         const { isExpanded, pageId, pageSize, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
 
-        const { entities, nextPage } = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
-        res.status(200).send({ entities, nextPage });
+        const resEntities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        res.status(200).send(resEntities);
     }
 }
 

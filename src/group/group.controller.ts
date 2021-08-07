@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 // import * as qs from 'qs';
-
+import { Types } from 'mongoose';
 import GroupManager from './group.manager';
 import { RuleFilter } from '../shared/types';
 import { extractUserQueries } from '../shared/filterQueries';
@@ -11,20 +11,20 @@ class GroupController {
     static entityManager: GroupManager = new GroupManager();
 
     static extractGroupQueries(_req: Request) {
-        const { expanded, page, direct } = _req.query as { [key: string]: string };
+        const { expanded, page, limit, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const isDirect = direct === 'true';
-        const pageNum = parseInt(page, 10);
+        const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
+        let pageSize = parseInt(limit, 10);
+        pageSize = pageSize < 1000 ? pageSize : 1000;
 
-        let ruleFiltersQuery = _req.query.ruleFilters as RuleFilter[];
-        ruleFiltersQuery = typeof ruleFiltersQuery === 'string' ? JSON.parse(ruleFiltersQuery) : ruleFiltersQuery;
-        return { isExpanded, pageNum, ruleFiltersQuery, isDirect };
+        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
+        return { isDirect, isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery } = GroupController.extractGroupQueries(_req);
-        const userQueries: groupQueries = extractFilters(_req.query as any);
-        const groups = await GroupManager.getAll(userQueries, ruleFiltersQuery, isExpanded);
+        const { isExpanded, ruleFiltersQuery, pageId, pageSize, userQueries } = GroupController.extractGroupQueries(_req);
+        const groups = await GroupManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageId, pageSize);
         res.status(200).send(groups);
     }
 
@@ -36,16 +36,16 @@ class GroupController {
     }
 
     static async getByHierarchy(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery } = GroupController.extractGroupQueries(_req);
+        const { isExpanded, ruleFiltersQuery, pageId, pageSize } = GroupController.extractGroupQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
-        const groups = await GroupManager.findByHierarchy(hierarchy, ruleFiltersQuery, isExpanded);
+        const groups = await GroupManager.findByHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
         res.status(200).send(groups);
     }
 
     static async getChildren(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery, isDirect } = GroupController.extractGroupQueries(_req);
+        const { isExpanded, ruleFiltersQuery, isDirect, pageId, pageSize } = GroupController.extractGroupQueries(_req);
         const { id } = _req.params as { [key: string]: string };
-        const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded);
+        const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, pageId, pageSize);
         res.status(200).send(groups);
     }
 }

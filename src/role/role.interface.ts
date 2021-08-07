@@ -1,4 +1,6 @@
-export default interface IRole {
+import { Document } from 'mongoose';
+
+export default interface IRole extends Document {
     // Role's Basic information
     roleId: string;
     jobTitle: string;

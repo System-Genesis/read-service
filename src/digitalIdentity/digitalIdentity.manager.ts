@@ -5,6 +5,7 @@ import { DigitalIdentityQueries } from './utils/types';
 import { mapFieldQueryFunc } from './utils/queryParsers';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 class DigitalIdentityManager {
@@ -16,13 +17,26 @@ class DigitalIdentityManager {
 
     static mapFieldName = new Map<string, string>([['updatedFrom', 'updatedAt']]);
 
-    static async getAll(userQueries: DigitalIdentityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, pageNum: number = 0) {
+    static async getAll(
+        userQueries: DigitalIdentityQueries,
+        scopeExcluders: RuleFilter[],
+        expanded: boolean = false,
+        page: number | string,
+        pageSize: number,
+    ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, DigitalIdentityManager.getDotField);
         const transformedQuery = extractUserQueries(userQueries, DigitalIdentityManager.mapFieldName, mapFieldQueryFunc);
 
-        const foundDigitalIdentities = await DigitalIdentityManager.digitalIdentityRepository.findByQuery(transformedQuery, scopeExcluder, expanded);
+        const foundDigitalIdentities = await DigitalIdentityManager.digitalIdentityRepository.findByQuery(
+            transformedQuery,
+            scopeExcluder,
+            expanded,
+            page,
+            pageSize,
+        );
 
-        return foundDigitalIdentities;
+        const { paginatedResults, nextPage } = pageWrapper(foundDigitalIdentities, pageSize);
+        return { digitalIdentities: paginatedResults, nextPage };
     }
 
     static async findByUniqueId(uniqueId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {

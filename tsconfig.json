@@ -20,5 +20,6 @@
     "outDir": "./dist/",
     "lib": ["ES2020.Promise", "dom.iterable"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib"]
 }

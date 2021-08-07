@@ -14,7 +14,7 @@ RoleRouter.get(
     wrapController(RoleController.getByDigitalIdentityUniqueId),
 );
 RoleRouter.get('/group/:groupId', ValidateRequest(RoleValidators.getRolesByGroupId), wrapController(RoleController.getByGroupId));
-RoleRouter.get('/hierarchy/:hierarchy', ValidateRequest(RoleValidators.getRolesByHierarchy), wrapController(RoleController.getRolesByHierarchy));
+RoleRouter.get('/hierarchy/:hierarchy', ValidateRequest(RoleValidators.getRolesByHierarchy), wrapController(RoleController.getUnderHierarchy));
 
 // RoleRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 

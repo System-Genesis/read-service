@@ -1,6 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-import IEntity from './entity.interface';
-import IDenormalizedEntity from './denormal/entity.denormalized.interface';
 import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';

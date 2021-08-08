@@ -116,6 +116,21 @@ describe('Group Tests', () => {
         }
     });
 
+    it('Should return group by hierarchy', async () => {
+        const rawHierarchy = 'wallmart/magnam';
+        const encodedHierarchy = encodeURIComponent(rawHierarchy);
+        const qsQuery = qs.stringify({
+            ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
+            expanded: true,
+        });
+        try {
+            const res = await request.get(`/groups/hierarchy/${encodedHierarchy}`).query(qsQuery);
+            expect(`${res.body.hierarchy}/${res.body.name}`).toBe(rawHierarchy);
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
     it('Should iterate through all pages of all groups', async () => {
         try {
             let page;

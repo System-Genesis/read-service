@@ -36,9 +36,9 @@ class GroupController {
     }
 
     static async getByHierarchy(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery, pageId, pageSize } = GroupController.extractGroupQueries(_req);
+        const { isExpanded, ruleFiltersQuery } = GroupController.extractGroupQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
-        const groups = await GroupManager.findByHierarchy(hierarchy, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        const groups = await GroupManager.findByHierarchy(hierarchy, ruleFiltersQuery, isExpanded);
         res.status(200).send(groups);
     }
 

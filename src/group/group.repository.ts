@@ -46,29 +46,18 @@ export default class GroupRepository {
         return findQuery.lean<IGroup>().exec();
     }
 
-    findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IGroup[]> {
-        let findQuery: mongoose.Query<(IGroup & mongoose.Document<any, any>)[], IGroup & mongoose.Document<any, any>, {}>;
-        if (typeof page === 'number') {
-            findQuery = this.model
-                .find({
-                    hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' },
-                    ...excluders,
-                })
-                .skip((page - 1) * pageSize)
-                .limit(pageSize + 1);
-        } else {
-            const pageQuery = GroupRepository.createPagniationQuery(page);
-            findQuery = this.model
-                .find({
-                    hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' },
-                    ...excluders,
-                    ...pageQuery,
-                })
-                .limit(pageSize + 1);
-        }
+    findByHierarchy(hierarchyToQuery: string, excluders, expanded: boolean): Promise<IGroup> {
+        const hierarchyPathArr = hierarchyToQuery.split('/');
+        const groupNameQuery = hierarchyPathArr.pop();
+        const hierarchyWithoutGroup = hierarchyPathArr.join('/');
+        let findQuery = this.model.findOne({
+            hierarchy: hierarchyWithoutGroup,
+            name: groupNameQuery,
+            ...excluders,
+        });
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IGroup[]>().exec();
+        return findQuery.lean<IGroup>().exec();
     }
 }

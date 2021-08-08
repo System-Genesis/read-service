@@ -10,7 +10,6 @@ import * as qs from 'qs';
 // import { EntityModel } from './entity.model';
 
 import Server from '../express/server';
-import EntityDenormalizedModel from './denormal/entity.denormalized.model';
 
 const allEntitiesDB = require('../../mongo-seed/entityDNs');
 

@@ -35,17 +35,13 @@ class GroupManager {
     }
     // TODO: figure out what query we want to implement
 
-    static async findByHierarchy(
-        hierarchy: string,
-        scopeExcluders: RuleFilter[],
-        expanded: boolean = false,
-        page: number | string,
-        pageSize: number,
-    ) {
+    static async findByHierarchy(hierarchy: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
-        const foundGroups = await GroupManager.groupRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
-        const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
-        return { groups: paginatedResults, nextPage };
+        const foundGroup = await GroupManager.groupRepository.findByHierarchy(hierarchy, scopeExcluder, expanded);
+        if (!foundGroup) {
+            throw new ApiErrors.NotFoundError();
+        }
+        return foundGroup;
     }
 
     static async getChildren(

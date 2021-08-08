@@ -1,6 +1,7 @@
+import { Document } from 'mongoose';
 import IRole from '../role/role.interface';
 
-export default interface IDigitalIdentity {
+export default interface IDigitalIdentity extends Document {
     // DI's Basic information
     type: string;
     source: string;

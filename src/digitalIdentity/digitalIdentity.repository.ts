@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { Types } from 'mongoose';
 import IDigitalIdentity from './digitalIdentity.interface';
 import { DigitalIdentityModel } from './digitalIdentity.model';
+import { listenerCount } from 'process';
 
 export default class DigitalIdentityRepository {
     protected model: mongoose.Model<IDigitalIdentity & mongoose.Document>;
@@ -18,18 +19,12 @@ export default class DigitalIdentityRepository {
         };
     };
 
-    findByQuery(query: any, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IDigitalIdentity[]> {
-        let findQuery: mongoose.Query<(IDigitalIdentity & mongoose.Document<any, any>)[], IDigitalIdentity & mongoose.Document<any, any>, {}>;
+    findByQuery(query: any, excluders, expanded: boolean, page: number, pageSize: number): Promise<IDigitalIdentity[]> {
+        let findQuery = this.model
+            .find({ $and: [{ ...query }, { ...excluders }] })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
 
-        if (typeof page === 'number') {
-            findQuery = this.model
-                .find({ $and: [{ ...query }, { ...excluders }] })
-                .skip((page - 1) * pageSize)
-                .limit(pageSize + 1);
-        } else {
-            const pageQuery = DigitalIdentityRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ $and: [{ ...query }, { ...excluders }, { ...pageQuery }] }).limit(pageSize + 1);
-        }
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
         }

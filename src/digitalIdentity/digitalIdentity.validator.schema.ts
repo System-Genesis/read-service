@@ -18,8 +18,8 @@ export const getDIByCustomFilters = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.boolean(),
         updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
-        page: Joi.string(),
-        limit: Joi.number().max(1000),
+        pageNum: Joi.number().min(1),
+        pageSize: Joi.number().min(50).max(1000),
     },
 });
 

@@ -11,21 +11,20 @@ class RoleController {
     static roleManager: RoleManager = new RoleManager();
 
     static extractRoleQueries(_req: Request) {
-        const { page, limit, ruleFilters, direct, ...userQueries } = _req.query as { [key: string]: string };
-        const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
-        let pageSize = parseInt(limit, 10);
-        pageSize = pageSize < 1000 ? pageSize : 1000;
+        const { pageNum, pageSize, ruleFilters, direct, ...userQueries } = _req.query as { [key: string]: string };
+        const page = parseInt(pageNum, 10);
+        const limit = parseInt(pageSize, 10);
 
         const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
 
-        return { isDirect, pageId, pageSize, ruleFiltersQuery, userQueries };
+        return { isDirect, page, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { pageId, pageSize, ruleFiltersQuery, userQueries } = RoleController.extractRoleQueries(_req);
+        const { page, limit, ruleFiltersQuery, userQueries } = RoleController.extractRoleQueries(_req);
 
-        const resRoles = await RoleManager.getAll(userQueries, ruleFiltersQuery, pageId, pageSize);
+        const resRoles = await RoleManager.getAll(userQueries, ruleFiltersQuery, page, limit);
         res.status(200).send(resRoles);
     }
 
@@ -43,17 +42,17 @@ class RoleController {
     }
 
     static async getByGroupId(_req: Request, res: Response) {
-        const { isDirect, pageId, pageSize, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
+        const { isDirect, page, limit, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
 
-        const resRoles = await RoleManager.findByGroup(_req.params.groupId, ruleFiltersQuery, isDirect, pageId, pageSize);
+        const resRoles = await RoleManager.findByGroup(_req.params.groupId, ruleFiltersQuery, isDirect, page, limit);
         res.status(200).send(resRoles);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
-        const { isDirect, pageId, pageSize, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
+        const { isDirect, page, limit, ruleFiltersQuery } = RoleController.extractRoleQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
 
-        const resRoles = await RoleManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isDirect, pageId, pageSize);
+        const resRoles = await RoleManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isDirect, page, limit);
         res.status(200).send(resRoles);
     }
 }

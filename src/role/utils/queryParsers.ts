@@ -11,7 +11,7 @@ const updatedFromQuery = (updatedFrom: Date) => {
 };
 
 const basicQuery = (value) => {
-    return { $in: value };
+    return value;
 };
 
 export const mapFieldQueryFunc = new Map<string, any>([['updatedFrom', updatedFromQuery]]);

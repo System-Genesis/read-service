@@ -65,8 +65,8 @@ describe('Group Tests', () => {
         try {
             const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.groups.length).toBeGreaterThan(0);
-            expect(res.body.groups.every((group) => group.directGroup === '1ew4r3d3d')).toBeTruthy();
+            expect(res.body.length).toBeGreaterThan(0);
+            expect(res.body.every((group) => group.directGroup === '1ew4r3d3d')).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -81,8 +81,8 @@ describe('Group Tests', () => {
         try {
             const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.groups.length).toBeGreaterThan(0);
-            expect(res.body.groups.every((group) => group.ancestors.includes('1ew4r3d3d'))).toBeTruthy();
+            expect(res.body.length).toBeGreaterThan(0);
+            expect(res.body.every((group) => group.ancestors.includes('1ew4r3d3d'))).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -96,7 +96,7 @@ describe('Group Tests', () => {
         });
         try {
             const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
-            expect(res.body.groups.length).toBe(0);
+            expect(res.body.length).toBe(0);
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -110,7 +110,7 @@ describe('Group Tests', () => {
         });
         try {
             const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
-            expect(res.body.groups.length).toBe(0);
+            expect(res.body.length).toBe(0);
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -133,23 +133,23 @@ describe('Group Tests', () => {
 
     it('Should iterate through all pages of all groups', async () => {
         try {
-            let page;
+            let pageNum = 1;
             let foundGroups = [];
             while (true) {
                 const qsQuery = qs.stringify({
                     ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
-                    page,
-                    limit: '200',
+                    pageNum,
+                    pageSize: '200',
                     expanded: true,
                 });
                 const res = await request.get('/groups').query(qsQuery);
                 expect(res.status).toBe(200);
-                foundGroups = foundGroups.concat(res.body.groups);
-                const { nextPage } = res.body;
-                if (res.body.groups.length === 0 || !nextPage) {
+                foundGroups = foundGroups.concat(res.body);
+                const nextPage = pageNum + 1;
+                if (res.body.length === 0) {
                     break;
                 }
-                page = nextPage;
+                pageNum = nextPage;
             }
             expect(foundGroups.length).toBe(allGroupsDB.length);
         } catch (err) {
@@ -159,24 +159,24 @@ describe('Group Tests', () => {
 
     it('Should iterate through all pages of city groups', async () => {
         try {
-            let page;
+            let pageNum = 1;
             let foundGroups: IGroup[] = [];
             while (true) {
                 const qsQuery = qs.stringify({
                     ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
-                    page,
-                    limit: '200',
+                    pageNum,
+                    pageSize: '200',
                     expanded: true,
                     source: 'city_name',
                 });
                 const res = await request.get('/groups').query(qsQuery);
                 expect(res.status).toBe(200);
-                foundGroups = foundGroups.concat(res.body.groups);
-                const { nextPage } = res.body;
-                if (res.body.groups.length === 0 || !nextPage) {
+                foundGroups = foundGroups.concat(res.body);
+                const nextPage = pageNum + 1;
+                if (res.body.length === 0) {
                     break;
                 }
-                page = nextPage;
+                pageNum = nextPage;
             }
             expect(foundGroups.every((group) => group.source === 'city_name'));
             expect(foundGroups.length).toBe(allGroupsDB.filter((group) => group.source === 'city_name').length);

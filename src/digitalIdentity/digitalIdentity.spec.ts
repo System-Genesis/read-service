@@ -69,15 +69,15 @@ describe('Digital Identity Tests', () => {
         try {
             const qsQuery = qs.stringify({
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
-                page: '1',
-                limit: '1000',
+                pageNum: 1,
+                pageSize: 1000,
                 expanded: true,
             });
             const res = await request.get('/digitalIdentities').query(qsQuery);
             expect(res.status).toBe(200);
 
-            expect(res.body.digitalIdentities.length).toBeGreaterThan(0);
-            expect(res.body.digitalIdentities.some((di) => di.role !== undefined)).toBeTruthy();
+            expect(res.body.length).toBeGreaterThan(0);
+            expect(res.body.some((di) => di.role !== undefined)).toBeTruthy();
         } catch (err) {
             console.log('err: ', err);
             expect(!err).toBeTruthy();
@@ -94,8 +94,8 @@ describe('Digital Identity Tests', () => {
             });
             const res = await request.get('/digitalIdentities').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.digitalIdentities.length).toBeGreaterThan(0);
-            expect(res.body.digitalIdentities.every((di) => di.updatedAt >= dateFromQuery)).toBeTruthy();
+            expect(res.body.length).toBeGreaterThan(0);
+            expect(res.body.every((di) => di.updatedAt >= dateFromQuery)).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -103,23 +103,23 @@ describe('Digital Identity Tests', () => {
 
     it('Should iterate through all pages of digital Identities', async () => {
         try {
-            let page;
+            let pageNum = 1;
             let foundDIs: IDigitalIdentity[] = [];
             while (true) {
                 const qsQuery = qs.stringify({
                     ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
-                    page,
-                    limit: '100',
+                    pageNum,
+                    pageSize: '100',
                     expanded: true,
                 });
                 const res = await request.get('/digitalIdentities').query(qsQuery);
                 expect(res.status).toBe(200);
-                foundDIs = foundDIs.concat(res.body.digitalIdentities);
-                const { nextPage } = res.body;
-                if (res.body.digitalIdentities.length === 0 || !nextPage) {
+                foundDIs = foundDIs.concat(res.body);
+                const nextPage = pageNum + 1;
+                if (res.body.length === 0) {
                     break;
                 }
-                page = nextPage;
+                pageNum = nextPage;
             }
             expect(foundDIs.length).toBe(allDIDB.length);
         } catch (err) {

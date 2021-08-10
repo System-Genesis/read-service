@@ -16,12 +16,12 @@ class RoleManager {
 
     static mapFieldName = new Map<string, string>([['updatedFrom', 'updatedAt']]);
 
-    static async getAll(userQueries: roleQueries, scopeExcluders: RuleFilter[], page: number | string, pageSize: number) {
+    static async getAll(userQueries: roleQueries, scopeExcluders: RuleFilter[], page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         const transformedQuery = extractUserQueries(userQueries, RoleManager.mapFieldName, mapFieldQueryFunc);
         const roles = await RoleManager.roleRepository.findByQuery(transformedQuery, scopeExcluder, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
-        return { roles: paginatedResults, nextPage };
+        return paginatedResults;
     }
 
     static async findByRoleId(roleId: string, scopeExcluders: RuleFilter[]) {
@@ -42,7 +42,7 @@ class RoleManager {
         return foundRole;
     }
 
-    static async findByGroup(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number | string, pageSize: number) {
+    static async findByGroup(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         let roles;
         if (direct) {
@@ -51,14 +51,14 @@ class RoleManager {
             roles = await RoleManager.roleRepository.findUnderGroupId(groupId, scopeExcluder, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
-        return { roles: paginatedResults, nextPage };
+        return paginatedResults;
     }
 
-    static async findUnderHierarchy(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number | string, pageSize: number) {
+    static async findUnderHierarchy(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         const roles = await RoleManager.roleRepository.findUnderHierarchy(groupId, scopeExcluder, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
-        return { roles: paginatedResults, nextPage };
+        return paginatedResults;
     }
 }
 export default RoleManager;

@@ -24,8 +24,8 @@ export const getGroupById = getRequestBaseSchema.keys({
 export const getChildren = getRequestBaseSchema.keys({
     query: {
         direct: Joi.boolean(),
-        page: Joi.string(),
-        limit: Joi.number().max(1000),
+        pageNum: Joi.number().min(1),
+        pageSize: Joi.number().min(50).max(1000),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -36,8 +36,8 @@ export const getChildren = getRequestBaseSchema.keys({
 
 export const getGroupsByHierarchy = getRequestBaseSchema.keys({
     query: {
-        page: Joi.string(),
-        limit: Joi.number().max(1000),
+        pageNum: Joi.number().min(1),
+        pageSize: Joi.number().min(50).max(1000),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -52,7 +52,7 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
         expanded: Joi.string().valid(...expandedTypes),
         source: Joi.string().valid(...Object.values(enums.SOURCE)),
         updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
-        page: Joi.string(),
-        limit: Joi.number().max(1000),
+        pageNum: Joi.number().min(1),
+        pageSize: Joi.number().min(50).max(1000),
     },
 });

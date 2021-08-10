@@ -11,20 +11,19 @@ class GroupController {
     static entityManager: GroupManager = new GroupManager();
 
     static extractGroupQueries(_req: Request) {
-        const { expanded, page, limit, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
+        const { expanded, pageNum, pageSize, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
-        let pageSize = parseInt(limit, 10);
-        pageSize = pageSize < 1000 ? pageSize : 1000;
+        const page = parseInt(pageNum, 10);
+        const limit = parseInt(pageSize, 10);
 
         const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
-        return { isDirect, isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries };
+        return { isDirect, isExpanded, page, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery, pageId, pageSize, userQueries } = GroupController.extractGroupQueries(_req);
-        const groups = await GroupManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        const { isExpanded, ruleFiltersQuery, page, limit, userQueries } = GroupController.extractGroupQueries(_req);
+        const groups = await GroupManager.getAll(userQueries, ruleFiltersQuery, isExpanded, page, limit);
         res.status(200).send(groups);
     }
 
@@ -43,9 +42,9 @@ class GroupController {
     }
 
     static async getChildren(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery, isDirect, pageId, pageSize } = GroupController.extractGroupQueries(_req);
+        const { isExpanded, ruleFiltersQuery, isDirect, page, limit } = GroupController.extractGroupQueries(_req);
         const { id } = _req.params as { [key: string]: string };
-        const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, pageId, pageSize);
+        const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, page, limit);
         res.status(200).send(groups);
     }
 }

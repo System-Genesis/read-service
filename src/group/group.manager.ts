@@ -16,13 +16,13 @@ class GroupManager {
 
     static mapFieldName = new Map<string, string>([['source', 'source']]);
 
-    static async getAll(userQueries: groupQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number | string, pageSize: number) {
+    static async getAll(userQueries: groupQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
         const transformedQuery = extractUserQueries(userQueries, GroupManager.mapFieldName, mapFieldQueryFunc);
 
         const foundGroups = await GroupManager.groupRepository.findByQuery(transformedQuery, scopeExcluder, expanded, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
-        return { groups: paginatedResults, nextPage };
+        return paginatedResults;
     }
 
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
@@ -49,7 +49,7 @@ class GroupManager {
         scopeExcluders: RuleFilter[],
         direct: boolean = true,
         expanded: boolean = false,
-        page: number | string,
+        page: number,
         pageSize: number,
     ) {
         let foundGroups;
@@ -61,7 +61,7 @@ class GroupManager {
             foundGroups = await GroupManager.groupRepository.findByQuery({ ancestors: groupId }, scopeExcluder, expanded, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
-        return { groups: paginatedResults, nextPage };
+        return paginatedResults;
     }
 }
 export default GroupManager;

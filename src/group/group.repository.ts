@@ -20,18 +20,11 @@ export default class GroupRepository {
 
     // TODO: change all to and query
 
-    findByQuery(query: any, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IGroup[]> {
-        let findQuery: mongoose.Query<(IGroup & mongoose.Document<any, any>)[], IGroup & mongoose.Document<any, any>, {}>;
-
-        if (typeof page === 'number') {
-            findQuery = this.model
-                .find({ $and: [{ ...query }, { ...excluders }] })
-                .skip((page - 1) * pageSize)
-                .limit(pageSize + 1);
-        } else {
-            const pageQuery = GroupRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ $and: [{ ...query }, { ...excluders }, { ...pageQuery }] }).limit(pageSize + 1);
-        }
+    findByQuery(query: any, excluders, expanded: boolean, page: number, pageSize: number): Promise<IGroup[]> {
+        let findQuery = this.model
+            .find({ $and: [{ ...query }, { ...excluders }] })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }

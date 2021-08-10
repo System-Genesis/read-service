@@ -25,6 +25,8 @@ interface IEntity extends Document {
     clearance: string; // string of number - enum
     sex?: string;
     birthDate?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
     digitalIdentities: [IDigitalIdentity];
 }
 

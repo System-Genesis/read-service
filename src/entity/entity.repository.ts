@@ -22,17 +22,12 @@ export default class EntityRepository {
         };
     };
 
-    find(queries: any, scopeQuery: any, expanded: boolean, page: number | string, pageSize: number): Promise<IEntity[]> {
-        let findQuery: mongoose.Query<(IEntity & mongoose.Document<any, any>)[], IEntity & mongoose.Document<any, any>, {}>;
-        if (typeof page === 'number') {
-            findQuery = this.model
-                .find({ ...queries, ...scopeQuery })
-                .skip((page - 1) * pageSize)
-                .limit(pageSize + 1);
-        } else {
-            const pageQuery = EntityRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ ...queries, ...pageQuery, ...scopeQuery }).limit(pageSize + 1);
-        }
+    find(queries: any, scopeQuery: any, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+        let findQuery = this.model
+            .find({ ...queries, ...scopeQuery })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
+
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
@@ -94,36 +89,24 @@ export default class EntityRepository {
         return findQuery.lean<IEntity>().exec();
     }
 
-    findUnderGroup(groupID: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IEntity[]> {
-        let findQuery: mongoose.Query<(IEntity & mongoose.Document<any, any>)[], IEntity & mongoose.Document<any, any>, {}>;
-        if (typeof page === 'number') {
-            findQuery = this.model
-                .find({ 'digitalIdentities.role.directGroup': groupID, ...excluders })
-                .skip((page - 1) * pageSize)
-                .limit(pageSize + 1);
-        } else {
-            const pageQuery = EntityRepository.createPagniationQuery(page);
-            findQuery = this.model.find({ 'digitalIdentities.role.directGroup': groupID, ...excluders, ...pageQuery }).limit(pageSize + 1);
-        }
+    findUnderGroup(groupID: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+        let findQuery = this.model
+            .find({ 'digitalIdentities.role.directGroup': groupID, ...excluders })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
+
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>().exec();
     }
 
-    findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number | string, pageSize: number): Promise<IEntity[]> {
-        let findQuery: mongoose.Query<(IEntity & mongoose.Document<any, any>)[], IEntity & mongoose.Document<any, any>, {}>;
-        if (typeof page === 'number') {
-            findQuery = this.model
-                .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
-                .skip((page - 1) * pageSize)
-                .limit(pageSize + 1);
-        } else {
-            const pageQuery = EntityRepository.createPagniationQuery(page);
-            findQuery = this.model
-                .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders, ...pageQuery })
-                .limit(pageSize + 1);
-        }
+    findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+        let findQuery = this.model
+            .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
+
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }

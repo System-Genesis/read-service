@@ -10,19 +10,18 @@ class DigitalIdentityController {
     static digitalIdentityManager: DigitalIdentityManager = new DigitalIdentityManager();
 
     static extractDigitalIdentityQueries(_req: Request) {
-        const { expanded, page, limit, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
+        const { expanded, pageNum, pageSize, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
-        const pageId: number | string = Types.ObjectId.isValid(page) ? page : 1;
-        let pageSize = parseInt(limit, 10);
-        pageSize = pageSize < 1000 ? pageSize : 1000;
+        const page = parseInt(pageNum, 10);
+        const limit = parseInt(pageSize, 10);
 
         const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
-        return { isExpanded, pageId, pageSize, ruleFiltersQuery, userQueries };
+        return { isExpanded, page, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
-        const { isExpanded, ruleFiltersQuery, pageId, pageSize, userQueries } = DigitalIdentityController.extractDigitalIdentityQueries(_req);
-        const digitalIdentities = await DigitalIdentityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, pageId, pageSize);
+        const { isExpanded, ruleFiltersQuery, page, limit, userQueries } = DigitalIdentityController.extractDigitalIdentityQueries(_req);
+        const digitalIdentities = await DigitalIdentityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, page, limit);
         res.status(200).send(digitalIdentities);
     }
 

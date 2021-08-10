@@ -21,7 +21,7 @@ class DigitalIdentityManager {
         userQueries: DigitalIdentityQueries,
         scopeExcluders: RuleFilter[],
         expanded: boolean = false,
-        page: number | string,
+        page: number,
         pageSize: number,
     ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, DigitalIdentityManager.getDotField);
@@ -36,7 +36,7 @@ class DigitalIdentityManager {
         );
 
         const { paginatedResults, nextPage } = pageWrapper(foundDigitalIdentities, pageSize);
-        return { digitalIdentities: paginatedResults, nextPage };
+        return paginatedResults;
     }
 
     static async findByUniqueId(uniqueId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {

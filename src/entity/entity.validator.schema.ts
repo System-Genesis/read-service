@@ -61,6 +61,12 @@ export const getEntitiesByHierarchy = getRequestBaseSchema.keys({
     },
 });
 
+export const getPictureByIdentifier = getRequestBaseSchema.keys({
+    params: {
+        identifier: Joi.string().required(),
+    },
+});
+
 export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
     query: {
         // ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()).required(),

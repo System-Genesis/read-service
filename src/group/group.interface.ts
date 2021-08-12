@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import IEntity from '../entity/entity.interface';
+import { IEntity } from '../entity/entity.interface';
 import IRole from '../role/role.interface';
 
 interface IGroup extends Document {

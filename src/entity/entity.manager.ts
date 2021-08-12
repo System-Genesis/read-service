@@ -88,6 +88,17 @@ class EntityManager {
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
         return paginatedResults;
     }
+
+    static async getPictureByIdentifier(identifier: string, scopeExcluders: RuleFilter[]) {
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
+        const foundEntity = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, false);
+        if (!foundEntity) {
+            throw new ApiErrors.NotFoundError();
+        }
+        const foundPic = await EntityManager.entityRepository.getPictureMetaData(identifier);
+        const { path } = foundPic;
+        return paginatedResults;
+    }
 }
 
 export default EntityManager;

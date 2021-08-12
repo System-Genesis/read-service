@@ -25,6 +25,11 @@ EntityRouter.get(
     ValidateRequest(EntityValidators.getEntitiesByHierarchy),
     wrapController(EntityController.getUnderHierarchy),
 );
+EntityRouter.get(
+    '/:idetntifier/pictures/profile',
+    ValidateRequest(EntityValidators.getPictureByIdentifier),
+    wrapController(EntityController.getPictureByIdentifier),
+);
 
 // EntityRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 

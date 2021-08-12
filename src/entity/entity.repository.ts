@@ -1,12 +1,12 @@
 import { Types } from 'mongoose';
 import * as mongoose from 'mongoose';
-import IEntity from './entity.interface';
+import { IEntity, ProfilePictureData } from './entity.interface';
 import { EntityModel } from './entity.model';
 
 export default class EntityRepository {
     protected model: mongoose.Model<IEntity & mongoose.Document>;
 
-    private static DENORMALIZED_FIELDS = '-digitalIdentities';
+    private static DENORMALIZED_FIELDS = '-digitalIdentities -hierarchyIds';
 
     constructor() {
         this.model = EntityModel;
@@ -111,5 +111,16 @@ export default class EntityRepository {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>().exec();
+    }
+
+    getPictureMetaData(personIdentifier: string): Promise<ProfilePictureData> {
+        const identifierFields = ['personalNumber', 'identityCard', 'userID'];
+        const cond = identifierFields.map((key) => {
+            return { [key]: { $in: [personIdentifier] } };
+        });
+
+        const findQuery = this.model.findOne({ $or: cond });
+        const resPicture = findQuery.select('pictures.profile');
+        return resPicture.lean<ProfilePictureData>().exec() || {};
     }
 }

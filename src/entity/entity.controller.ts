@@ -67,6 +67,13 @@ class EntityController {
         const resEntities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, page, limit);
         res.status(200).send(resEntities);
     }
+
+    static async getPictureByIdentifier(_req: Request, res: Response) {
+        const { ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
+        const { identifier } = _req.params as { [key: string]: string };
+        const entities = await EntityManager.getPictureByIdentifier(identifier, ruleFiltersQuery);
+        res.status(200).send(entities);
+    }
 }
 
 export default EntityController;

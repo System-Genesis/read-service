@@ -1,6 +1,12 @@
 import { Document } from 'mongoose';
 import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
 
+type ProfilePictureData = {
+    path: string;
+    updatedAt?: Date;
+    createdAt: Date;
+};
+
 interface IEntity extends Document {
     // Entity's Basic information
     id: string;
@@ -13,12 +19,12 @@ interface IEntity extends Document {
     serviceType: string;
     firstName: string;
     lastName: string;
+    fullName: string;
     akaUnit: string;
-    status: string;
     dischargeDate: Date;
     rank: string; // enum
     mail: string;
-    job: string;
+    jobTitle: string;
     phone: string;
     mobilePhone: string;
     address: string;
@@ -27,7 +33,10 @@ interface IEntity extends Document {
     birthDate?: Date;
     createdAt?: Date;
     updatedAt?: Date;
+    pictures: {
+        profile: ProfilePictureData;
+    };
     digitalIdentities: [IDigitalIdentity];
 }
 
-export default IEntity;
+export { IEntity, ProfilePictureData };

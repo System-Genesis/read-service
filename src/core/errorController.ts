@@ -2,6 +2,7 @@ import * as express from 'express';
 import { ServiceError } from './ApiErrors';
 
 const errorMiddleware = (error: Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.log("🚀 ~ file: errorController.ts ~ line 24 ~ errorMiddleware ~ error", error)
     if (error.name === 'ValidationError') {
         res.status(400).send({
             type: error.name,
@@ -21,5 +22,6 @@ const errorMiddleware = (error: Error, _req: express.Request, res: express.Respo
 
     next();
 };
+
 
 export default errorMiddleware;

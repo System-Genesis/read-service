@@ -10,14 +10,12 @@ class EntityController {
 
     static extractEntityQueries(_req: Request) {
         const { expanded, pageNum, pageSize, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
-        console.log("🚀 ~ file: entity.controller.ts ~ line 11 ~ EntityController ~ extractEntityQueries ~ ruleFilters", ruleFilters)
-        console.log("type", typeof ruleFilters)
+
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
         const page = parseInt(pageNum, 10);
         const limit = parseInt(pageSize, 10);
 
         const ruleFiltersQuery = typeof ruleFilters === 'string' ? (qs.parse(ruleFilters) as any) : ruleFilters;
-        console.log("🚀 ~ file: entity.controller.ts ~ line 16 ~ EntityController ~ extractEntityQueries ~ ruleFiltersQuery", ruleFiltersQuery)
 
         return { isExpanded, page, limit, ruleFiltersQuery, userQueries };
     }

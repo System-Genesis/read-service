@@ -9,6 +9,7 @@ class EntityController {
 
     static extractEntityQueries(_req: Request) {
         const { expanded, pageNum, pageSize, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
+
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
         const page = parseInt(pageNum, 10);
         const limit = parseInt(pageSize, 10);

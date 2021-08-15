@@ -4,7 +4,7 @@ import IRole from './role.interface';
 import { RoleModel } from './role.model';
 
 export default class RoleRepository {
-    protected model: mongoose.Model<IRole & mongoose.Document>;
+    protected model: mongoose.Model<IRole>;
 
     constructor() {
         this.model = RoleModel;

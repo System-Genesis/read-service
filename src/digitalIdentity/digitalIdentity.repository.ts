@@ -2,10 +2,9 @@ import * as mongoose from 'mongoose';
 import { Types } from 'mongoose';
 import IDigitalIdentity from './digitalIdentity.interface';
 import { DigitalIdentityModel } from './digitalIdentity.model';
-import { listenerCount } from 'process';
 
 export default class DigitalIdentityRepository {
-    protected model: mongoose.Model<IDigitalIdentity & mongoose.Document>;
+    protected model: mongoose.Model<IDigitalIdentity>;
 
     private static DENORMALIZED_FIELDS = '-role';
 

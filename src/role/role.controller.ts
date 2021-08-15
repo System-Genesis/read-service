@@ -14,8 +14,9 @@ class RoleController {
         const { pageNum, pageSize, ruleFilters, direct, ...userQueries } = _req.query as { [key: string]: string };
         const page = parseInt(pageNum, 10);
         const limit = parseInt(pageSize, 10);
+        let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        ruleFiltersQuery = ruleFiltersQuery || [];
 
-        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
 
         return { isDirect, page, limit, ruleFiltersQuery, userQueries };

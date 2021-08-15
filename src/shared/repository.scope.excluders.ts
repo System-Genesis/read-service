@@ -2,7 +2,7 @@
 import { RuleFilter, ScopeFields } from './types';
 
 const hierarchiesExcluder = (hierarchyValues: string[]) => {
-    return { $not: { $regexp: hierarchyValues[0] } };
+    return { $not: { $regex: hierarchyValues[0], $options: 'i' } };
 };
 
 const otherFieldsExcluder = (fieldValues: string[]) => {

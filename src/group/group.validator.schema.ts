@@ -51,7 +51,7 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.string().valid(...expandedTypes),
         source: Joi.string().valid(...Object.values(enums.SOURCE)),
-        updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
+        updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),
         pageSize: Joi.number().min(50).max(1000),
     },

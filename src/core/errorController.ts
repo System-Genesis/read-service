@@ -1,22 +1,14 @@
 import * as express from 'express';
-import { ServiceError } from './ApiErrors';
+import { BadRequestError, NotFoundError } from './ApiErrors';
+import ResponseHandler from '../shared/BaseController';
 
 const errorMiddleware = (error: Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
-    if (error.name === 'ValidationError') {
-        res.status(400).send({
-            type: error.name,
-            message: error.message,
-        });
-    } else if (error instanceof ServiceError) {
-        res.status(error.code).send({
-            type: error.name,
-            message: error.message,
-        });
+    if (error instanceof BadRequestError) {
+        ResponseHandler.clientError(res, error.message);
+    } else if (error instanceof NotFoundError) {
+        ResponseHandler.notFound(res, error.message);
     } else {
-        res.status(500).send({
-            type: error.name,
-            message: error.message,
-        });
+        ResponseHandler.internal(res, error.message);
     }
 
     next();

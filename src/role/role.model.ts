@@ -6,8 +6,10 @@ const RoleSchema: Schema = new Schema(
     {
         roleId: String,
         jobTitle: String,
-        digitalIndentityUniqueId: String,
+        digitalIdentityUniqueId: String,
         directGroup: String,
+        hierarchy: String,
+        hierarchyIds: [String],
         createdAt: Date,
         updatedAt: Date,
         source: String,
@@ -15,6 +17,6 @@ const RoleSchema: Schema = new Schema(
     { collection: config.mongo.RoleCollectionName },
 );
 
-const RoleModel: Model<IRole & Document> = model('role', RoleSchema);
+const RoleModel: Model<IRole> = model('role', RoleSchema);
 
 export { RoleModel, RoleSchema };

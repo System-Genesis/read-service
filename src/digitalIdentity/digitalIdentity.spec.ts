@@ -7,6 +7,7 @@ import * as qs from 'qs';
 
 import Server from '../express/server';
 import IDigitalIdentity from './digitalIdentity.interface';
+import { seedDB, emptyDB } from '../shared/tests/seedDB';
 
 const allDIDB = require('../../mongo-seed/digitalIdentitiesDNs');
 
@@ -21,6 +22,12 @@ describe('Digital Identity Tests', () => {
             useUnifiedTopology: true,
             useFindAndModify: false,
         });
+        try {
+            await emptyDB();
+            await seedDB();
+        } catch (err) {
+            console.log(err);
+        }
     });
     afterAll(async () => {
         await mongoose.connection.close();
@@ -90,12 +97,17 @@ describe('Digital Identity Tests', () => {
             const qsQuery = qs.stringify({
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
                 updatedFrom: dateFromQuery,
-                page: '1',
+                pageNum: 1,
+                pageSize: 50,
             });
             const res = await request.get('/digitalIdentities').query(qsQuery);
             expect(res.status).toBe(200);
             expect(res.body.length).toBeGreaterThan(0);
-            expect(res.body.every((di) => di.updatedAt >= dateFromQuery)).toBeTruthy();
+            expect(
+                res.body.every((di) => {
+                    return new Date(di.updatedAt) >= new Date(dateFromQuery);
+                }),
+            ).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }

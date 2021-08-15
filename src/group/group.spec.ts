@@ -9,6 +9,7 @@ import * as qs from 'qs';
 
 import Server from '../express/server';
 import IGroup from './group.interface';
+import { seedDB, emptyDB } from '../shared/tests/seedDB';
 
 const allGroupsDB = require('../../mongo-seed/organizationGroupsDNs');
 
@@ -23,6 +24,12 @@ describe('Group Tests', () => {
             useUnifiedTopology: true,
             useFindAndModify: false,
         });
+        try {
+            await emptyDB();
+            await seedDB();
+        } catch (err) {
+            console.log(err);
+        }
     });
     afterAll(async () => {
         await mongoose.connection.close();
@@ -139,7 +146,7 @@ describe('Group Tests', () => {
                 const qsQuery = qs.stringify({
                     ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
                     pageNum,
-                    pageSize: '200',
+                    pageSize: 200,
                     expanded: true,
                 });
                 const res = await request.get('/groups').query(qsQuery);
@@ -165,7 +172,7 @@ describe('Group Tests', () => {
                 const qsQuery = qs.stringify({
                     ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
                     pageNum,
-                    pageSize: '200',
+                    pageSize: 200,
                     expanded: true,
                     source: 'city_name',
                 });
@@ -180,6 +187,28 @@ describe('Group Tests', () => {
             }
             expect(foundGroups.every((group) => group.source === 'city_name'));
             expect(foundGroups.length).toBe(allGroupsDB.filter((group) => group.source === 'city_name').length);
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
+    it('Should query with updated from filter', async () => {
+        try {
+            const dateFromQuery = '2021-06-06T07:25:45.363Z';
+            const qsQuery = qs.stringify({
+                // ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
+                pageNum: 1,
+                pageSize: 200,
+                expanded: true,
+                updatedFrom: dateFromQuery,
+            });
+            const res = await request.get('/groups').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(
+                res.body.every((group) => {
+                    return new Date(group.updatedAt) >= new Date(dateFromQuery);
+                }),
+            ).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }

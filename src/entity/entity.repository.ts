@@ -4,7 +4,7 @@ import { IEntity, ProfilePictureData } from './entity.interface';
 import { EntityModel } from './entity.model';
 
 export default class EntityRepository {
-    protected model: mongoose.Model<IEntity & mongoose.Document>;
+    protected model: mongoose.Model<IEntity>;
 
     private static DENORMALIZED_FIELDS = '-digitalIdentities -hierarchyIds';
 

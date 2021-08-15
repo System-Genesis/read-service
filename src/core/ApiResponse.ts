@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable max-classes-per-file */
 import { Response } from 'express';
 
@@ -24,13 +25,12 @@ abstract class ApiResponse {
     private static sanitize<T extends ApiResponse>(response: T): T {
         const clone: T = {} as T;
         Object.assign(clone, response);
-        delete clone.status;
         Object.keys(clone).forEach((key) => (clone[key] === undefined ? delete clone[key] : {}));
         return clone;
     }
 }
 
-export default class SuccessResponse<T> extends ApiResponse {
+export class SuccessResponse<T> extends ApiResponse {
     constructor(message: string, private data: T) {
         super(ResponseStatus.SUCCESS, message);
     }

@@ -7,7 +7,7 @@ import * as supertest from 'supertest';
 import * as qs from 'qs';
 // import allEntitiesDB from '../../mongo-seed/entityDNs.json';
 // import EntityControlleimportr from './entity.controller';
-// import { EntityModel } from './entity.model';
+import { seedDB, emptyDB } from '../shared/tests/seedDB';
 
 import Server from '../express/server';
 
@@ -24,6 +24,12 @@ describe('Entity Unit Tests', () => {
             useUnifiedTopology: true,
             useFindAndModify: false,
         });
+        try {
+            await emptyDB();
+            await seedDB();
+        } catch (err) {
+            console.log(err);
+        }
     });
     afterAll(async () => {
         await mongoose.connection.close();
@@ -32,7 +38,7 @@ describe('Entity Unit Tests', () => {
     // let res: Response;
     it('Should return entity from city by id', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'hierarchy', values: [''], entityType: 'entity' }],
             expanded: true,
         });
         try {
@@ -46,7 +52,7 @@ describe('Entity Unit Tests', () => {
 
     it('Shouldnt return entity from city by id out of scope', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
+            ruleFilters: [{ field: 'hierarchy', values: ['city_name'], entityType: 'entity' }],
             expanded: true,
         });
         try {
@@ -59,7 +65,7 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entity by identifier', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
             expanded: true,
         });
         const res = await request.get('/entities/identifier/8257994').query(qsQuery);
@@ -69,7 +75,7 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entity by digitalIdentity', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'source', values: [''], entityType: 'entity' }],
             expanded: true,
         });
         const res = await request.get('/entities/digitalIdentity/gf603940726@city.com').query(qsQuery);
@@ -80,7 +86,7 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entity by roleId', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
             expanded: true,
         });
         const res = await request.get('/entities/role/e261976729@city').query(qsQuery);
@@ -182,17 +188,22 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entities with updated from filter', async () => {
         try {
-            const dateFromQuery = '2021-07-27';
+            const dateFromQuery = '2021-06-06T07:25:45.363Z';
             const qsQuery = qs.stringify({
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
-                updatedAt: dateFromQuery,
+                updatedFrom: dateFromQuery,
                 pageNum: 1,
                 pageSize: 50,
             });
             const res = await request.get('/entities').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.every((entity) => entity.updatedAt >= dateFromQuery)).toBeTruthy();
+            expect(
+                res.body.every((entity) => {
+                    return new Date(entity.updatedAt) >= new Date(dateFromQuery);
+                }),
+            ).toBeTruthy();
         } catch (err) {
+            console.log('err: ', err);
             expect(!err).toBeTruthy();
         }
     });

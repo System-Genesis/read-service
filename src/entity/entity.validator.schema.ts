@@ -78,7 +78,7 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         entityType: Joi.string(),
         digitalIdentitySource: Joi.string(),
         status: Joi.string(),
-        updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
+        updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),
         pageSize: Joi.number().min(50).max(1000),
     },

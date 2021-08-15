@@ -35,8 +35,19 @@
       "name": "Jest Tests",
       // "program": "${workspaceFolder}/node_modules/.bin/jest",
       "program": "./node_modules/jest/bin/jest.js",
-      "args": ["--forceExit", "-i"],
+      "args": ["--forceExit", "-i", "--runInBand"],
       "preLaunchTask": "tsc: build - tsconfig.json",
+      "internalConsoleOptions": "neverOpen",
+      "outFiles": ["${workspaceRoot}/dist/**/*"],
+      "envFile": "${workspaceRoot}/.env.dev"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest watch current file",
+      "program": "./node_modules/jest/bin/jest.js",
+      "args": ["${fileBasename}", "--forceExit", "-i", "--runInBand"],
+      "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "outFiles": ["${workspaceRoot}/dist/**/*"],
       "envFile": "${workspaceRoot}/.env.dev"

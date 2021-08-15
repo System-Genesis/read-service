@@ -15,7 +15,7 @@ const getRequestBaseSchema = Joi.object({
 export const getRolesByCustomFilters = getRequestBaseSchema.keys({
     query: {
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
-        updatedFrom: Joi.date().format('YYYY-MM-DD').utc(),
+        updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),
         pageSize: Joi.number().min(50).max(1000),
     },

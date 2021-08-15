@@ -4,7 +4,7 @@ import IGroup from './group.interface';
 import { GroupModel } from './group.model';
 
 export default class GroupRepository {
-    protected model: mongoose.Model<IGroup & mongoose.Document>;
+    protected model: mongoose.Model<IGroup>;
 
     constructor() {
         this.model = GroupModel;

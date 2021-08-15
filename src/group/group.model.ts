@@ -9,6 +9,7 @@ const GroupSchema: Schema = new Schema(
         id: String,
         name: String,
         source: String,
+        directGroup: String, // TODO: change to Schema.Types.ObjectId
         ancestors: [String],
         hierarchy: String,
         status: String,
@@ -21,6 +22,6 @@ const GroupSchema: Schema = new Schema(
     { collection: config.mongo.GroupCollectionName },
 );
 
-const GroupModel: Model<IGroup & Document> = model('Group', GroupSchema);
+const GroupModel: Model<IGroup> = model('Group', GroupSchema);
 
 export { GroupModel, GroupSchema };

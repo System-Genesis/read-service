@@ -6,6 +6,7 @@ import * as supertest from 'supertest';
 import * as qs from 'qs';
 // import EntityController from './entity.controller';
 // import { EntityModel } from './entity.model';
+import { seedDB, emptyDB } from '../shared/tests/seedDB';
 
 import Server from '../express/server';
 const allRolesDB = require('../../mongo-seed/roleDNs');
@@ -21,6 +22,12 @@ describe('Role Tests', () => {
             useUnifiedTopology: true,
             useFindAndModify: false,
         });
+        try {
+            await emptyDB();
+            await seedDB();
+        } catch (err) {
+            console.log(err);
+        }
     });
     afterAll(async () => {
         await mongoose.connection.close();
@@ -102,12 +109,16 @@ describe('Role Tests', () => {
             const qsQuery = qs.stringify({
                 ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
                 updatedFrom: dateFromQuery,
+                pageNum: 1,
                 pageSize: 50,
-                page: '1',
             });
             const res = await request.get('/roles').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.every((role) => role.updatedAt >= dateFromQuery)).toBeTruthy();
+            expect(
+                res.body.every((role) => {
+                    return new Date(role.updatedAt) >= new Date(dateFromQuery);
+                }),
+            ).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }

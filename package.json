@@ -12,7 +12,7 @@
     "test-groups": "jest  --verbose --runInBand -- src/group/group.spec.ts",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "dev:linux": "NODE_ENV=dev nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev:linux": "NODE_ENV=dev nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",
     "dev:windows": "set NODE_ENV=dev&& nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",

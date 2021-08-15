@@ -15,7 +15,9 @@ class DigitalIdentityController {
         const page = parseInt(pageNum, 10);
         const limit = parseInt(pageSize, 10);
 
-        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        ruleFiltersQuery = ruleFiltersQuery || [];
+
         return { isExpanded, page, limit, ruleFiltersQuery, userQueries };
     }
 

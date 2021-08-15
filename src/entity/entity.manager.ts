@@ -97,7 +97,7 @@ class EntityManager {
         }
         const foundPic = await EntityManager.entityRepository.getPictureMetaData(identifier);
         const { path } = foundPic;
-        return paginatedResults;
+        // return paginatedResults;
     }
 }
 

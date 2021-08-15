@@ -1,5 +1,5 @@
 import { model, Schema, Model } from 'mongoose';
-import IEntity from './entity.interface';
+import { IEntity } from './entity.interface';
 import { DigitalIdentitySchema } from '../digitalIdentity/digitalIdentity.model';
 import config from '../config/index';
 
@@ -20,14 +20,16 @@ const EntitySchema: Schema = new Schema(
         rank: String, // enum
         mail: String,
         job: String,
-        phone: String,
-        mobilePhone: String,
+        phone: [String],
+        mobilePhone: [String],
         address: String,
         clearance: String, // String of number - enum
         sex: String,
         birthDate: Date,
         createdAt: Date,
         updatedAt: Date,
+        hierarchy: String,
+        hierarchyIds: [String],
         digitalIdentities: [DigitalIdentitySchema],
     },
     { collection: config.mongo.EntityDenormalizedCollectionName },

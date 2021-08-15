@@ -39,6 +39,20 @@ export default {
         mir: 'mir_name',
     },
 
+    SOURCE_ROOT: {
+        aka: 'aka',
+        es: 'es_name',
+        ads: 'ads_name',
+        adnn: 'adNN_name',
+        nv: 'nvSQL_name',
+        lmn: 'lmn_name',
+        mdn: 'mdn_name',
+        mm: 'mm_name',
+        city: 'city_name',
+        sf: 'sf_name',
+        mir: 'mir_name',
+    },
+
     SEX: {
         Male: 'm',
         Female: 'f',

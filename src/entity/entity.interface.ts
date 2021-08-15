@@ -7,9 +7,9 @@ type ProfilePictureData = {
     createdAt: Date;
 };
 
-interface IEntity extends Document {
+interface IEntity {
     // Entity's Basic information
-    id: string;
+    _id: string;
     displayName: string;
     hierarchy: string;
     hierarchyIds: string[];
@@ -25,8 +25,8 @@ interface IEntity extends Document {
     rank: string; // enum
     mail: string;
     jobTitle: string;
-    phone: string;
-    mobilePhone: string;
+    phone: string[];
+    mobilePhone: string[];
     address: string;
     clearance: string; // string of number - enum
     sex?: string;

@@ -15,8 +15,9 @@ class GroupController {
         const isExpanded = expanded === 'true';
         const page = parseInt(pageNum, 10);
         const limit = parseInt(pageSize, 10);
+        let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        ruleFiltersQuery = ruleFiltersQuery || [];
 
-        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         return { isDirect, isExpanded, page, limit, ruleFiltersQuery, userQueries };
     }

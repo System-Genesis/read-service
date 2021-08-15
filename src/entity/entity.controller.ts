@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Types } from 'mongoose';
+import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
 
@@ -11,8 +12,8 @@ class EntityController {
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
         const page = parseInt(pageNum, 10);
         const limit = parseInt(pageSize, 10);
-
-        const ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
+        ruleFiltersQuery = ruleFiltersQuery || [];
 
         return { isExpanded, page, limit, ruleFiltersQuery, userQueries };
     }
@@ -20,36 +21,36 @@ class EntityController {
     static async getAll(_req: Request, res: Response) {
         const { isExpanded, page, limit, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
         const resEntities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, page, limit);
-        res.status(200).send(resEntities);
+        ResponseHandler.success<any[]>(res, resEntities);
     }
 
     static async getById(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
-        const entities = await EntityManager.findById(_req.params.id, ruleFiltersQuery, isExpanded);
-        res.status(200).send(entities);
+        const entity = await EntityManager.findById(_req.params.id, ruleFiltersQuery, isExpanded);
+        ResponseHandler.success(res, entity);
     }
 
     static async getByIdentifier(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { identifier } = _req.params as { [key: string]: string };
-        const entities = await EntityManager.findByIdentifier(identifier, ruleFiltersQuery, isExpanded);
-        res.status(200).send(entities);
+        const entity = await EntityManager.findByIdentifier(identifier, ruleFiltersQuery, isExpanded);
+        ResponseHandler.success(res, entity);
     }
 
     static async getByDigitalIdentity(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { digitalIdentityUniqueId } = _req.params as { [key: string]: string };
 
-        const entities = await EntityManager.findByDigitalIdentity(digitalIdentityUniqueId, ruleFiltersQuery, isExpanded);
-        res.status(200).send(entities);
+        const entity = await EntityManager.findByDigitalIdentity(digitalIdentityUniqueId, ruleFiltersQuery, isExpanded);
+        ResponseHandler.success(res, entity);
     }
 
     static async getByRole(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { roleId } = _req.params as { [key: string]: string };
 
-        const entities = await EntityManager.findByRole(roleId, ruleFiltersQuery, isExpanded);
-        res.status(200).send(entities);
+        const entity = await EntityManager.findByRole(roleId, ruleFiltersQuery, isExpanded);
+        ResponseHandler.success(res, entity);
     }
 
     static async getUnderGroup(_req: Request, res: Response) {
@@ -57,7 +58,7 @@ class EntityController {
         const { groupId } = _req.params as { [key: string]: string };
 
         const resEntities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded, page, limit);
-        res.status(200).send(resEntities);
+        ResponseHandler.success<any[]>(res, resEntities);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
@@ -65,14 +66,14 @@ class EntityController {
         const { hierarchy } = _req.params as { [key: string]: string };
 
         const resEntities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, page, limit);
-        res.status(200).send(resEntities);
+        ResponseHandler.success<any[]>(res, resEntities);
     }
 
     static async getPictureByIdentifier(_req: Request, res: Response) {
         const { ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { identifier } = _req.params as { [key: string]: string };
-        const entities = await EntityManager.getPictureByIdentifier(identifier, ruleFiltersQuery);
-        res.status(200).send(entities);
+        const picture = await EntityManager.getPictureByIdentifier(identifier, ruleFiltersQuery);
+        ResponseHandler.success(res, picture);
     }
 }
 

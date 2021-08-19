@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import IRole from '../role/role.interface';
 
 export default interface IDigitalIdentity {
@@ -7,7 +7,7 @@ export default interface IDigitalIdentity {
     source: string;
     mail: string;
     uniqueId: string;
-    entityId: string; // TODO: change to object id -> _id instead of id
+    entityId: Types.ObjectId; // TODO: change to object id -> _id instead of id
     createdAt: Date;
     updatedAt: Date;
     isRoleAttachable: boolean;

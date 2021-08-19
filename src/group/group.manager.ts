@@ -28,6 +28,7 @@ class GroupManager {
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
         const group = await GroupManager.groupRepository.findById(id, scopeExcluder, expanded);
+        // const ancestors = await GroupManager.groupRepository.getAncestors(id);
         if (!group) {
             throw new ApiErrors.NotFoundError();
         }

@@ -54,12 +54,15 @@ class EntityManager {
     static async findByIdentifier(identifier: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntity = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, expanded);
+        if (!foundEntity) {
+            throw new ApiErrors.NotFoundError();
+        }
         return foundEntity;
     }
 
     static async findByRole(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = EntityManager.entityRepository.findByRole(roleId, scopeExcluder, expanded);
+        const foundEntity = await EntityManager.entityRepository.findByRole(roleId, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }

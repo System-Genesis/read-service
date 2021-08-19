@@ -6,10 +6,10 @@ import GroupRouter from '../group/group.router';
 
 const appRouter = Router();
 
-appRouter.use('/entities', EntityRouter);
-appRouter.use('/digitalIdentities', DigitalIdentityRouter);
-appRouter.use('/roles', RoleRouter);
-appRouter.use('/groups', GroupRouter);
+appRouter.use('/api/entities', EntityRouter);
+appRouter.use('/api/digitalIdentities', DigitalIdentityRouter);
+appRouter.use('/api/roles', RoleRouter);
+appRouter.use('/api/groups', GroupRouter);
 
 appRouter.use('/isAlive', (_req, res) => {
     res.status(200).send('alive');

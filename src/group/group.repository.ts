@@ -32,7 +32,7 @@ export default class GroupRepository {
     }
 
     findById(groupId: string, excluders, expanded: boolean) {
-        let findQuery = this.model.findOne({ id: groupId, ...excluders });
+        let findQuery = this.model.findOne({ _id: groupId, ...excluders });
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
@@ -53,4 +53,27 @@ export default class GroupRepository {
         }
         return findQuery.lean<IGroup>().exec();
     }
+
+    // async getAncestors(groupId: string) {
+    //     const groupsWithAncestors = await this.model
+    //         .aggregate([
+    //             { $match: { _id: Types.ObjectId(groupId) } },
+    //             {
+    //                 $graphLookup: {
+    //                     from: 'organizationGroupsDNs',
+    //                     startWith: { $toObjectId: '$directGroup' },
+    //                     connectFromField: 'directGroup',
+    //                     connectToField: '_id',
+    //                     as: 'ancestors',
+    //                     // depthField: 'depth',
+    //                     maxDepth: 100,
+    //                 },
+    //             },
+    //             // { $unwind: '$ancestors' },
+    //             // { $sort: { depth: 1 } },
+    //             // { $project: { _id: 1 } },
+    //         ])
+    //         .exec();
+    //     return groupsWithAncestors;
+    // }
 }

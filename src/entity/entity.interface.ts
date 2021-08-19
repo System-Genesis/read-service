@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
 
 type ProfilePictureData = {
@@ -9,7 +9,7 @@ type ProfilePictureData = {
 
 interface IEntity {
     // Entity's Basic information
-    _id: string;
+    _id: Types.ObjectId;
     displayName: string;
     hierarchy: string;
     hierarchyIds: string[];
@@ -33,8 +33,11 @@ interface IEntity {
     birthDate?: Date;
     createdAt?: Date;
     updatedAt?: Date;
-    pictures: {
-        profile: ProfilePictureData;
+    pictures?: {
+        profile?: {
+            url: string;
+            meta: ProfilePictureData;
+        };
     };
     digitalIdentities: [IDigitalIdentity];
 }

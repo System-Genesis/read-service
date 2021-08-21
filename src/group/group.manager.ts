@@ -3,7 +3,7 @@ import GroupRepository from './group.repository';
 import * as ApiErrors from '../core/ApiErrors';
 import IGroup from './group.interface';
 import { extractUserQueries } from '../shared/filterQueries';
-import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import { extractScopesQuery } from '../shared/scopeExcluders';
 import { RuleFilter, EntityTypes } from '../shared/types';
 import pageWrapper from '../shared/pageWrapper';
 import { groupQueries } from './utils/types';

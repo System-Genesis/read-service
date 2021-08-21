@@ -4,7 +4,7 @@ import * as ApiErrors from '../core/ApiErrors';
 import { DigitalIdentityQueries } from './utils/types';
 import { mapFieldQueryFunc } from './utils/queryParsers';
 import { extractUserQueries } from '../shared/filterQueries';
-import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
 

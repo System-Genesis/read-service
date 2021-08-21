@@ -3,9 +3,9 @@ import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import { EntityQueries, RequestQueryFields } from './utils/types';
-import { mapFieldQueryFunc } from './utils/queryParsers';
-import { extractUserQueries } from '../shared/filterQueries';
-import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
+import { extractUserQueries, extractAliasesUserQueries } from '../shared/filterQueries';
+import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
@@ -35,7 +35,8 @@ class EntityManager {
 
     static async getAll(userQueries: EntityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const transformedQuery = extractUserQueries<EntityQueries>(userQueries, EntityManager.mapFieldName, mapFieldQueryFunc);
+        const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
+        const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
         const entities = await EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);

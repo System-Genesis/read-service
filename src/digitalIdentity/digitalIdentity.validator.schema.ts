@@ -1,7 +1,7 @@
 import * as BaseJoi from 'joi';
 import JoiDate from '@joi/date';
 
-import enums from '../config/enums';
+import enums from '../config/db-enums';
 
 const Joi = BaseJoi.extend(JoiDate);
 

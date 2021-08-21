@@ -3,7 +3,7 @@ import RoleRepository from './role.repository';
 import * as ApiErrors from '../core/ApiErrors';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import { extractUserQueries } from '../shared/filterQueries';
-import { extractScopesQuery } from '../shared/repository.scope.excluders';
+import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';
 import { roleQueries } from './utils/types';
 import { mapFieldQueryFunc } from './utils/queryParsers';

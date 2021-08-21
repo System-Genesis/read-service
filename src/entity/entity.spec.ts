@@ -195,13 +195,14 @@ describe('Entity Unit Tests', () => {
 
     it('Should return first page of all digimon entities', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
             entityType: 'digimon',
             pageSize: 50,
             expanded: true,
         });
         const res = await request.get('/api/entities').query(qsQuery);
-        expect(res.status).toBeGreaterThan(0);
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBeGreaterThan(0);
         expect(res.body.every((entity) => entity.entityType === 'digimon')).toBeTruthy();
         expect(res.body.every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
     });
@@ -212,7 +213,7 @@ describe('Entity Unit Tests', () => {
             let foundEntities = [];
             while (true) {
                 const qsQuery = qs.stringify({
-                    ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+                    // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
                     pageNum,
                     pageSize: 200,
                     expanded: true,
@@ -236,7 +237,7 @@ describe('Entity Unit Tests', () => {
         try {
             const dateFromQuery = '2021-06-06T07:25:45.363Z';
             const qsQuery = qs.stringify({
-                ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
+                // ruleFilters: [{ field: 'source', values: [''], entityType: 'role' }],
                 updatedFrom: dateFromQuery,
                 pageNum: 1,
                 pageSize: 50,
@@ -258,7 +259,7 @@ describe('Entity Unit Tests', () => {
         try {
             const res = await request.get('/api/entities').query(
                 qs.stringify({
-                    ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
+                    ruleFilters: [{ field: 'hierarchy', values: ['city_name'], entityType: 'entity' }],
                     entityType: 'digimon',
                     pageNum: 1,
                     pageSize: 50,
@@ -266,7 +267,8 @@ describe('Entity Unit Tests', () => {
                 }),
             );
             expect(res.status).toBe(200);
-            expect(res.body.every((entity) => entity.digitalIdentities.every((di) => di.source !== 'city_name'))).toBeTruthy();
+            expect(res.body.length).toBeGreaterThan(0);
+            expect(res.body.every((entity) => !entity.hierarchy?.startsWith('city_name'))).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }

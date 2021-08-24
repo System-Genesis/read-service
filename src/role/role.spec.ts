@@ -6,7 +6,7 @@ import * as supertest from 'supertest';
 import * as qs from 'qs';
 // import EntityController from './entity.controller';
 // import { EntityModel } from './entity.model';
-import { seedDB, emptyDB } from '../shared/tests/seedDB';
+import { seedDB, emptyDB } from '../shared/tests/seedUtils';
 
 import Server from '../express/server';
 const allRolesDB = require('../../mongo-seed/roleDNs');
@@ -35,13 +35,24 @@ describe('Role Tests', () => {
     });
 
     it('Should return role from city by roleId', async () => {
-        const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
-        });
+        const qsQuery = qs.stringify({});
         try {
-            const res = await request.get('/roles/e467333225@city').query(qsQuery);
+            const res = await request.get('/api/roles/i97156618@city').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.roleId).toBe('e467333225@city');
+            expect(res.body.roleId).toBe('i97156618@city');
+            expect(res.body.hierarchy).toContain('/');
+            expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
+    it('Should return role from city by roleId - insensitive case', async () => {
+        const qsQuery = qs.stringify({});
+        try {
+            const res = await request.get('/api/roles/I97156618@City').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(res.body.roleId).toBe('i97156618@city');
             expect(res.body.hierarchy).toContain('/');
             expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
         } catch (err) {
@@ -54,7 +65,7 @@ describe('Role Tests', () => {
             ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'role' }],
         });
         try {
-            const res = await request.get('/roles/e467333225@city').query(qsQuery);
+            const res = await request.get('/api/roles/i97156618@city').query(qsQuery);
             expect(res.status).toBe(404);
         } catch (err) {
             expect(!err).toBeTruthy();
@@ -62,43 +73,48 @@ describe('Role Tests', () => {
     });
 
     it('Should return role by digitalIdentityUniqueID', async () => {
-        const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
-        });
-        const res = await request.get('/roles/digitalIdentity/e467333225@city.com').query(qsQuery);
+        const qsQuery = qs.stringify({});
+        const res = await request.get('/api/roles/digitalIdentity/i97156618@turtle.com').query(qsQuery);
         expect(res.status).toBe(200);
-        expect(res.body.roleId).toBe('e467333225@city');
+        expect(res.body.roleId).toBe('i97156618@city');
+        expect(res.body.hierarchy).toContain('/');
+        expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
+    });
+
+    it('Should return role by digitalIdentityUniqueID - insensitive case', async () => {
+        const qsQuery = qs.stringify({});
+        const res = await request.get('/api/roles/digitalIdentity/I97156618@tURtle.com').query(qsQuery);
+        expect(res.status).toBe(200);
+        expect(res.body.roleId).toBe('i97156618@city');
         expect(res.body.hierarchy).toContain('/');
         expect(res.body.hierarchyIds.length).toBeGreaterThan(0);
     });
 
     it('Should return role by direct groupId', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
             pageSize: 50,
             direct: true,
         });
-        const res = await request.get('/roles/group/19ew4r3d3d').query(qsQuery);
+        const res = await request.get('/api/roles/group/611b5cf2a7a257532f054da5').query(qsQuery);
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
     });
 
     it('Should return role under groupId', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
             pageSize: 50,
         });
-        const res = await request.get('/roles/group/1ew4r3d3d').query(qsQuery);
+        const res = await request.get('/api/roles/group/611b5cf2a7a257532f054da5').query(qsQuery);
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
     });
 
-    it('Shouldnt return any role under groupId from city', async () => {
+    it('Shouldnt return any role under groupId from es', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'role' }],
+            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'role' }],
             pageSize: 50,
         });
-        const res = await request.get('/roles/group/14ew4r3d3d').query(qsQuery);
+        const res = await request.get('/api/roles/group/611b5cf2a7a257532f054da5').query(qsQuery);
         expect(res.status).toBe(200);
         expect(res.body.length).toBe(0);
     });
@@ -112,7 +128,7 @@ describe('Role Tests', () => {
                 pageNum: 1,
                 pageSize: 50,
             });
-            const res = await request.get('/roles').query(qsQuery);
+            const res = await request.get('/api/roles').query(qsQuery);
             expect(res.status).toBe(200);
             expect(
                 res.body.every((role) => {
@@ -134,7 +150,7 @@ describe('Role Tests', () => {
                     pageNum,
                     pageSize: '100',
                 });
-                const res = await request.get('/roles').query(qsQuery);
+                const res = await request.get('/api/roles').query(qsQuery);
                 expect(res.status).toBe(200);
                 foundRoles = foundRoles.concat(res.body);
                 const nextPage = pageNum + 1;

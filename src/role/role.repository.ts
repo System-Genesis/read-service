@@ -10,6 +10,8 @@ export default class RoleRepository {
         this.model = RoleModel;
     }
 
+    private static HIDDEN_FIELDS = ' -__v';
+
     static createPagniationQuery = (_id: string) => {
         return {
             _id: { $gt: Types.ObjectId(_id) },
@@ -17,7 +19,7 @@ export default class RoleRepository {
     };
 
     findByQuery(query: any, excluders, page: number, pageSize: number): Promise<IRole[]> {
-        const findQuery = this.model
+        let findQuery = this.model
             .find({
                 ...query,
                 ...excluders,
@@ -26,47 +28,49 @@ export default class RoleRepository {
             .limit(pageSize + 1);
 
         // TODO: chain find
-
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole[]>().exec();
     }
 
     findByRoleId(roleId: string, excluders): Promise<IRole> {
-        const findQuery = this.model.findOne({ roleId, ...excluders });
+        let findQuery = this.model.findOne({ roleId: { $regex: roleId, $options: 'i' }, ...excluders });
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole>().exec();
     }
 
     findByDigitalIdentity(uniqueId: string, excluders): Promise<IRole> {
-        const findQuery = this.model.findOne({ digitalIdentityUniqueId: uniqueId, ...excluders });
+        let findQuery = this.model.findOne({ digitalIdentityUniqueId: { $regex: uniqueId, $options: 'i' }, ...excluders });
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole>().exec();
     }
 
     findInGroupId(groupId: string, excluders, page: number, pageSize: number): Promise<IRole[]> {
-        const findQuery = this.model
+        let findQuery = this.model
             .find({ directGroup: groupId, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
-
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole[]>().exec();
     }
 
     findUnderGroupId(groupId: string, excluders, page: number, pageSize: number): Promise<IRole[]> {
-        const findQuery = this.model
+        let findQuery = this.model
             .find({
                 hierarchyIds: groupId,
                 ...excluders,
             })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
-
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole[]>().exec();
     }
 
     findUnderHierarchy(hierarchyToQuery: string, excluders, page: number, pageSize: number): Promise<IRole[]> {
-        const findQuery = this.model
+        let findQuery = this.model
             .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
-
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole[]>().exec();
     }
 }

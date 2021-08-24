@@ -10,6 +10,8 @@ export default class GroupRepository {
         this.model = GroupModel;
     }
 
+    private static HIDDEN_FIELDS = ' -__v';
+
     private static DENORMALIZED_FIELDS = '-directEntities -directRoles';
 
     static createPagniationQuery = (_id: string) => {
@@ -25,6 +27,7 @@ export default class GroupRepository {
             .find({ $and: [{ ...query }, { ...excluders }] })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
+        findQuery = findQuery.select(GroupRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
@@ -33,13 +36,14 @@ export default class GroupRepository {
 
     findById(groupId: string, excluders, expanded: boolean) {
         let findQuery = this.model.findOne({ _id: groupId, ...excluders });
+        findQuery = findQuery.select(GroupRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IGroup>().exec();
     }
 
-    findByHierarchy(hierarchyToQuery: string, excluders, expanded: boolean): Promise<IGroup> {
+    findByHierarchy(hierarchyToQuery: string, excluders, expanded: boolean) {
         const hierarchyPathArr = hierarchyToQuery.split('/');
         const groupNameQuery = hierarchyPathArr.pop();
         const hierarchyWithoutGroup = hierarchyPathArr.join('/');
@@ -48,10 +52,11 @@ export default class GroupRepository {
             name: groupNameQuery,
             ...excluders,
         });
+        findQuery = findQuery.select(GroupRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IGroup>().exec();
+        return findQuery.exec();
     }
 
     // async getAncestors(groupId: string) {

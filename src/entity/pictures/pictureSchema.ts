@@ -1,6 +1,12 @@
 import * as mongoose from 'mongoose';
 
-const ProfilePictureSchema = new mongoose.Schema({
+export type ProfilePictureData = {
+    path: string;
+    updatedAt?: Date;
+    createdAt: Date;
+};
+
+export const ProfilePictureSchema = new mongoose.Schema({
     path: {
         type: String,
     },
@@ -12,5 +18,3 @@ const ProfilePictureSchema = new mongoose.Schema({
     },
     updatedAt: { type: Date, default: Date.now },
 });
-
-export default ProfilePictureSchema;

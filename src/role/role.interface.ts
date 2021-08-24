@@ -1,9 +1,10 @@
-import { Document } from 'mongoose';
+import { Types } from 'mongoose';
 
 export default interface IRole {
-    // Role's Basic information
+    // role as it saved in db
     roleId: string;
     jobTitle: string;
+    clearance: string;
     digitalIdentityUniqueId: string;
     directGroup: string;
     hierarchy: string;

@@ -1,4 +1,4 @@
-import { model, Schema, Model, Document } from 'mongoose';
+import { model, Schema, Model, Types } from 'mongoose';
 import IGroup from './group.interface';
 import config from '../config/index';
 import { EntitySchema } from '../entity/entity.model';
@@ -6,11 +6,10 @@ import { RoleSchema } from '../role/role.model';
 
 const GroupSchema: Schema = new Schema(
     {
-        id: String,
         name: String,
         source: String,
-        directGroup: String, // TODO: change to Schema.Types.ObjectId
-        ancestors: [String],
+        directGroup: Types.ObjectId, // TODO: change to Schema.Types.ObjectId
+        ancestors: [Types.ObjectId],
         hierarchy: String,
         status: String,
         isLeaf: Boolean,

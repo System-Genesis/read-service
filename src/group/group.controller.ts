@@ -1,11 +1,5 @@
 import { Request, Response } from 'express';
-// import * as qs from 'qs';
-import { Types } from 'mongoose';
 import GroupManager from './group.manager';
-import { RuleFilter } from '../shared/types';
-import { extractUserQueries } from '../shared/filterQueries';
-import { groupQueries } from './utils/types';
-import { extractFilters, mapFieldQueryFunc } from './utils/queryParsers';
 
 class GroupController {
     static entityManager: GroupManager = new GroupManager();

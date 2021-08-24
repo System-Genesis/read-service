@@ -9,15 +9,21 @@ const basicQuery = (value) => {
     return value;
 };
 
-const inArrayQuery = (values: string[]) => {
-    return { $in: values };
+const inArrayQuery = (values: string | string[]) => {
+    if (typeof values === 'string') {
+        return values;
+    }
+    if (Array.isArray(values)) {
+        return { $in: values };
+    }
+    return {};
 };
 
 export const mapFieldQueryFunc = new Map<string, any>([
     ['ids', inArrayQuery],
     ['updatedFrom', updatedFromQuery],
-    ['entityType', basicQuery],
-    ['rank', basicQuery],
+    ['entityType', inArrayQuery],
+    ['rank', inArrayQuery],
     ['source', inArrayQuery],
     ['digitalIdentities.source', inArrayQuery],
     ['status', basicQuery],

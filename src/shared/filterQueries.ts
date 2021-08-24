@@ -13,7 +13,7 @@ export const extractUserQueries = <T>(filters: T, mapField: Map<string, string>,
 };
 
 export const extractAliasesUserQueries = <T>(filters: T, mapAliasesQueryFunc: Map<string, any>) => {
-    const query = {};
+    const query = { ...filters };
     Object.entries(filters).forEach(([field, value]) => {
         if (mapAliasesQueryFunc.get(field)) {
             const deducedValues = mapAliasesQueryFunc.get(field)(value);

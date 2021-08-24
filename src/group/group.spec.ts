@@ -9,7 +9,7 @@ import * as qs from 'qs';
 
 import Server from '../express/server';
 import IGroup from './group.interface';
-import { seedDB, emptyDB } from '../shared/tests/seedDB';
+import { seedDB, emptyDB } from '../shared/tests/seedUtils';
 
 const allGroupsDB = require('../../mongo-seed/organizationGroupsDNs');
 
@@ -27,24 +27,21 @@ describe('Group Tests', () => {
         try {
             await emptyDB();
             await seedDB();
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     });
     afterAll(async () => {
         await mongoose.connection.close();
         server.stop();
     });
 
-    it('Should return group from city by id', async () => {
+    it('Should return group from es by id', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'group' }],
             expanded: true,
         });
         try {
-            const res = await request.get('/groups/4ew4r3d3d').query(qsQuery);
+            const res = await request.get('/api/groups/611b5c58a7a257532f054a4b').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.id).toBe('4ew4r3d3d');
+            expect(res.body._id).toBe('611b5c58a7a257532f054a4b');
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -56,7 +53,7 @@ describe('Group Tests', () => {
             expanded: true,
         });
         try {
-            const res = await request.get('/groups/4ew4r3d3d').query(qsQuery);
+            const res = await request.get('/api/groups/611b5c58a7a257532f054a4b').query(qsQuery);
             expect(res.status).toBe(404);
         } catch (err) {
             expect(!err).toBeTruthy();
@@ -70,10 +67,10 @@ describe('Group Tests', () => {
             direct: true,
         });
         try {
-            const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
+            const res = await request.get('/api/groups/611b5c58a7a257532f054a4b/children').query(qsQuery);
             expect(res.status).toBe(200);
             expect(res.body.length).toBeGreaterThan(0);
-            expect(res.body.every((group) => group.directGroup === '1ew4r3d3d')).toBeTruthy();
+            expect(res.body.every((group) => group.directGroup === '611b5c58a7a257532f054a4b')).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -86,10 +83,10 @@ describe('Group Tests', () => {
             direct: false,
         });
         try {
-            const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
+            const res = await request.get('/api/groups/611b5c58a7a257532f054a4b/children').query(qsQuery);
             expect(res.status).toBe(200);
             expect(res.body.length).toBeGreaterThan(0);
-            expect(res.body.every((group) => group.ancestors.includes('1ew4r3d3d'))).toBeTruthy();
+            expect(res.body.every((group) => group.ancestors.includes('611b5c58a7a257532f054a4b'))).toBeTruthy();
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -102,7 +99,7 @@ describe('Group Tests', () => {
             expanded: true,
         });
         try {
-            const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
+            const res = await request.get('/api/groups/611b5c58a7a257532f054a4b/children').query(qsQuery);
             expect(res.body.length).toBe(0);
         } catch (err) {
             expect(!err).toBeTruthy();
@@ -116,7 +113,7 @@ describe('Group Tests', () => {
             direct: true,
         });
         try {
-            const res = await request.get('/groups/1ew4r3d3d/children').query(qsQuery);
+            const res = await request.get('/api/groups/611b5c58a7a257532f054a4b/children').query(qsQuery);
             expect(res.body.length).toBe(0);
         } catch (err) {
             expect(!err).toBeTruthy();
@@ -124,16 +121,17 @@ describe('Group Tests', () => {
     });
 
     it('Should return group by hierarchy', async () => {
-        const rawHierarchy = 'wallmart/magnam';
+        const rawHierarchy = 'wallmart/est';
         const encodedHierarchy = encodeURIComponent(rawHierarchy);
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: [''], entityType: 'group' }],
             expanded: true,
         });
         try {
-            const res = await request.get(`/groups/hierarchy/${encodedHierarchy}`).query(qsQuery);
+            const res = await request.get(`/api/groups/hierarchy/${encodedHierarchy}`).query(qsQuery);
+
             expect(`${res.body.hierarchy}/${res.body.name}`).toBe(rawHierarchy);
         } catch (err) {
+            console.log('err: ', err);
             expect(!err).toBeTruthy();
         }
     });
@@ -149,7 +147,7 @@ describe('Group Tests', () => {
                     pageSize: 200,
                     expanded: true,
                 });
-                const res = await request.get('/groups').query(qsQuery);
+                const res = await request.get('/api/groups').query(qsQuery);
                 expect(res.status).toBe(200);
                 foundGroups = foundGroups.concat(res.body);
                 const nextPage = pageNum + 1;
@@ -176,7 +174,7 @@ describe('Group Tests', () => {
                     expanded: true,
                     source: 'city_name',
                 });
-                const res = await request.get('/groups').query(qsQuery);
+                const res = await request.get('/api/groups').query(qsQuery);
                 expect(res.status).toBe(200);
                 foundGroups = foundGroups.concat(res.body);
                 const nextPage = pageNum + 1;
@@ -202,7 +200,7 @@ describe('Group Tests', () => {
                 expanded: true,
                 updatedFrom: dateFromQuery,
             });
-            const res = await request.get('/groups').query(qsQuery);
+            const res = await request.get('/api/groups').query(qsQuery);
             expect(res.status).toBe(200);
             expect(
                 res.body.every((group) => {

@@ -2,7 +2,7 @@
 import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
-import { EntityQueries, RequestQueryFields } from './utils/types';
+import { EntityQueries, RequestQueryFields } from './types/types';
 import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
 import { extractUserQueries, extractAliasesUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';

@@ -7,7 +7,7 @@ import * as qs from 'qs';
 
 import Server from '../express/server';
 import IDigitalIdentity from './digitalIdentity.interface';
-import { seedDB, emptyDB } from '../shared/tests/seedDB';
+import { seedDB, emptyDB } from '../shared/tests/seedUtils';
 
 const allDIDB = require('../../mongo-seed/digitalIdentitiesDNs');
 
@@ -35,13 +35,22 @@ describe('Digital Identity Tests', () => {
     });
 
     it('Should return DI from city by uniqueId', async () => {
-        const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'digitalIdentity' }],
-        });
+        const qsQuery = qs.stringify({});
         try {
-            const res = await request.get('/digitalIdentities/e467333225@city.com').query(qsQuery);
+            const res = await request.get('/api/digitalIdentities/i97156618@turtle.com').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.uniqueId).toBe('e467333225@city.com');
+            expect(res.body.uniqueId).toBe('i97156618@turtle.com');
+        } catch (err) {
+            expect(!err).toBeTruthy();
+        }
+    });
+
+    it('Should return DI from city by uniqueId - insensitive to case', async () => {
+        const qsQuery = qs.stringify({});
+        try {
+            const res = await request.get('/api/digitalIdentities/I97156618@turTLe.com').query(qsQuery);
+            expect(res.status).toBe(200);
+            expect(res.body.uniqueId).toBe('i97156618@turtle.com');
         } catch (err) {
             expect(!err).toBeTruthy();
         }
@@ -52,7 +61,7 @@ describe('Digital Identity Tests', () => {
             ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
         });
         try {
-            const res = await request.get('/digitalIdentities/e467333225@city.com').query(qsQuery);
+            const res = await request.get('/api/digitalIdentities/i97156618@turtle.com').query(qsQuery);
             expect(res.status).toBe(404);
         } catch (err) {
             expect(!err).toBeTruthy();
@@ -64,10 +73,11 @@ describe('Digital Identity Tests', () => {
             ruleFilters: [{ field: 'source', values: ['es_name'], entityType: 'digitalIdentity' }],
         });
         try {
-            const res = await request.get('/digitalIdentities/role/e467333225@city').query(qsQuery);
+            const res = await request.get('/api/digitalIdentities/role/i97156618@city').query(qsQuery);
             expect(res.status).toBe(200);
-            expect(res.body.uniqueId).toBe('e467333225@city.com');
+            expect(res.body.uniqueId).toBe('i97156618@turtle.com');
         } catch (err) {
+            console.log('err: ', err);
             expect(!err).toBeTruthy();
         }
     });
@@ -80,13 +90,12 @@ describe('Digital Identity Tests', () => {
                 pageSize: 1000,
                 expanded: true,
             });
-            const res = await request.get('/digitalIdentities').query(qsQuery);
+            const res = await request.get('/api/digitalIdentities').query(qsQuery);
             expect(res.status).toBe(200);
 
             expect(res.body.length).toBeGreaterThan(0);
             expect(res.body.some((di) => di.role !== undefined)).toBeTruthy();
         } catch (err) {
-            console.log('err: ', err);
             expect(!err).toBeTruthy();
         }
     });
@@ -100,7 +109,7 @@ describe('Digital Identity Tests', () => {
                 pageNum: 1,
                 pageSize: 50,
             });
-            const res = await request.get('/digitalIdentities').query(qsQuery);
+            const res = await request.get('/api/digitalIdentities').query(qsQuery);
             expect(res.status).toBe(200);
             expect(res.body.length).toBeGreaterThan(0);
             expect(
@@ -124,7 +133,7 @@ describe('Digital Identity Tests', () => {
                     pageSize: '100',
                     expanded: true,
                 });
-                const res = await request.get('/digitalIdentities').query(qsQuery);
+                const res = await request.get('/api/digitalIdentities').query(qsQuery);
                 expect(res.status).toBe(200);
                 foundDIs = foundDIs.concat(res.body);
                 const nextPage = pageNum + 1;

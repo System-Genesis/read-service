@@ -1,7 +1,11 @@
+import { IEntity } from '../entity/entity.interface';
+import IRole from '../role/role.interface';
+
 export interface GroupDTO {
-    // OG's Basic information
-    id: string;
+    // Group as it should be returned to client
+    _id: string;
     name: string;
+    source: string;
     ancestors: string[];
     hierarchy: string;
     akaUnit: string;
@@ -9,4 +13,6 @@ export interface GroupDTO {
     isLeaf: boolean;
     createdAt: Date;
     updatedAt: Date;
+    directEntities: [IEntity];
+    directRoles: [IRole];
 }

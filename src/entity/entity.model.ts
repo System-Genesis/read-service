@@ -6,7 +6,6 @@ import config from '../config/index';
 const EntitySchema: Schema = new Schema(
     {
         // Entity's Basic information
-        id: String,
         displayName: String,
         entityType: String, // enum
         identityCard: String,
@@ -28,6 +27,7 @@ const EntitySchema: Schema = new Schema(
         birthDate: Date,
         createdAt: Date,
         updatedAt: Date,
+        directGroup: String,
         hierarchy: String,
         hierarchyIds: [String],
         digitalIdentities: [DigitalIdentitySchema],

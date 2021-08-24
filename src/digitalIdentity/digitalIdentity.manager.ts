@@ -2,7 +2,7 @@ import DigitalIdentityRepository from './digitalIdentity.repository';
 import RoleRepository from '../role/role.repository';
 import * as ApiErrors from '../core/ApiErrors';
 import { DigitalIdentityQueries } from './utils/types';
-import { mapFieldQueryFunc } from './utils/queryParsers';
+import { mapFieldQueryFunc } from '../shared/queryParsers';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';

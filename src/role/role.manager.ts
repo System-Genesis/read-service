@@ -1,12 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import RoleRepository from './role.repository';
 import * as ApiErrors from '../core/ApiErrors';
-import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';
-import { roleQueries } from './utils/types';
-import { mapFieldQueryFunc } from './utils/queryParsers';
+import { roleQueries } from './types/types';
+import { mapFieldQueryFunc } from '../shared/queryParsers';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 class RoleManager {

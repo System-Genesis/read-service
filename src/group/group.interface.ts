@@ -1,13 +1,12 @@
-import { Document } from 'mongoose';
 import { IEntity } from '../entity/entity.interface';
 import IRole from '../role/role.interface';
 
 interface IGroup {
-    // OG's Basic information
+    // Group as it save in the db
     _id: string;
     name: string;
     source: string;
-    directGroup: string; // TODO: change to Types.object id d
+    directGroup: string;
     ancestors: string[];
     hierarchy: string;
     akaUnit: string;

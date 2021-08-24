@@ -6,7 +6,9 @@ import { DigitalIdentityModel } from './digitalIdentity.model';
 export default class DigitalIdentityRepository {
     protected model: mongoose.Model<IDigitalIdentity>;
 
-    private static DENORMALIZED_FIELDS = '-role';
+    private static HIDDEN_FIELDS = ' -__v';
+
+    private static DENORMALIZED_FIELDS = ' -role';
 
     constructor() {
         this.model = DigitalIdentityModel;
@@ -23,7 +25,7 @@ export default class DigitalIdentityRepository {
             .find({ $and: [{ ...query }, { ...excluders }] })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
-
+        findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
         }
@@ -31,7 +33,8 @@ export default class DigitalIdentityRepository {
     }
 
     findByUniqueId(uniqueId: string, excluders, expanded: boolean): Promise<IDigitalIdentity | null> {
-        let findQuery = this.model.findOne({ uniqueId, ...excluders });
+        let findQuery = this.model.findOne({ uniqueId: { $regex: uniqueId, $options: 'i' }, ...excluders });
+        findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
         }
@@ -39,7 +42,8 @@ export default class DigitalIdentityRepository {
     }
 
     findByRoleId(roleId: string, excluders, expanded: boolean): Promise<IDigitalIdentity | null> {
-        let findQuery = this.model.findOne({ 'role.roleId': roleId, ...excluders });
+        let findQuery = this.model.findOne({ 'role.roleId': { $regex: roleId, $options: 'i' }, ...excluders });
+        findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
         }

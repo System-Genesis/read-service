@@ -1,18 +1,13 @@
-import { Document, Types } from 'mongoose';
 import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
-
-type ProfilePictureData = {
-    path: string;
-    updatedAt?: Date;
-    createdAt: Date;
-};
+import { ProfilePictureData } from './pictures/pictureSchema';
 
 interface IEntity {
-    // Entity's Basic information
-    _id: Types.ObjectId;
+    // Entity's saved in denormalized db
+    _id: string;
     displayName: string;
     hierarchy: string;
     hierarchyIds: string[];
+    directGroup: string;
     entityType: string; // enum
     identityCard: string;
     personalNumber: string;

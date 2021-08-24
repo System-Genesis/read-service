@@ -1,13 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import GroupRepository from './group.repository';
 import * as ApiErrors from '../core/ApiErrors';
-import IGroup from './group.interface';
 import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import { RuleFilter, EntityTypes } from '../shared/types';
 import pageWrapper from '../shared/pageWrapper';
-import { groupQueries } from './utils/types';
-import { mapFieldQueryFunc } from './utils/queryParsers';
+import { groupQueries } from './types/types';
+import { mapFieldQueryFunc } from '../shared/queryParsers';
 
 class GroupManager {
     static groupRepository: GroupRepository = new GroupRepository();

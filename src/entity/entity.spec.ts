@@ -8,7 +8,7 @@ import * as supertest from 'supertest';
 import * as qs from 'qs';
 // import allEntitiesDB from '../../mongo-seed/entityDNs.json';
 // import EntityControlleimportr from './entity.controller';
-import { seedDB, emptyDB } from '../shared/tests/seedDB';
+import { seedDB, emptyDB } from '../shared/tests/seedUtils';
 
 import Server from '../express/server';
 
@@ -28,9 +28,7 @@ describe('Entity Unit Tests', () => {
         try {
             await emptyDB();
             await seedDB();
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     });
     afterAll(async () => {
         await mongoose.connection.close();
@@ -153,7 +151,7 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entities with entity type filter', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
             entityType: 'digimon',
             pageNum: 1,
             pageSize: 50,
@@ -166,7 +164,7 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entities with custom filter expanded', async () => {
         const qsQuery = qs.stringify({
-            ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
+            // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
             entityType: 'digimon',
             pageNum: 1,
             pageSize: 50,
@@ -191,6 +189,33 @@ describe('Entity Unit Tests', () => {
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
         expect(res.body.every((entity) => entity.digitalIdentities.every((DI) => DI.source === 'city_name'))).toBeTruthy();
+    });
+
+    it('Shouldnt return entities from sf because of scope boundaries', async () => {
+        const qsQuery = qs.stringify({
+            ruleFilters: [{ field: 'hierarchy', values: ['sf_name'], entityType: 'entity' }],
+            'digitalIdentities.source': 'sf_name',
+            pageNum: 1,
+            pageSize: 50,
+            expanded: true,
+        });
+        const res = await request.get('/api/entities').query(qsQuery);
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBe(0);
+    });
+
+    it('Should return entities with DIs non external sources', async () => {
+        const qsQuery = qs.stringify({
+            // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
+            'digitalIdentities.source': 'NON_EXTERNAL_SOURCES',
+            pageNum: 1,
+            pageSize: 50,
+            expanded: true,
+        });
+        const res = await request.get('/api/entities').query(qsQuery);
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.every((entity) => entity.digitalIdentities.every((DI) => DI.source !== 'city_name'))).toBeTruthy();
     });
 
     it('Should return first page of all digimon entities', async () => {
@@ -250,7 +275,6 @@ describe('Entity Unit Tests', () => {
                 }),
             ).toBeTruthy();
         } catch (err) {
-            console.log('err: ', err);
             expect(!err).toBeTruthy();
         }
     });

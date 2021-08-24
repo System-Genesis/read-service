@@ -16,8 +16,6 @@ appRouter.use('/isAlive', (_req, res) => {
 });
 
 appRouter.use('*', (_req, res) => {
-    console.log('_req: ', _req);
-
     res.status(404).send('Invalid Route');
 });
 

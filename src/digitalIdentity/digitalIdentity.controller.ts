@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 // import * as qs from 'qs';
 import { Types } from 'mongoose';
 import DigitalIdentityManager from './digitalIdentity.manager';
-import { extractFilters } from './utils/queryParsers';
 import { RuleFilter } from '../shared/types';
 import { DigitalIdentityQueries } from './utils/types';
 

@@ -1,9 +1,4 @@
 import { Request, Response } from 'express';
-import { Types } from 'mongoose';
-// import * as qs from 'qs';
-import { extractFilters } from './utils/queryParsers';
-import { RuleFilter } from '../shared/types';
-import { roleQueries } from './utils/types';
 
 import RoleManager from './role.manager';
 

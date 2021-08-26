@@ -11,6 +11,7 @@ interface IEntity {
     entityType: string; // enum
     identityCard: string;
     personalNumber: string;
+    goalUserId?: string;
     serviceType: string;
     firstName: string;
     lastName: string;

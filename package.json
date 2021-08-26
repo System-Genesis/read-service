@@ -10,6 +10,7 @@
     "test-digitalIdentities": "jest  --verbose --runInBand -- src/digitalIdentity/digitalIdentity.spec.ts",
     "test-roles": "jest  --verbose --runInBand -- src/role/role.spec.ts",
     "test-groups": "jest  --verbose --runInBand -- src/group/group.spec.ts",
+    "test-all": "jest  --verbose --runInBand",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "dev:linux": "NODE_ENV=dev nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",

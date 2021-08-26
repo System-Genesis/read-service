@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
+import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
-import { IEntity } from './entity.interface';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
@@ -23,7 +23,7 @@ class EntityController {
     static async getAll(_req: Request, res: Response) {
         const { isExpanded, page, limit, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
         const resEntities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, page, limit);
-        ResponseHandler.success<IEntity[]>(res, resEntities);
+        ResponseHandler.success<EntityDTO[]>(res, resEntities);
     }
 
     static async getById(_req: Request, res: Response) {
@@ -60,7 +60,7 @@ class EntityController {
         const { groupId } = _req.params as { [key: string]: string };
 
         const resEntities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded, page, limit);
-        ResponseHandler.success<IEntity[]>(res, resEntities);
+        ResponseHandler.success<EntityDTO[]>(res, resEntities);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
@@ -68,7 +68,7 @@ class EntityController {
         const { hierarchy } = _req.params as { [key: string]: string };
 
         const resEntities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, page, limit);
-        ResponseHandler.success<IEntity[]>(res, resEntities);
+        ResponseHandler.success<EntityDTO[]>(res, resEntities);
     }
 
     static async getPictureByIdentifier(_req: Request, res: Response) {

@@ -3,13 +3,14 @@ import { ProfilePictureData } from './pictures/pictureSchema';
 
 export interface EntityDTO {
     // Entity as it should be returned to client
-    _id: string;
+    id: string;
     displayName: string;
     hierarchy: string;
     directGroup: string;
     entityType: string; // enum
     identityCard: string;
     personalNumber: string;
+    goalUserId?: string;
     serviceType: string;
     firstName: string;
     lastName: string;

@@ -1,11 +1,23 @@
 import { Response } from 'express';
 
 export default abstract class ResponseHandler {
+    private static sanitize<T>(response: T): T {
+        const clone: T = {} as T;
+        Object.assign(clone, response);
+        Object.keys(clone).forEach((key) => (clone[key] === undefined || clone[key] === null ? delete clone[key] : {}));
+        return clone;
+    }
+
     static success<T>(res: Response, dto?: T) {
+        let sanitized;
         if (dto) {
-            return res.status(200).json(dto);
+            if (Array.isArray(dto)) {
+                sanitized = dto.map((d) => ResponseHandler.sanitize(d));
+            } else {
+                sanitized = ResponseHandler.sanitize(dto);
+            }
         }
-        return res.sendStatus(200);
+        return res.status(200).json(sanitized);
     }
 
     static jsonResponse(res: Response, code: number, message: string) {

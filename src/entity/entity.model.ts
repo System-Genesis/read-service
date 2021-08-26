@@ -10,6 +10,7 @@ const EntitySchema: Schema = new Schema(
         entityType: String, // enum
         identityCard: String,
         personalNumber: String,
+        goalUserId: String,
         serviceType: String,
         firstName: String,
         lastName: String,

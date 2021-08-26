@@ -4,6 +4,7 @@ import { Types } from 'mongoose';
 import DigitalIdentityManager from './digitalIdentity.manager';
 import { RuleFilter } from '../shared/types';
 import { DigitalIdentityQueries } from './utils/types';
+import ResponseHandler from '../shared/BaseController';
 
 class DigitalIdentityController {
     static digitalIdentityManager: DigitalIdentityManager = new DigitalIdentityManager();
@@ -23,19 +24,19 @@ class DigitalIdentityController {
     static async getAll(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery, page, limit, userQueries } = DigitalIdentityController.extractDigitalIdentityQueries(_req);
         const digitalIdentities = await DigitalIdentityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, page, limit);
-        res.status(200).send(digitalIdentities);
+        ResponseHandler.success(res, digitalIdentities);
     }
 
     static async getByRoleId(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = DigitalIdentityController.extractDigitalIdentityQueries(_req);
         const foundDigitalIdentity = await DigitalIdentityManager.findByRoleId(_req.params.roleId, ruleFiltersQuery, isExpanded);
-        res.status(200).send(foundDigitalIdentity);
+        ResponseHandler.success(res, foundDigitalIdentity);
     }
 
     static async getByDigitalIdentityUniqueId(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = DigitalIdentityController.extractDigitalIdentityQueries(_req);
         const foundDigitalIdentity = await DigitalIdentityManager.findByUniqueId(_req.params.uniqueId, ruleFiltersQuery, isExpanded);
-        res.status(200).send(foundDigitalIdentity);
+        ResponseHandler.success(res, foundDigitalIdentity);
     }
 }
 

@@ -56,7 +56,7 @@ export default class GroupRepository {
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.exec();
+        return findQuery.lean<IGroup>().exec();
     }
 
     // async getAncestors(groupId: string) {

@@ -26,7 +26,7 @@ EntityRouter.get(
     wrapController(EntityController.getUnderHierarchy),
 );
 EntityRouter.get(
-    '/:idetntifier/pictures/profile',
+    '/:identifier/pictures/profile',
     ValidateRequest(EntityValidators.getPictureByIdentifier),
     wrapController(EntityController.getPictureByIdentifier),
 );

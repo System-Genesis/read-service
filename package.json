@@ -13,6 +13,7 @@
     "test-all": "jest  --verbose --runInBand",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "prod:linux": "NODE_ENV=prod nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",
     "dev:linux": "NODE_ENV=dev nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",
     "dev:windows": "set NODE_ENV=dev&& nodemon src/index.ts",
     "lint": "eslint . --ext .ts",

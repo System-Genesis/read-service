@@ -3,7 +3,7 @@ import IRole from '../role/role.interface';
 
 export interface GroupDTO {
     // Group as it should be returned to client
-    _id: string;
+    id: string;
     name: string;
     source: string;
     ancestors: string[];

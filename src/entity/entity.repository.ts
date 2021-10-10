@@ -34,7 +34,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity[]>().exec();
+        return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
     findOne(cond: any, excluders, expanded: boolean): Promise<IEntity> {
@@ -43,7 +43,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity>().exec();
+        return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
 
     // findOr(keys: string[], values: string[], populate?: boolean) {
@@ -55,7 +55,7 @@ export default class EntityRepository {
     // }
 
     findByIdentifier(identifier: string, excluders, expanded: boolean) {
-        const identifierFields = ['personalNumber', 'identityCard', 'userID'];
+        const identifierFields = ['personalNumber', 'identityCard', 'goalUserId'];
         const cond = identifierFields.map((key) => {
             return { [key]: { $in: [identifier] } };
         });
@@ -66,7 +66,7 @@ export default class EntityRepository {
         if (!expanded) {
             foundRes = foundRes.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return foundRes.lean<IEntity>().exec();
+        return foundRes.lean<IEntity>({ virtuals: true }).exec();
     }
 
     findByUniqueId(uniqueId: string, excluders, expanded: boolean): Promise<IEntity> {
@@ -75,7 +75,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity>().exec();
+        return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
 
     findByRole(roleID: string, excluders, expanded: boolean): Promise<IEntity> {
@@ -84,16 +84,19 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity>().exec();
+        return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
 
-    findById(id_: string, excluders, expanded: boolean) {
+    async findById(id_: string, excluders, expanded: boolean) {
+        if (!mongoose.Types.ObjectId.isValid(id_)) {
+            return null; // TODO: maybe add validation at input?
+        }
         let findQuery = this.model.findOne({ _id: id_, ...excluders }).select(EntityRepository.DENORMALIZED_FIELDS);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity>().exec();
+        return findQuery.lean({ virtuals: true }).exec();
     }
 
     findUnderGroup(groupID: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
@@ -105,7 +108,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity[]>().exec();
+        return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
     findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
@@ -117,7 +120,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity[]>().exec();
+        return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
     getPictureMetaData(personIdentifier: string): Promise<ProfilePictureData> {
@@ -128,6 +131,6 @@ export default class EntityRepository {
 
         const findQuery = this.model.findOne({ $or: cond });
         const resPicture = findQuery.select('pictures.profile');
-        return resPicture.lean<ProfilePictureData>().exec() || {};
+        return resPicture.lean<ProfilePictureData>({ virtuals: true }).exec() || {};
     }
 }

@@ -1,4 +1,5 @@
 import { model, Schema, Model } from 'mongoose';
+import mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 import { IEntity } from './entity.interface';
 import { DigitalIdentitySchema } from '../digitalIdentity/digitalIdentity.model';
 import config from '../config/index';
@@ -33,8 +34,16 @@ const EntitySchema: Schema = new Schema(
         hierarchyIds: [String],
         digitalIdentities: [DigitalIdentitySchema],
     },
-    { collection: config.mongo.EntityDenormalizedCollectionName },
+    { collection: config.mongo.EntityDenormalizedCollectionName, id: true },
 );
+
+EntitySchema.virtual('id').get(function get(this: IEntity) {
+    return this._id.toString();
+});
+
+EntitySchema.plugin(mongooseLeanVirtuals);
+
+// EntitySchema.set('toObject', { getters: true });
 
 const EntityModel: Model<IEntity> = model('entity', EntitySchema);
 

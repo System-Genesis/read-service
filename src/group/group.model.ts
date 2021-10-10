@@ -1,4 +1,5 @@
 import { model, Schema, Model, Types } from 'mongoose';
+import mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 import IGroup from './group.interface';
 import config from '../config/index';
 import { EntitySchema } from '../entity/entity.model';
@@ -20,6 +21,12 @@ const GroupSchema: Schema = new Schema(
     },
     { collection: config.mongo.GroupCollectionName },
 );
+
+GroupSchema.virtual('id').get(function get(this: IGroup) {
+    return this._id.toString();
+});
+
+GroupSchema.plugin(mongooseLeanVirtuals);
 
 const GroupModel: Model<IGroup> = model('Group', GroupSchema);
 

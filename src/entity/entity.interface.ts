@@ -1,9 +1,11 @@
+import { Schema } from 'mongoose';
 import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
 import { ProfilePictureData } from './pictures/pictureSchema';
 
 interface IEntity {
     // Entity's saved in denormalized db
-    _id: string;
+    _id: Schema.Types.ObjectId;
+    id: string;
     displayName: string;
     hierarchy: string;
     hierarchyIds: string[];

@@ -177,6 +177,19 @@ describe('Entity Unit Tests', () => {
         expect(res.body.every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
     });
 
+    // TODO: ranks array test and implemetation
+    it('Should return entities with custom filter expanded', async () => {
+        const qsQuery = qs.stringify({
+            ranks: ['rookie', 'champion'],
+            expanded: true,
+        });
+        const res = await request.get('/api/entities').query(qsQuery);
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBeGreaterThan(0);
+        expect(res.body.every((entity) => entity.rank === 'champion' || entity.rank === 'rookie')).toBeTruthy();
+        expect(res.body.every((entity) => entity.digitalIdentities.length >= 0)).toBeTruthy();
+    });
+
     it('Should return entities with DIs from citys', async () => {
         const qsQuery = qs.stringify({
             // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],

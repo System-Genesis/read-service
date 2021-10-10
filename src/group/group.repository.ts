@@ -31,16 +31,19 @@ export default class GroupRepository {
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IGroup[]>().exec();
+        return findQuery.lean<IGroup[]>({ virtuals: true }).exec();
     }
 
     findById(groupId: string, excluders, expanded: boolean) {
+        if (!mongoose.Types.ObjectId.isValid(groupId)) {
+            return null; // TODO: maybe add validation at input?
+        }
         let findQuery = this.model.findOne({ _id: groupId, ...excluders });
         findQuery = findQuery.select(GroupRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IGroup>().exec();
+        return findQuery.lean<IGroup>({ virtuals: true }).exec();
     }
 
     findByHierarchy(hierarchyToQuery: string, excluders, expanded: boolean) {
@@ -56,7 +59,7 @@ export default class GroupRepository {
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IGroup>().exec();
+        return findQuery.lean<IGroup>({ virtuals: true }).exec();
     }
 
     // async getAncestors(groupId: string) {

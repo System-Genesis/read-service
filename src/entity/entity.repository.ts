@@ -88,9 +88,6 @@ export default class EntityRepository {
     }
 
     async findById(id_: string, excluders, expanded: boolean) {
-        if (!mongoose.Types.ObjectId.isValid(id_)) {
-            return null; // TODO: maybe add validation at input?
-        }
         let findQuery = this.model.findOne({ _id: id_, ...excluders }).select(EntityRepository.DENORMALIZED_FIELDS);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {

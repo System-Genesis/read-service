@@ -4,6 +4,7 @@ import JoiDate from '@joi/date';
 import enums from '../config/db-enums';
 
 const Joi = BaseJoi.extend(JoiDate);
+Joi.objectId = require('joi-objectid')(Joi);
 
 const expandedTypes = ['true', 'false'];
 
@@ -17,7 +18,7 @@ const getRequestBaseSchema = Joi.object({
 
 export const getGroupById = getRequestBaseSchema.keys({
     params: {
-        id: Joi.string().required(),
+        id: Joi.objectId().required(),
     },
 });
 

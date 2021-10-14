@@ -41,7 +41,7 @@ class GroupController {
     static async getChildren(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery, isDirect, page, limit } = GroupController.extractGroupQueries(_req);
         const { id } = _req.params as { [key: string]: string };
-        const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, page, limit);
+        const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, page, limit); // TODO: doesnt work?
         ResponseHandler.success<GroupDTO[]>(res, groups);
     }
 }

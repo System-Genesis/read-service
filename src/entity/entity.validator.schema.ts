@@ -2,6 +2,7 @@ import * as BaseJoi from 'joi';
 import JoiDate from '@joi/date';
 
 const Joi = BaseJoi.extend(JoiDate);
+Joi.objectId = require('joi-objectid')(Joi);
 
 const expandedTypes = ['true', 'false'];
 
@@ -27,7 +28,7 @@ export const getEntitiesByDigitalIdentity = getRequestBaseSchema.keys({
 
 export const getEntitiesById = getRequestBaseSchema.keys({
     params: {
-        id: Joi.string().required(),
+        id: Joi.objectId(),
     },
 });
 
@@ -73,7 +74,7 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         // userFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.string().valid(...expandedTypes),
-        ids: Joi.array().items(Joi.string()),
+        ids: Joi.array().items(Joi.objectId()),
         rank: Joi.array(), // TODO: test rank array or string
         entityType: Joi.string(),
         'digitalIdentities.source': Joi.string(),

@@ -70,7 +70,7 @@ export default class EntityRepository {
     }
 
     findByUniqueId(uniqueId: string, excluders, expanded: boolean): Promise<IEntity> {
-        let findQuery = this.model.findOne({ 'digitalIdentities.uniqueId': { $regex: uniqueId, $options: 'i' }, ...excluders });
+        let findQuery = this.model.findOne({ 'digitalIdentities.uniqueId': { $regex: `^${uniqueId}$`, $options: 'i' }, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
@@ -78,8 +78,8 @@ export default class EntityRepository {
         return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
 
-    findByRole(roleID: string, excluders, expanded: boolean): Promise<IEntity> {
-        let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': { $regex: roleID, $options: 'i' }, ...excluders });
+    findByRole(roleId: string, excluders, expanded: boolean): Promise<IEntity> {
+        let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': { $regex: `^${roleId}$`, $options: 'i' }, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);

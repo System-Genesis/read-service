@@ -33,7 +33,7 @@ export default class DigitalIdentityRepository {
     }
 
     findByUniqueId(uniqueId: string, excluders, expanded: boolean): Promise<IDigitalIdentity | null> {
-        let findQuery = this.model.findOne({ uniqueId: { $regex: uniqueId, $options: 'i' }, ...excluders });
+        let findQuery = this.model.findOne({ uniqueId: { $regex: `^${uniqueId}$`, $options: 'i' }, ...excluders });
         findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
@@ -42,7 +42,7 @@ export default class DigitalIdentityRepository {
     }
 
     findByRoleId(roleId: string, excluders, expanded: boolean): Promise<IDigitalIdentity | null> {
-        let findQuery = this.model.findOne({ 'role.roleId': { $regex: roleId, $options: 'i' }, ...excluders });
+        let findQuery = this.model.findOne({ 'role.roleId': { $regex: `^${roleId}$`, $options: 'i' }, ...excluders });
         findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);

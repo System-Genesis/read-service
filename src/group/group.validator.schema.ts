@@ -1,5 +1,6 @@
 import * as BaseJoi from 'joi';
 import JoiDate from '@joi/date';
+import config from '../config/index';
 
 import enums from '../config/db-enums';
 
@@ -26,7 +27,7 @@ export const getChildren = getRequestBaseSchema.keys({
     query: {
         direct: Joi.boolean(),
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -38,7 +39,7 @@ export const getChildren = getRequestBaseSchema.keys({
 export const getGroupsByHierarchy = getRequestBaseSchema.keys({
     query: {
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -54,6 +55,6 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
         source: Joi.string().valid(...Object.values(enums.SOURCE)),
         updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });

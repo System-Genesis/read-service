@@ -1,5 +1,6 @@
 import * as BaseJoi from 'joi';
 import JoiDate from '@joi/date';
+import config from '../config/index';
 
 import enums from '../config/db-enums';
 
@@ -17,7 +18,7 @@ export const getRolesByCustomFilters = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });
 
@@ -36,7 +37,7 @@ export const getRoleByDIUniqueId = getRequestBaseSchema.keys({
 export const getRolesByGroupId = getRequestBaseSchema.keys({
     query: {
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         direct: Joi.boolean(),
         expanded: Joi.boolean(),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
@@ -49,7 +50,7 @@ export const getRolesByGroupId = getRequestBaseSchema.keys({
 export const getRolesByHierarchy = getRequestBaseSchema.keys({
     query: {
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         direct: Joi.boolean(),
         expanded: Joi.boolean(),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),

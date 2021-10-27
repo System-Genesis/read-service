@@ -1,5 +1,6 @@
 import * as BaseJoi from 'joi';
 import JoiDate from '@joi/date';
+import config from '../config/index';
 
 const Joi = BaseJoi.extend(JoiDate);
 Joi.objectId = require('joi-objectid')(Joi);
@@ -41,7 +42,7 @@ export const getEntitiesByIdentifier = getRequestBaseSchema.keys({
 export const getEntitiesByGroup = getRequestBaseSchema.keys({
     query: {
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -53,7 +54,7 @@ export const getEntitiesByGroup = getRequestBaseSchema.keys({
 export const getEntitiesByHierarchy = getRequestBaseSchema.keys({
     query: {
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -81,6 +82,6 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         status: Joi.string(),
         updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),
-        pageSize: Joi.number().min(50).max(1000),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });

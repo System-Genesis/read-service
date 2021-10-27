@@ -13,6 +13,10 @@ const config = {
         RoleCollectionName: env.get('ROLE_COLLECTION_NAME').required().asString(),
         GroupCollectionName: env.get('OG_COLLECTION_NAME').required().asString(),
     },
+    app: {
+        maxPageSize: parseInt(env.get('MAX_PAGE_SIZE').required().asString(), 10),
+        minPageSize: parseInt(env.get('MIN_PAGE_SIZE').required().asString(), 10),
+    },
 };
 
 export default config;

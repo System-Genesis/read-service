@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-return-await */
 import * as AWS from 'aws-sdk';
+import { Readable } from 'stream';
 import config from '../../config';
 
 const { s3: s3Config } = config;
@@ -19,11 +20,11 @@ export const initializeS3 = () => {
     console.log('S3 initialized');
 };
 
-export const getProfilePicture = async (path: string) => {
+export const getProfilePicture = (path: string): Readable => {
     const params: AWS.S3.PutObjectRequest = {
         Bucket: s3Config.bucketName,
         Key: path,
     };
 
-    return s3.getObject(params).promise();
+    return s3.getObject(params).createReadStream();
 };

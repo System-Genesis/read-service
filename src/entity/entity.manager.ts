@@ -106,8 +106,8 @@ class EntityManager {
         const { path } = foundPic;
 
         try {
-            const pictureData = await s3Handler.getProfilePicture(path);
-            return pictureData;
+            const streamProvider = s3Handler.getProfilePicture(path);
+            return streamProvider;
         } catch (err: any) {
             if (err.statusCode === 404) {
                 throw new ApiErrors.NotFoundError();

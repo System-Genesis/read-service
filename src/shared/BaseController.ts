@@ -1,4 +1,5 @@
 import * as AWS from 'aws-sdk';
+import { Readable } from 'stream';
 import { Response } from 'express';
 
 export default abstract class ResponseHandler {
@@ -45,10 +46,9 @@ export default abstract class ResponseHandler {
         return this.jsonResponse(res, 500, message || 'Internal Error');
     }
 
-    static picture(res: Response, picture: AWS.S3.GetObjectOutput, message?: string) {
+    static picture(res: Response, streamProvider: Readable, message?: string) {
         res.writeHead(200, { 'Content-Type': 'image/jpeg' });
-        res.write(picture.Body, 'binary');
 
-        return res.end('null', 'binary');
+        return streamProvider.pipe(res);
     }
 }

@@ -22,6 +22,13 @@ const config = {
             factor: env.get('RABBIT_RETRY_FACTOR').default(1.8).asFloatPositive(),
         },
     },
+    s3: {
+        url: env.get('S3_URL').required().asString(),
+        region: env.get('REGION').required().asString(),
+        accessKeyId: env.get('ACCESS_KEY').required().asString(),
+        secretAccessKey: env.get('SECRET_ACCESS_KEY').required().asString(),
+        bucketName: env.get('BUCKET_NAME').required().asString(),
+    },
 };
 
 export default config;

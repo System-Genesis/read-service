@@ -1,3 +1,4 @@
+import * as AWS from 'aws-sdk';
 import { Response } from 'express';
 
 export default abstract class ResponseHandler {
@@ -42,5 +43,12 @@ export default abstract class ResponseHandler {
 
     static internal(res: Response, message?: string) {
         return this.jsonResponse(res, 500, message || 'Internal Error');
+    }
+
+    static picture(res: Response, picture: AWS.S3.GetObjectOutput, message?: string) {
+        res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+        res.write(picture.Body, 'binary');
+
+        return res.end('null', 'binary');
     }
 }

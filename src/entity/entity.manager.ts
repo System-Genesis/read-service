@@ -10,6 +10,8 @@ import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 import * as ApiErrors from '../core/ApiErrors';
+import { ProfilePictureData } from './pictures/pictureSchema';
+import * as s3Handler from '../utils/pictures/s3Handler';
 
 class EntityManager {
     static roleRepository: RoleRepository = new RoleRepository();
@@ -99,8 +101,21 @@ class EntityManager {
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
-        const foundPic = await EntityManager.entityRepository.getPictureMetaData(identifier);
+
+        const foundPic: ProfilePictureData = await EntityManager.entityRepository.getPictureMetaData(identifier);
         const { path } = foundPic;
+
+        try {
+            const streamProvider = s3Handler.getProfilePicture(path);
+            return streamProvider;
+        } catch (err: any) {
+            if (err.statusCode === 404) {
+                throw new ApiErrors.NotFoundError();
+            } else {
+                throw new ApiErrors.InternalError();
+            }
+        }
+
         // return paginatedResults;
     }
 }

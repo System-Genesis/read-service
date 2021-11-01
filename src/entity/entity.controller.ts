@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Readable } from 'stream';
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
@@ -74,8 +75,8 @@ class EntityController {
     static async getPictureByIdentifier(_req: Request, res: Response) {
         const { ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { identifier } = _req.params as { [key: string]: string };
-        const picture = await EntityManager.getPictureByIdentifier(identifier, ruleFiltersQuery);
-        ResponseHandler.success(res, picture);
+        const streamProvider: Readable = await EntityManager.getPictureByIdentifier(identifier, ruleFiltersQuery);
+        ResponseHandler.picture(res, streamProvider);
     }
 }
 

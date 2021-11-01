@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 
 export type ProfilePictureData = {
     path: string;
+    format: string;
     updatedAt?: Date;
     createdAt: Date;
 };

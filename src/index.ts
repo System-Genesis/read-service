@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import * as mongoose from 'mongoose';
+import { initializeS3 } from './utils/pictures/s3Handler';
 import Server from './express/server';
 import config from './config';
 
@@ -15,6 +16,8 @@ const initializeMongo = async () => {
 
 const main = async () => {
     await initializeMongo();
+
+    initializeS3();
 
     const server = new Server(service.port);
 

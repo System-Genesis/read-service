@@ -12,3 +12,4 @@ coverage/
 
 # Package lock
 package-lock.json
+access.log

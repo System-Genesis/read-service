@@ -1,7 +1,9 @@
+import * as fs from 'fs';
 import * as http from 'http';
 import * as express from 'express';
 import * as helmet from 'helmet';
 import * as logger from 'morgan';
+import * as compression from 'compression';
 
 import { once } from 'events';
 import errorMiddleware from '../core/errorController';
@@ -25,8 +27,14 @@ class Server {
         app.use(helmet());
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
-
+        app.use(compression());
+        app.use(
+            logger('dev', {
+                stream: fs.createWriteStream('./access.log', { flags: 'w' }),
+            }),
+        );
         app.use(logger('dev'));
+
         app.use(appRouter);
 
         app.use(errorMiddleware);

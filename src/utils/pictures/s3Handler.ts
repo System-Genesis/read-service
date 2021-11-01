@@ -11,7 +11,7 @@ AWS.config.update({ region: s3Config.region, s3ForcePathStyle: true });
 let s3: AWS.S3;
 
 export const initializeS3 = () => {
-    console.log('Trying to connect to S3');
+    console.log('Connecting to S3...');
     s3 = new AWS.S3({
         endpoint: s3Config.url,
         accessKeyId: s3Config.accessKeyId,

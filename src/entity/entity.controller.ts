@@ -1,4 +1,3 @@
-import * as AWS from 'aws-sdk';
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
 import { EntityDTO } from './entity.DTO';

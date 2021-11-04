@@ -76,9 +76,9 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         // userFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.string().valid(...expandedTypes),
         ids: Joi.array().items(Joi.objectId()),
-        rank: Joi.array(), // TODO: test rank array or string
+        rank: Joi.alternatives().try(Joi.array(), Joi.string()), // TODO: test rank array or string
         entityType: Joi.string(),
-        'digitalIdentities.source': Joi.string(),
+        'digitalIdentities.source': Joi.alternatives().try(Joi.array(), Joi.string()),
         status: Joi.string(),
         updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),

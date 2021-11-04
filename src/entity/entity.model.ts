@@ -32,6 +32,17 @@ const EntitySchema: Schema = new Schema(
         directGroup: String,
         hierarchy: String,
         hierarchyIds: [String],
+        picture: {
+            profile: {
+                url: String,
+                meta: {
+                    path: String,
+                    format: String,
+                    takenAt: Date,
+                    updatedAt: Date,
+                },
+            },
+        },
         digitalIdentities: [DigitalIdentitySchema],
     },
     { collection: config.mongo.EntityCollectionName, id: true },

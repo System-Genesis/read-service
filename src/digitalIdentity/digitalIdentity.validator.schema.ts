@@ -17,6 +17,7 @@ const getRequestBaseSchema = Joi.object({
 export const getDIByCustomFilters = getRequestBaseSchema.keys({
     query: {
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        source: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.boolean(),
         updatedFrom: Joi.date().iso(),
         pageNum: Joi.number().min(1),

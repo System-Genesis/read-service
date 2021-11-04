@@ -10,7 +10,7 @@ export default class GroupRepository {
         this.model = GroupModel;
     }
 
-    private static HIDDEN_FIELDS = ' -__v';
+    private static HIDDEN_FIELDS = ' -__v -picture.profile.meta.path';
 
     private static DENORMALIZED_FIELDS = '-directEntities -directRoles';
 

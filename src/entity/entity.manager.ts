@@ -102,8 +102,8 @@ class EntityManager {
             throw new ApiErrors.NotFoundError();
         }
 
-        const foundPic: ProfilePictureData = await EntityManager.entityRepository.getPictureMetaData(identifier);
-        const { path } = foundPic;
+        const foundPic: any = await EntityManager.entityRepository.getPictureMetaData(identifier);
+        const { path } = foundPic.pictures.profile.meta;
 
         try {
             const streamProvider = s3Handler.getProfilePicture(path);

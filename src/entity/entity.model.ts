@@ -34,7 +34,7 @@ const EntitySchema: Schema = new Schema(
         hierarchyIds: [String],
         digitalIdentities: [DigitalIdentitySchema],
     },
-    { collection: config.mongo.EntityDenormalizedCollectionName, id: true },
+    { collection: config.mongo.EntityCollectionName, id: true },
 );
 
 EntitySchema.virtual('id').get(function get(this: IEntity) {

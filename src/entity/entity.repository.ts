@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { IEntity, ProfilePictureData } from './entity.interface';
+import { IEntity, pictures } from './entity.interface';
 import { EntityModel } from './entity.model';
 
 export default class EntityRepository {
@@ -120,7 +120,7 @@ export default class EntityRepository {
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
-    getPictureMetaData(personIdentifier: string): Promise<ProfilePictureData> {
+    getPictureMetaData(personIdentifier: string): Promise<pictures> {
         const identifierFields = ['personalNumber', 'identityCard', 'userID'];
         const cond = identifierFields.map((key) => {
             return { [key]: { $in: [personIdentifier] } };
@@ -128,6 +128,6 @@ export default class EntityRepository {
 
         const findQuery = this.model.findOne({ $or: cond });
         const resPicture = findQuery.select('pictures.profile');
-        return resPicture.lean<ProfilePictureData>({ virtuals: true }).exec() || {};
+        return resPicture.lean<pictures>({ virtuals: true }).exec() || {};
     }
 }

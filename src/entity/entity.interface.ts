@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
-import { ProfilePictureData } from './pictures/pictureSchema';
+import { ProfilePictureData, pictures } from './pictures/pictureSchema';
 
 interface IEntity {
     // Entity's saved in denormalized db
@@ -40,4 +40,4 @@ interface IEntity {
     digitalIdentities: [IDigitalIdentity];
 }
 
-export { IEntity, ProfilePictureData };
+export { IEntity, ProfilePictureData, pictures };

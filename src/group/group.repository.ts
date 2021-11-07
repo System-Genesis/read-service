@@ -61,6 +61,76 @@ export default class GroupRepository {
         }
         return findQuery.lean<IGroup>({ virtuals: true }).exec();
     }
+    findPrefixById(id: string) {
+        let findQuery = this.model.aggregate
+            ([
+                {
+                    "$match": {
+                        "_id": id
+
+                    }
+                },
+                {
+                    $graphLookup: {
+                        from: "collection",
+                        startWith: "$directGroupId",
+                        connectFromField: "directGroupId",
+                        connectToField: "_id",
+                        as: "ancestors",
+                        depthField: "depth"
+                    },
+
+                },
+                {
+                    "$addFields": {
+                        "ancestors": {
+                            "$filter": {
+                                "input": "$ancestors",
+                                "as": "item",
+                                "cond": {
+                                    "$eq": [
+                                        {
+                                            "$type": "$$item.prefix"
+                                        },
+                                        "string"
+                                    ],
+
+                                }
+                            },
+
+                        }
+                    },
+
+                },
+                {
+                    "$unwind": "$ancestors"
+                },
+                {
+                    $sort: {
+                        "ancestors.depth": 1
+                    }
+                },
+                {
+                    "$group": {
+                        "_id": "$_id",
+                        "ancestors": {
+                            $push: "$ancestors"
+                        }
+                    }
+                },
+                {
+                    "$project": {
+                        "ancestors": {
+                            "$first": "$ancestors"
+                        }
+                    }
+                },
+
+            ])
+        return findQuery.exec();
+
+
+    }
 
     // async getAncestors(groupId: string) {
     //     const groupsWithAncestors = await this.model
@@ -85,3 +155,6 @@ export default class GroupRepository {
     //     return groupsWithAncestors;
     // }
 }
+
+
+

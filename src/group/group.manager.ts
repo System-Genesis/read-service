@@ -63,5 +63,23 @@ class GroupManager {
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
         return paginatedResults;
     }
+    static async getPrefixByGroupId(id: string) {
+        const group = await GroupManager.groupRepository.findById(id, {}, false);
+        if (!group) {
+            throw new ApiErrors.NotFoundError('Group Not Found')
+        }
+        if (group.prefix) {
+            return group.prefix
+        }
+        const groupWithPrefix = await GroupManager.groupRepository.findPrefixById(id);
+        if (!groupWithPrefix) {
+            throw new ApiErrors.NotFoundError('Group doesn`t have Prefix')
+        }
+        if (!groupWithPrefix.ancestor.prefix) {
+            throw new ApiErrors.InternalError();
+        }
+        return groupWithPrefix.ancestor.prefix;
+
+    }
 }
 export default GroupManager;

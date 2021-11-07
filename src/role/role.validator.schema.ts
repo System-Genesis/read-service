@@ -18,7 +18,7 @@ export const getRolesByCustomFilters = getRequestBaseSchema.keys({
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
         source: Joi.alternatives().try(Joi.array(), Joi.string()),
         updatedFrom: Joi.date().iso(),
-        pageNum: Joi.number().min(1),
+        page: Joi.number().min(1),
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });
@@ -37,7 +37,7 @@ export const getRoleByDIUniqueId = getRequestBaseSchema.keys({
 
 export const getRolesByGroupId = getRequestBaseSchema.keys({
     query: {
-        pageNum: Joi.number().min(1),
+        page: Joi.number().min(1),
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         direct: Joi.boolean(),
         expanded: Joi.boolean(),
@@ -50,7 +50,7 @@ export const getRolesByGroupId = getRequestBaseSchema.keys({
 
 export const getRolesByHierarchy = getRequestBaseSchema.keys({
     query: {
-        pageNum: Joi.number().min(1),
+        page: Joi.number().min(1),
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
         direct: Joi.boolean(),
         expanded: Joi.boolean(),

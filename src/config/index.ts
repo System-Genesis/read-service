@@ -21,7 +21,7 @@ const config = {
         region: env.get('REGION').required().asString(),
         accessKeyId: env.get('ACCESS_KEY').required().asString(),
         secretAccessKey: env.get('SECRET_ACCESS_KEY').required().asString(),
-        bucketName: env.get('BUCKET_NAME').required().asString(),
+        profilesBucketName: env.get('PROFILES_BUCKET_NAME').required().asString(),
     },
 };
 

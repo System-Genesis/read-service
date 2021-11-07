@@ -58,3 +58,9 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });
+
+export const getPrefixByGroupId = Joi.object({
+    params: {
+        id: Joi.string.required()
+    }
+});

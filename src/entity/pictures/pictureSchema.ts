@@ -7,6 +7,12 @@ export type ProfilePictureData = {
     createdAt: Date;
 };
 
+export type pictures = {
+    profile: {
+        meta: ProfilePictureData;
+    };
+};
+
 export const ProfilePictureSchema = new mongoose.Schema({
     path: {
         type: String,

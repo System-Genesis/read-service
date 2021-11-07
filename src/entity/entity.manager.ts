@@ -10,7 +10,7 @@ import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 import * as ApiErrors from '../core/ApiErrors';
-import { ProfilePictureData } from './pictures/pictureSchema';
+import { pictures } from './pictures/pictureSchema';
 import * as s3Handler from '../utils/pictures/s3Handler';
 
 class EntityManager {
@@ -102,8 +102,8 @@ class EntityManager {
             throw new ApiErrors.NotFoundError();
         }
 
-        const foundPic: any = await EntityManager.entityRepository.getPictureMetaData(identifier);
-        const { path } = foundPic.pictures.profile.meta;
+        const pictures: pictures = await EntityManager.entityRepository.getPictureMetaData(identifier);
+        const { path } = pictures.profile.meta;
 
         try {
             const streamProvider = s3Handler.getProfilePicture(path);

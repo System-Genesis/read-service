@@ -46,8 +46,8 @@ class GroupController {
     }
     static async getPrefixByGroupId(_req: Request, res: Response) {
         const { id } = _req.params
-        const prefix = await GroupManager.getPrefixByGroupId(id)
-        ResponseHandler.success(res, prefix)
+        const diPrefix = await GroupManager.getPrefixByGroupId(id)
+        res.json(diPrefix)
     }
 }
 

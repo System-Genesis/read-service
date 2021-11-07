@@ -66,15 +66,15 @@ export default class GroupRepository {
             ([
                 {
                     "$match": {
-                        "_id": id
+                        "_id": mongoose.Types.ObjectId(id)
 
                     }
                 },
                 {
                     $graphLookup: {
-                        from: "collection",
-                        startWith: "$directGroupId",
-                        connectFromField: "directGroupId",
+                        from: "denormalizedOrganizationGroup",
+                        startWith: "$directGroup",
+                        connectFromField: "directGroup",
                         connectToField: "_id",
                         as: "ancestors",
                         depthField: "depth"
@@ -90,7 +90,7 @@ export default class GroupRepository {
                                 "cond": {
                                     "$eq": [
                                         {
-                                            "$type": "$$item.prefix"
+                                            "$type": "$$item.diPrefix"
                                         },
                                         "string"
                                     ],

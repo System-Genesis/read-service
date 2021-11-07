@@ -8,15 +8,15 @@ class RoleController {
     static roleManager: RoleManager = new RoleManager();
 
     static extractRoleQueries(_req: Request) {
-        const { pageNum, pageSize, ruleFilters, direct, ...userQueries } = _req.query as { [key: string]: string };
-        const page = parseInt(pageNum, 10);
+        const { page, pageSize, ruleFilters, direct, ...userQueries } = _req.query as { [key: string]: string };
+        const pageNum = parseInt(page, 10);
         const limit = parseInt(pageSize, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
 
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
 
-        return { isDirect, page, limit, ruleFiltersQuery, userQueries };
+        return { isDirect, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {

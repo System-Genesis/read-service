@@ -9,16 +9,16 @@ class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
     static extractEntityQueries(_req: Request) {
-        const { expanded, pageNum, pageSize, ruleFilters, ..._userQueries } = _req.query as { [key: string]: string };
+        const { expanded, page, pageSize, ruleFilters, ..._userQueries } = _req.query as { [key: string]: string };
 
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
-        const page = parseInt(pageNum, 10);
+        const pageNum = parseInt(page, 10);
         const limit = parseInt(pageSize, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
         const userQueries = _userQueries;
-        return { isExpanded, page, limit, ruleFiltersQuery, userQueries };
+        return { isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {

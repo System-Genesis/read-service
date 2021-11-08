@@ -63,5 +63,23 @@ class GroupManager {
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
         return paginatedResults;
     }
+    static async getPrefixByGroupId(id: string) {
+        const group = await GroupManager.groupRepository.findById(id, {}, false);
+        if (!group) {
+            throw new ApiErrors.NotFoundError('Group Not Found')
+        }
+        if (group.diPrefix) {
+            return group.diPrefix;
+        }
+        const groupWithPrefix = await GroupManager.groupRepository.findPrefixById(id);
+        if (!groupWithPrefix || groupWithPrefix.length === 0) {
+            throw new ApiErrors.NotFoundError('Group doesn`t have prefix')
+        }
+        if (!groupWithPrefix[0].ancestors.diPrefix) {
+            throw new ApiErrors.InternalError();
+        }
+        return groupWithPrefix[0].ancestors.diPrefix;
+
+    }
 }
 export default GroupManager;

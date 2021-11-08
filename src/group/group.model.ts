@@ -16,6 +16,7 @@ const GroupSchema: Schema = new Schema(
         isLeaf: Boolean,
         createdAt: Date,
         updatedAt: Date,
+        diPrefix: String,
         directEntities: [EntitySchema],
         directRoles: [RoleSchema],
     },

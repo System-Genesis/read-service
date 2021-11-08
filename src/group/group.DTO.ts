@@ -13,6 +13,7 @@ export interface GroupDTO {
     isLeaf: boolean;
     createdAt: Date;
     updatedAt: Date;
+    diPrefix: string;
     directEntities: [IEntity];
     directRoles: [IRole];
 }

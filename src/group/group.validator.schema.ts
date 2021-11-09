@@ -61,10 +61,6 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
 
 export const getPrefixByGroupId = Joi.object({
     params: {
-<<<<<<< HEAD
-        id: Joi.string.required()
-=======
         id: Joi.string().required()
->>>>>>> 9d900c4e6274b573f2f7681ef9eccd9c6b35ea35
     }
 });

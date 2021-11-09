@@ -68,19 +68,6 @@ class GroupManager {
         if (!group) {
             throw new ApiErrors.NotFoundError('Group Not Found')
         }
-<<<<<<< HEAD
-        if (group.prefix) {
-            return group.prefix
-        }
-        const groupWithPrefix = await GroupManager.groupRepository.findPrefixById(id);
-        if (!groupWithPrefix) {
-            throw new ApiErrors.NotFoundError('Group doesn`t have Prefix')
-        }
-        if (!groupWithPrefix.ancestor.prefix) {
-            throw new ApiErrors.InternalError();
-        }
-        return groupWithPrefix.ancestor.prefix;
-=======
         if (group.diPrefix) {
             return group.diPrefix;
         }
@@ -92,7 +79,6 @@ class GroupManager {
             throw new ApiErrors.InternalError();
         }
         return groupWithPrefix[0].ancestors.diPrefix;
->>>>>>> 9d900c4e6274b573f2f7681ef9eccd9c6b35ea35
 
     }
 }

@@ -10,6 +10,10 @@ GroupRouter.get('/', ValidateRequest(GroupValidators.getGroupsByCustomFilters), 
 GroupRouter.get('/:id', ValidateRequest(GroupValidators.getGroupById), wrapController(GroupController.getById));
 GroupRouter.get('/hierarchy/:hierarchy', ValidateRequest(GroupValidators.getGroupsByHierarchy), wrapController(GroupController.getByHierarchy));
 GroupRouter.get('/:id/children', ValidateRequest(GroupValidators.getChildren), wrapController(GroupController.getChildren));
+<<<<<<< HEAD
 GroupRouter.get('/prefix/:id', ValidateRequest(GroupValidators.getPrefixByGroupId), wrapController(GroupController.getPrefixByGroupId))
+=======
+GroupRouter.get('/:id/diPrefix', ValidateRequest(GroupValidators.getPrefixByGroupId), wrapController(GroupController.getPrefixByGroupId))
+>>>>>>> 9d900c4e6274b573f2f7681ef9eccd9c6b35ea35
 
 export default GroupRouter;

@@ -22,7 +22,7 @@ export const initializeS3 = () => {
 
 export const getProfilePicture = (path: string): Readable => {
     const params: AWS.S3.PutObjectRequest = {
-        Bucket: s3Config.bucketName,
+        Bucket: s3Config.profilesBucketName,
         Key: path,
     };
 

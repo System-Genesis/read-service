@@ -193,7 +193,7 @@ describe('Entity Unit Tests', () => {
     it('Should return entities with DIs from citys', async () => {
         const qsQuery = qs.stringify({
             // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
-            'digitalIdentities.source': 'city_name',
+            'digitalIdentity.source': 'city_name',
             pageNum: 1,
             pageSize: 50,
             expanded: true,
@@ -207,7 +207,7 @@ describe('Entity Unit Tests', () => {
     it('Shouldnt return entities from sf because of scope boundaries', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'hierarchy', values: ['sf_name'], entityType: 'entity' }],
-            'digitalIdentities.source': 'sf_name',
+            'digitalIdentity.source': 'sf_name',
             pageNum: 1,
             pageSize: 50,
             expanded: true,
@@ -220,7 +220,7 @@ describe('Entity Unit Tests', () => {
     it('Should return entities with DIs non external sources', async () => {
         const qsQuery = qs.stringify({
             // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
-            'digitalIdentities.source': 'NON_EXTERNAL_SOURCES',
+            'digitalIdentity.source': 'NON_EXTERNAL_SOURCES',
             pageNum: 1,
             pageSize: 50,
             expanded: true,

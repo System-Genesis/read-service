@@ -10,15 +10,15 @@ class DigitalIdentityController {
     static digitalIdentityManager: DigitalIdentityManager = new DigitalIdentityManager();
 
     static extractDigitalIdentityQueries(_req: Request) {
-        const { expanded, pageNum, pageSize, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
+        const { expanded, page, pageSize, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
-        const page = parseInt(pageNum, 10);
+        const pageNum = parseInt(page, 10);
         const limit = parseInt(pageSize, 10);
 
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
 
-        return { isExpanded, page, limit, ruleFiltersQuery, userQueries };
+        return { isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {

@@ -25,7 +25,7 @@ export const mapFieldQueryFunc = new Map<string, any>([
     ['entityType', inArrayQuery],
     ['rank', inArrayQuery],
     ['source', inArrayQuery],
-    ['digitalIdentities.source', inArrayQuery],
+    ['digitalIdentity.source', inArrayQuery],
     ['status', basicQuery],
 ]);
 
@@ -35,6 +35,6 @@ const extractSourceValues = (value: string) => {
 };
 
 export const mapQueryValueAlias = new Map<string, any>([
-    ['digitalIdentities.source', extractSourceValues],
+    ['digitalIdentity.source', extractSourceValues],
     ['source', extractSourceValues],
 ]);

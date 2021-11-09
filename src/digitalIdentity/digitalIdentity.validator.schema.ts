@@ -20,7 +20,7 @@ export const getDIByCustomFilters = getRequestBaseSchema.keys({
         source: Joi.alternatives().try(Joi.array(), Joi.string()),
         expanded: Joi.boolean(),
         updatedFrom: Joi.date().iso(),
-        pageNum: Joi.number().min(1),
+        page: Joi.number().min(1),
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });

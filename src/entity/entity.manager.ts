@@ -31,7 +31,7 @@ class EntityManager {
         ['updatedFrom', 'updatedAt'],
         ['entityType', 'entityType'],
         ['rank', 'rank'],
-        ['digitalIdentities.source', 'digitalIdentities.source'],
+        ['digitalIdentity.source', 'digitalIdentities.source'],
         ['status', 'status'],
     ]);
 

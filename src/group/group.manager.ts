@@ -1,12 +1,12 @@
+import { extractAliasesUserQueries, extractUserQueries } from '../shared/filterQueries';
 /* eslint-disable no-underscore-dangle */
 import GroupRepository from './group.repository';
 import * as ApiErrors from '../core/ApiErrors';
-import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import { RuleFilter, EntityTypes } from '../shared/types';
 import pageWrapper from '../shared/pageWrapper';
 import { groupQueries } from './types/types';
-import { mapFieldQueryFunc } from '../shared/queryParsers';
+import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
 
 class GroupManager {
     static groupRepository: GroupRepository = new GroupRepository();
@@ -17,7 +17,8 @@ class GroupManager {
 
     static async getAll(userQueries: groupQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
-        const transformedQuery = extractUserQueries(userQueries, GroupManager.mapFieldName, mapFieldQueryFunc);
+        const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
+        const transformedQuery = extractUserQueries(unAliasedQuery, GroupManager.mapFieldName, mapFieldQueryFunc);
 
         const foundGroups = await GroupManager.groupRepository.findByQuery(transformedQuery, scopeExcluder, expanded, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);

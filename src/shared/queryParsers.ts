@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { aliases } from '../config/domain-enums';
+import config from '../config/index';
 
 const updatedFromQuery = (updatedFrom: Date) => {
     return { $gte: new Date(updatedFrom) };
@@ -30,7 +30,7 @@ export const mapFieldQueryFunc = new Map<string, any>([
 ]);
 
 const extractSourceValues = (value: string) => {
-    const extractedValues = aliases[value] || [value];
+    const extractedValues = config.app.aliases[value] || [value];
     return extractedValues;
 };
 

@@ -1,11 +1,11 @@
+import { mapQueryValueAlias, mapFieldQueryFunc } from '../shared/queryParsers';
+import { extractAliasesUserQueries, extractUserQueries } from '../shared/filterQueries';
 /* eslint-disable no-underscore-dangle */
 import RoleRepository from './role.repository';
 import * as ApiErrors from '../core/ApiErrors';
-import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';
 import { roleQueries } from './types/types';
-import { mapFieldQueryFunc } from '../shared/queryParsers';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 class RoleManager {
@@ -17,7 +17,8 @@ class RoleManager {
 
     static async getAll(userQueries: roleQueries, scopeExcluders: RuleFilter[], page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        const transformedQuery = extractUserQueries(userQueries, RoleManager.mapFieldName, mapFieldQueryFunc);
+        const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
+        const transformedQuery = extractUserQueries(unAliasedQuery, RoleManager.mapFieldName, mapFieldQueryFunc);
         const roles = await RoleManager.roleRepository.findByQuery(transformedQuery, scopeExcluder, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
         return paginatedResults;

@@ -15,6 +15,9 @@ const config = {
     app: {
         maxPageSize: parseInt(env.get('MAX_PAGE_SIZE').required().asString(), 10),
         minPageSize: parseInt(env.get('MIN_PAGE_SIZE').required().asString(), 10),
+        aliases: {
+            NON_EXTERNAL_SOURCES: env.get('NON_EXTERNAL_SOURCES').required().asArray(),
+        },
     },
     s3: {
         url: env.get('S3_URL').required().asString(),

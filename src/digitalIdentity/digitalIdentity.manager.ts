@@ -1,9 +1,9 @@
+import { mapQueryValueAlias, mapFieldQueryFunc } from '../shared/queryParsers';
+import { extractAliasesUserQueries, extractUserQueries } from '../shared/filterQueries';
 import DigitalIdentityRepository from './digitalIdentity.repository';
 import RoleRepository from '../role/role.repository';
 import * as ApiErrors from '../core/ApiErrors';
 import { DigitalIdentityQueries } from './utils/types';
-import { mapFieldQueryFunc } from '../shared/queryParsers';
-import { extractUserQueries } from '../shared/filterQueries';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';
 import { EntityTypes, RuleFilter } from '../shared/types';
@@ -25,7 +25,8 @@ class DigitalIdentityManager {
         pageSize: number,
     ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, DigitalIdentityManager.getDotField);
-        const transformedQuery = extractUserQueries(userQueries, DigitalIdentityManager.mapFieldName, mapFieldQueryFunc);
+        const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
+        const transformedQuery = extractUserQueries(unAliasedQuery, DigitalIdentityManager.mapFieldName, mapFieldQueryFunc);
 
         const foundDigitalIdentities = await DigitalIdentityManager.digitalIdentityRepository.findByQuery(
             transformedQuery,

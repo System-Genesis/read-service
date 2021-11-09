@@ -7,15 +7,15 @@ class GroupController {
     static entityManager: GroupManager = new GroupManager();
 
     static extractGroupQueries(_req: Request) {
-        const { expanded, pageNum, pageSize, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
+        const { expanded, page, pageSize, direct, ruleFilters, ...userQueries } = _req.query as { [key: string]: string };
         const isExpanded = expanded === 'true';
-        const page = parseInt(pageNum, 10);
+        const pageNum = parseInt(page, 10);
         const limit = parseInt(pageSize, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
 
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
-        return { isDirect, isExpanded, page, limit, ruleFiltersQuery, userQueries };
+        return { isDirect, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
@@ -46,8 +46,8 @@ class GroupController {
     }
     static async getPrefixByGroupId(_req: Request, res: Response) {
         const { id } = _req.params
-        const prefix = await GroupManager.getPrefixByGroupId(id)
-        ResponseHandler.success(res, prefix)
+        const diPrefix = await GroupManager.getPrefixByGroupId(id)
+        res.json({ diPrefix: diPrefix })
     }
 }
 

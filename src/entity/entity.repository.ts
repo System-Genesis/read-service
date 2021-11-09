@@ -121,13 +121,13 @@ export default class EntityRepository {
     }
 
     getPictureMetaData(personIdentifier: string): Promise<pictures> {
-        const identifierFields = ['personalNumber', 'identityCard', 'userID'];
+        const identifierFields = ['personalNumber', 'identityCard'];
         const cond = identifierFields.map((key) => {
             return { [key]: { $in: [personIdentifier] } };
         });
 
         const findQuery = this.model.findOne({ $or: cond });
-        const resPicture = findQuery.select('pictures.profile');
-        return resPicture.lean<pictures>({ virtuals: true }).exec() || {};
+        const resPicture = findQuery.select('pictures.profile -_id');
+        return resPicture.lean<pictures>().exec() || {};
     }
 }

@@ -102,12 +102,13 @@ class EntityManager {
             throw new ApiErrors.NotFoundError();
         }
 
-        const pictures: pictures = await EntityManager.entityRepository.getPictureMetaData(identifier);
-        const { path } = pictures.profile.meta;
+        const pictures: any = await EntityManager.entityRepository.getPictureMetaData(identifier);
 
-        if (!path) {
+        if (!pictures || !pictures.pictures || !pictures.pictures.profile) {
             throw new ApiErrors.NotFoundError();
         }
+
+        const { path } = pictures.pictures.profile.meta;
 
         try {
             const streamProvider = s3Handler.getProfilePicture(path);

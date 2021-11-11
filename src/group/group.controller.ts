@@ -44,6 +44,11 @@ class GroupController {
         const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, page, limit); // TODO: doesnt work?
         ResponseHandler.success<GroupDTO[]>(res, groups);
     }
+    static async getPrefixByGroupId(_req: Request, res: Response) {
+        const { id } = _req.params
+        const diPrefix = await GroupManager.getPrefixByGroupId(id)
+        res.json({ diPrefix: diPrefix })
+    }
 }
 
 export default GroupController;

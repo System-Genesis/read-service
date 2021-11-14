@@ -15,7 +15,10 @@ class DigitalIdentityManager {
 
     static getDotField = new Map<EntityTypes, any>([[EntityTypes.DI, '']]);
 
-    static mapFieldName = new Map<string, string>([['updatedFrom', 'updatedAt']]);
+    static mapFieldName = new Map<string, string>([
+        ['updatedFrom', 'updatedAt'],
+        ['source', 'source'],
+    ]);
 
     static async getAll(
         userQueries: DigitalIdentityQueries,

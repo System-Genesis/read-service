@@ -13,7 +13,10 @@ class RoleManager {
 
     static getDotField = new Map<EntityTypes, any>([[EntityTypes.ROLE, '']]);
 
-    static mapFieldName = new Map<string, string>([['updatedFrom', 'updatedAt']]);
+    static mapFieldName = new Map<string, string>([
+        ['updatedFrom', 'updatedAt'],
+        ['source', 'source'],
+    ]);
 
     static async getAll(userQueries: roleQueries, scopeExcluders: RuleFilter[], page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);

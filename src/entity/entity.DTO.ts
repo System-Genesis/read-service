@@ -1,4 +1,4 @@
-import IDigitalIdentity from '../digitalIdentity/digitalIdentity.interface';
+import DigitalIdentityDTO from '../digitalIdentity/digitalIdentity.DTO';
 import { ProfilePictureData } from './pictures/pictureSchema';
 
 export interface EntityDTO {
@@ -16,7 +16,7 @@ export interface EntityDTO {
     lastName: string;
     fullName: string;
     akaUnit: string;
-    dischargeDate: Date;
+    dischargeDay: Date;
     rank: string; // enum
     mail: string;
     jobTitle: string;
@@ -34,7 +34,7 @@ export interface EntityDTO {
             meta: ProfilePictureData;
         };
     };
-    digitalIdentities: [IDigitalIdentity];
+    digitalIdentities: DigitalIdentityDTO;
 }
 
 // export const EntitySelect = {
@@ -48,7 +48,7 @@ export interface EntityDTO {
 //     lastName: 1,
 //     akaUnit: 1,
 //     status: 1,
-//     dischargeDate: 1,
+//     dischargeDay: 1,
 //     rank: 1, // enum
 //     mail: 1,
 //     job: 1,

@@ -19,7 +19,7 @@ interface IEntity {
     lastName: string;
     fullName: string;
     akaUnit: string;
-    dischargeDate: Date;
+    dischargeDay: Date;
     rank: string; // enum
     mail: string;
     jobTitle: string;

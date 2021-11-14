@@ -17,7 +17,7 @@ const EntitySchema: Schema = new Schema(
         lastName: String,
         akaUnit: String,
         status: String,
-        dischargeDate: Date,
+        dischargeDay: Date,
         rank: String, // enum
         mail: String,
         job: String,

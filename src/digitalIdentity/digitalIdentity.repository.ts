@@ -6,7 +6,7 @@ import { DigitalIdentityModel } from './digitalIdentity.model';
 export default class DigitalIdentityRepository {
     protected model: mongoose.Model<IDigitalIdentity>;
 
-    private static HIDDEN_FIELDS = ' -__v';
+    private static HIDDEN_FIELDS = ' -__v -_id';
 
     private static DENORMALIZED_FIELDS = ' -role';
 

@@ -1,6 +1,6 @@
-import IRole from '../role/role.interface';
+import { RoleDTO } from '../role/role.DTO';
 
-export default interface IDigitalIdentity {
+export default interface DigitalIdentityDTO {
     // DI as it should be returned to client
     type: string;
     source: string;
@@ -10,5 +10,5 @@ export default interface IDigitalIdentity {
     createdAt: Date;
     updatedAt: Date;
     isRoleAttachable: boolean;
-    role: IRole;
+    role: RoleDTO;
 }

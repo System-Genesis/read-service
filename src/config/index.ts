@@ -13,12 +13,11 @@ const config = {
         GroupCollectionName: env.get('OG_COLLECTION_NAME').required().asString(),
     },
     app: {
-        maxPageSize: parseInt(env.get('MAX_PAGE_SIZE').required().asString(), 10),
-        minPageSize: parseInt(env.get('MIN_PAGE_SIZE').required().asString(), 10),
-        aliases: {
-            NON_EXTERNAL_SOURCES: env.get('NON_EXTERNAL_SOURCES').required().asArray(),
-        },
+        maxPageSize: env.get('MAX_PAGE_SIZE').required().asInt(),
+        minPageSize: env.get('MIN_PAGE_SIZE').required().asInt(),
+        aliases: env.get('ALIASES').required().asJson(),
     },
+
     s3: {
         url: env.get('S3_URL').required().asString(),
         region: env.get('REGION').required().asString(),

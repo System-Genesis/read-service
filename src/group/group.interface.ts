@@ -16,6 +16,7 @@ interface IGroup {
     isLeaf: boolean;
     createdAt: Date;
     updatedAt: Date;
+    diPrefix: string;
     directEntities: [IEntity];
     directRoles: [IRole];
 }

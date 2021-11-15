@@ -10,7 +10,7 @@ export default class GroupRepository {
         this.model = GroupModel;
     }
 
-    private static HIDDEN_FIELDS = ' -__v -picture.profile.meta.path';
+    private static HIDDEN_FIELDS = ' -__v';
 
     private static DENORMALIZED_FIELDS = '-directEntities -directRoles';
 
@@ -61,75 +61,67 @@ export default class GroupRepository {
         }
         return findQuery.lean<IGroup>({ virtuals: true }).exec();
     }
+
     findPrefixById(id: string) {
-        let findQuery = this.model.aggregate
-            ([
-                {
-                    "$match": {
-                        "_id": mongoose.Types.ObjectId(id)
-
-                    }
+        const findQuery = this.model.aggregate([
+            {
+                $match: {
+                    _id: mongoose.Types.ObjectId(id),
                 },
-                {
-                    $graphLookup: {
-                        from: "denormalizedOrganizationGroup",
-                        startWith: "$directGroup",
-                        connectFromField: "directGroup",
-                        connectToField: "_id",
-                        as: "ancestors",
-                        depthField: "depth"
-                    },
-
+            },
+            {
+                $graphLookup: {
+                    from: 'denormalizedOrganizationGroup',
+                    startWith: '$directGroup',
+                    connectFromField: 'directGroup',
+                    connectToField: '_id',
+                    as: 'ancestors',
+                    depthField: 'depth',
                 },
-                {
-                    "$addFields": {
-                        "ancestors": {
-                            "$filter": {
-                                "input": "$ancestors",
-                                "as": "item",
-                                "cond": {
-                                    "$eq": [
-                                        {
-                                            "$type": "$$item.diPrefix"
-                                        },
-                                        "string"
-                                    ],
-
-                                }
+            },
+            {
+                $addFields: {
+                    ancestors: {
+                        $filter: {
+                            input: '$ancestors',
+                            as: 'item',
+                            cond: {
+                                $eq: [
+                                    {
+                                        $type: '$$item.diPrefix',
+                                    },
+                                    'string',
+                                ],
                             },
-
-                        }
+                        },
                     },
-
                 },
-                {
-                    "$unwind": "$ancestors"
+            },
+            {
+                $unwind: '$ancestors',
+            },
+            {
+                $sort: {
+                    'ancestors.depth': 1,
                 },
-                {
-                    $sort: {
-                        "ancestors.depth": 1
-                    }
+            },
+            {
+                $group: {
+                    _id: '$_id',
+                    ancestors: {
+                        $push: '$ancestors',
+                    },
                 },
-                {
-                    "$group": {
-                        "_id": "$_id",
-                        "ancestors": {
-                            $push: "$ancestors"
-                        }
-                    }
+            },
+            {
+                $project: {
+                    ancestors: {
+                        $first: '$ancestors',
+                    },
                 },
-                {
-                    "$project": {
-                        "ancestors": {
-                            "$first": "$ancestors"
-                        }
-                    }
-                },
-
-            ])
+            },
+        ]);
         return findQuery.exec();
-
-
     }
 
     // async getAncestors(groupId: string) {

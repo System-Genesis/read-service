@@ -88,12 +88,12 @@ export default class EntityRepository {
     }
 
     async findById(id_: string, excluders, expanded: boolean) {
-        let findQuery = this.model.findOne({ _id: id_, ...excluders }).select(EntityRepository.DENORMALIZED_FIELDS);
+        let findQuery = this.model.findOne({ _id: id_, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean({ virtuals: true }).exec();
+        return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
 
     findUnderGroup(groupID: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {

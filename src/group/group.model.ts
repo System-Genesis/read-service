@@ -10,7 +10,7 @@ const GroupSchema: Schema = new Schema(
         name: String,
         source: String,
         directGroup: Types.ObjectId, // TODO: change to Schema.Types.ObjectId
-        ancestors: [Types.ObjectId],
+        ancestors: [String],
         hierarchy: String,
         status: String,
         isLeaf: Boolean,

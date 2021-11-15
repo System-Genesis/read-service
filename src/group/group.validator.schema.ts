@@ -26,8 +26,8 @@ export const getGroupById = getRequestBaseSchema.keys({
 export const getChildren = getRequestBaseSchema.keys({
     query: {
         direct: Joi.boolean(),
-        page: Joi.number().min(1),
-        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
+        page: Joi.number().min(1).required(),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -38,8 +38,8 @@ export const getChildren = getRequestBaseSchema.keys({
 
 export const getGroupsByHierarchy = getRequestBaseSchema.keys({
     query: {
-        page: Joi.number().min(1),
-        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
+        page: Joi.number().min(1).required(),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -54,13 +54,13 @@ export const getGroupsByCustomFilters = getRequestBaseSchema.keys({
         expanded: Joi.string().valid(...expandedTypes),
         source: Joi.alternatives().try(Joi.array(), Joi.string()),
         updatedFrom: Joi.date().iso(),
-        page: Joi.number().min(1),
-        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
+        page: Joi.number().min(1).required(),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
     },
 });
 
 export const getPrefixByGroupId = Joi.object({
     params: {
-        id: Joi.string().required()
-    }
+        id: Joi.string().required(),
+    },
 });

@@ -64,6 +64,7 @@ class GroupManager {
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
         return paginatedResults;
     }
+
     static async getPrefixByGroupId(id: string) {
         const group = await GroupManager.groupRepository.findById(id, {}, false);
         if (!group) {

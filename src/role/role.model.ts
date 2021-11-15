@@ -10,7 +10,7 @@ const RoleSchema: Schema = new Schema(
         directGroup: Types.ObjectId,
         clearance: String,
         hierarchy: String,
-        hierarchyIds: [Types.ObjectId],
+        hierarchyIds: [String],
         createdAt: Date,
         updatedAt: Date,
         source: String,

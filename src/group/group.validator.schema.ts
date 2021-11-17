@@ -38,8 +38,6 @@ export const getChildren = getRequestBaseSchema.keys({
 
 export const getGroupsByHierarchy = getRequestBaseSchema.keys({
     query: {
-        page: Joi.number().min(1).required(),
-        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },

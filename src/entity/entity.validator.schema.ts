@@ -43,6 +43,7 @@ export const getEntitiesByGroup = getRequestBaseSchema.keys({
     query: {
         page: Joi.number().min(1).required(),
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
+        direct: Joi.boolean(),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },
@@ -55,6 +56,7 @@ export const getEntitiesByHierarchy = getRequestBaseSchema.keys({
     query: {
         page: Joi.number().min(1).required(),
         pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
+        direct: Joi.boolean(),
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
     },

@@ -57,9 +57,14 @@ class RoleManager {
         return paginatedResults;
     }
 
-    static async findUnderHierarchy(groupId: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number, pageSize: number) {
+    static async findUnderHierarchy(hierarchy: string, scopeExcluders: RuleFilter[], direct: boolean = true, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        const roles = await RoleManager.roleRepository.findUnderHierarchy(groupId, scopeExcluder, page, pageSize);
+        let roles;
+        if (direct) {
+            roles = await RoleManager.roleRepository.findByHierarchy(hierarchy, scopeExcluder, page, pageSize);
+        } else {
+            roles = await RoleManager.roleRepository.findUnderHierarchy(hierarchy, scopeExcluder, page, pageSize);
+        }
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
         return paginatedResults;
     }

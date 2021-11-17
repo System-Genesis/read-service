@@ -81,16 +81,40 @@ class EntityManager {
         return foundEntity;
     }
 
-    static async findUnderGroup(groupID: string, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
+    static async findUnderGroup(
+        groupID: string,
+        scopeExcluders: RuleFilter[],
+        direct: boolean = true,
+        expanded: boolean = false,
+        page: number,
+        pageSize: number,
+    ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const entities = await EntityManager.entityRepository.findUnderGroup(groupID, scopeExcluder, expanded, page, pageSize);
+        let entities;
+        if (direct) {
+            entities = await EntityManager.entityRepository.findInGroupId(groupID, scopeExcluder, expanded, page, pageSize);
+        } else {
+            entities = await EntityManager.entityRepository.findUnderGroup(groupID, scopeExcluder, expanded, page, pageSize);
+        }
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
         return paginatedResults;
     }
 
-    static async findUnderHierarchy(hierarchy: string, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
+    static async findUnderHierarchy(
+        hierarchy: string,
+        scopeExcluders: RuleFilter[],
+        direct: boolean = true,
+        expanded: boolean = false,
+        page: number,
+        pageSize: number,
+    ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const entities = await EntityManager.entityRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
+        let entities;
+        if (direct) {
+            entities = await EntityManager.entityRepository.findByHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
+        } else {
+            entities = await EntityManager.entityRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
+        }
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
         return paginatedResults;
     }

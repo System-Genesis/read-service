@@ -73,4 +73,13 @@ export default class RoleRepository {
         findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole[]>().exec();
     }
+
+    findByHierarchy(hierarchyToQuery: string, excluders, page: number, pageSize: number): Promise<IRole[]> {
+        let findQuery = this.model
+            .find({ hierarchy: { $regex: hierarchyToQuery, $options: 'i' }, ...excluders })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
+        findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
+        return findQuery.lean<IRole[]>().exec();
+    }
 }

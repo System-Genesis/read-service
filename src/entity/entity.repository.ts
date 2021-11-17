@@ -108,6 +108,18 @@ export default class EntityRepository {
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
+    findInGroupId(groupId: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+        let findQuery = this.model
+            .find({ directGroup: groupId, ...excluders })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
+        findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity[]>().exec();
+    }
+
     findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
             .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
@@ -118,6 +130,18 @@ export default class EntityRepository {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
+    }
+
+    findByHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+        let findQuery = this.model
+            .find({ 'digitalIdentities.role.hierarchy': { $regex: hierarchyToQuery, $options: 'i' }, ...excluders })
+            .skip((page - 1) * pageSize)
+            .limit(pageSize + 1);
+        findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity[]>().exec();
     }
 
     getPictureMetaData(personIdentifier: string): Promise<pictures> {

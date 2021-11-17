@@ -9,16 +9,17 @@ class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
     static extractEntityQueries(_req: Request) {
-        const { expanded, page, pageSize, ruleFilters, ..._userQueries } = _req.query as { [key: string]: string };
+        const { expanded, page, pageSize, ruleFilters, direct, ..._userQueries } = _req.query as { [key: string]: string };
 
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
         const pageNum = parseInt(page, 10);
         const limit = parseInt(pageSize, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
+        const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
         const userQueries = _userQueries;
-        return { isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
+        return { isDirect, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static async getAll(_req: Request, res: Response) {
@@ -57,18 +58,18 @@ class EntityController {
     }
 
     static async getUnderGroup(_req: Request, res: Response) {
-        const { isExpanded, page, limit, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
+        const { isExpanded, page, isDirect, limit, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { groupId } = _req.params as { [key: string]: string };
 
-        const resEntities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isExpanded, page, limit);
+        const resEntities = await EntityManager.findUnderGroup(groupId, ruleFiltersQuery, isDirect, isExpanded, page, limit);
         ResponseHandler.success<EntityDTO[]>(res, resEntities);
     }
 
     static async getUnderHierarchy(_req: Request, res: Response) {
-        const { isExpanded, page, limit, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
+        const { isExpanded, page, limit, isDirect, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { hierarchy } = _req.params as { [key: string]: string };
 
-        const resEntities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isExpanded, page, limit);
+        const resEntities = await EntityManager.findUnderHierarchy(hierarchy, ruleFiltersQuery, isDirect, isExpanded, page, limit);
         ResponseHandler.success<EntityDTO[]>(res, resEntities);
     }
 

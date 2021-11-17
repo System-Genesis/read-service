@@ -76,7 +76,7 @@ export default class RoleRepository {
 
     findByHierarchy(hierarchyToQuery: string, excluders, page: number, pageSize: number): Promise<IRole[]> {
         let findQuery = this.model
-            .find({ hierarchy: { $regex: hierarchyToQuery, $options: 'i' }, ...excluders })
+            .find({ hierarchy: hierarchyToQuery, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);

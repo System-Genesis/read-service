@@ -10,7 +10,7 @@ export default class RoleRepository {
         this.model = RoleModel;
     }
 
-    private static HIDDEN_FIELDS = ' -__v -_id';
+    private static HIDDEN_FIELDS = ' -__v -_id -id';
 
     static createPagniationQuery = (_id: string) => {
         return {

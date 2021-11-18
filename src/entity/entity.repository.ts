@@ -88,7 +88,7 @@ export default class EntityRepository {
     }
 
     async findById(id_: string, excluders, expanded: boolean) {
-        let findQuery = this.model.findOne({ _id: id_, ...excluders });
+        let findQuery = this.model.findById({ _id: id_, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
@@ -110,7 +110,7 @@ export default class EntityRepository {
 
     findInGroupId(groupId: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
-            .find({ directGroup: groupId, ...excluders })
+            .find({ 'digitalIdentities.role.directGroup': groupId, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);

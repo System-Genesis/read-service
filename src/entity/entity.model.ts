@@ -53,7 +53,6 @@ EntitySchema.virtual('id').get(function get(this: IEntity) {
 });
 
 EntitySchema.plugin(mongooseLeanVirtuals);
-
 // EntitySchema.set('toObject', { getters: true });
 
 const EntityModel: Model<IEntity> = model('entity', EntitySchema);

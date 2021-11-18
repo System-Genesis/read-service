@@ -38,7 +38,7 @@ export default class GroupRepository {
         if (!mongoose.Types.ObjectId.isValid(groupId)) {
             return null; // TODO: maybe add validation at input?
         }
-        let findQuery = this.model.findOne({ _id: groupId, ...excluders });
+        let findQuery = this.model.findById({ _id: groupId, ...excluders });
         findQuery = findQuery.select(GroupRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(GroupRepository.DENORMALIZED_FIELDS);

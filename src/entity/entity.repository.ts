@@ -117,7 +117,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity[]>().exec();
+        return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
     findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
@@ -142,7 +142,7 @@ export default class EntityRepository {
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         }
-        return findQuery.lean<IEntity[]>().exec();
+        return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
     getPictureMetaData(personIdentifier: string): Promise<pictures> {

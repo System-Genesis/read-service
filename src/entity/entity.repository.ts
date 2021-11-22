@@ -98,7 +98,7 @@ export default class EntityRepository {
 
     findUnderGroup(groupID: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
-            .find({ 'digitalIdentities.role.directGroup': groupID, ...excluders })
+            .find({ directGroup: groupID, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
@@ -110,7 +110,7 @@ export default class EntityRepository {
 
     findInGroupId(groupId: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
-            .find({ 'digitalIdentities.role.directGroup': groupId, ...excluders })
+            .find({ directGroup: groupId, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
@@ -123,7 +123,7 @@ export default class EntityRepository {
     findUnderHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         // TODO: replace 'digitalIdentities.role.hierarchy'
         let findQuery = this.model
-            .find({ 'digitalIdentities.role.hierarchy': { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
+            .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
@@ -135,7 +135,7 @@ export default class EntityRepository {
 
     findByHierarchy(hierarchyToQuery: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
-            .find({ 'digitalIdentities.role.hierarchy': hierarchyToQuery, ...excluders })
+            .find({ hierarchy: hierarchyToQuery, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);

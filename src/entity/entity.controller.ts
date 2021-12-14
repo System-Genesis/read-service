@@ -8,6 +8,7 @@ import EntityManager from './entity.manager';
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
+    // TODO: extractQueries in middleware?
     static extractEntityQueries(_req: Request) {
         const { expanded, page, pageSize, ruleFilters, direct, ..._userQueries } = _req.query as { [key: string]: string };
 

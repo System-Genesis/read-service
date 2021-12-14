@@ -5,7 +5,6 @@
   "main": "",
   "scripts": {
     "start": "node --async-stack-traces ./dist/index.js",
-    "dev": "npm run build && npm start",
     "test-entities": "jest  --verbose --runInBand  -- src/entity/entity.spec.ts",
     "test-digitalIdentities": "jest  --verbose --runInBand -- src/digitalIdentity/digitalIdentity.spec.ts",
     "test-roles": "jest  --verbose --runInBand -- src/role/role.spec.ts",
@@ -14,7 +13,7 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "prod:linux": "NODE_ENV=prod nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",
-    "dev:linux": "NODE_ENV=dev nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev": "NODE_ENV=dev nodemon --watch --inspect './**/*.ts' --exec 'ts-node' src/index.ts",
     "dev:windows": "set NODE_ENV=dev&& nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",

@@ -5,6 +5,7 @@ import config from '../config/index';
 
 const DigitalIdentitySchema: Schema = new Schema(
     {
+        id: Types.ObjectId,
         entityId: Types.ObjectId,
         uniqueId: String,
         directGroup: String,

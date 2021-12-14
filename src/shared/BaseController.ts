@@ -3,6 +3,7 @@ import { Readable } from 'stream';
 import { Response } from 'express';
 
 export default abstract class ResponseHandler {
+    // TODO: needed sanitize? in manager logic?
     private static sanitize<T>(response: T): T {
         const clone: T = {} as T;
         Object.assign(clone, response);

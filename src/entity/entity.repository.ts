@@ -8,7 +8,11 @@ export default class EntityRepository {
 
     private static DENORMALIZED_FIELDS = ' -digitalIdentities';
 
-    private static HIDDEN_FIELDS = ' -hierarchyIds -pictures.profile.meta.path -__v';
+    // TODO: move into manager layer
+    private static HIDDEN_DENORMALIZED_FIELDS = '-digitalIdentities.id -digitalIdentities.role.id';
+
+    // TODO: remain __v in repo layer
+    private static HIDDEN_FIELDS = ' -hierarchyIds  -pictures.profile.meta.path -__v ';
 
     constructor() {
         this.model = EntityModel;
@@ -33,6 +37,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
@@ -98,12 +104,14 @@ export default class EntityRepository {
 
     findUnderGroup(groupID: string, excluders, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
-            .find({ directGroup: groupID, ...excluders })
+            .find({ hierarchyIds: groupID, ...excluders })
             .skip((page - 1) * pageSize)
             .limit(pageSize + 1);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }

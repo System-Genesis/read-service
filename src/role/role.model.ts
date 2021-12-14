@@ -4,6 +4,7 @@ import config from '../config/index';
 
 const RoleSchema: Schema = new Schema(
     {
+        id: Types.ObjectId,
         roleId: String,
         jobTitle: String,
         digitalIdentityUniqueId: String,

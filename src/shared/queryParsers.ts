@@ -29,9 +29,17 @@ export const mapFieldQueryFunc = new Map<string, any>([
     ['status', basicQuery],
 ]);
 
-const extractSourceValues = (value: string) => {
-    const extractedValues = config.app.aliases[value] || [value];
-    return extractedValues;
+const extractSourceValues = (values: string | string[]) => {
+    if (Array.isArray(values)) {
+        // parse alias if comes in array
+        // TODO: refactor into function
+        const concatenatedSources = values.reduce((prev: string[], elem: string) => {
+            const extractedValues = config.app.aliases[elem] || [elem];
+            return [...prev, ...extractedValues];
+        }, []);
+        return concatenatedSources;
+    }
+    return config.app.aliases[values] || [values];
 };
 
 export const mapQueryValueAlias = new Map<string, any>([

@@ -8,6 +8,9 @@ export default class DigitalIdentityRepository {
 
     private static HIDDEN_FIELDS = ' -__v -_id';
 
+    // TODO: move into manager layer
+    private static HIDDEN_DENORMALIZED_FIELDS = '-role._id';
+
     private static DENORMALIZED_FIELDS = ' -role';
 
     constructor() {
@@ -28,6 +31,8 @@ export default class DigitalIdentityRepository {
         findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IDigitalIdentity[]>().exec();
     }
@@ -37,6 +42,8 @@ export default class DigitalIdentityRepository {
         findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IDigitalIdentity>().exec();
     }
@@ -46,6 +53,8 @@ export default class DigitalIdentityRepository {
         findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(DigitalIdentityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(DigitalIdentityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IDigitalIdentity>().exec();
     }

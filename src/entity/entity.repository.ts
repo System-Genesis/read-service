@@ -48,6 +48,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
@@ -80,6 +82,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
@@ -89,6 +93,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
@@ -98,6 +104,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity>({ virtuals: true }).exec();
     }
@@ -124,6 +132,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
@@ -137,6 +147,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
@@ -149,6 +161,8 @@ export default class EntityRepository {
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }

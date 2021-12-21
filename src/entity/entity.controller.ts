@@ -22,6 +22,9 @@ class EntityController {
         _userQueries.rank = splitQueryValue(_userQueries.rank);
         _userQueries.ids = splitQueryValue(_userQueries.ids);
         _userQueries.ids = _userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
+        _userQueries.entityType = splitQueryValue(_userQueries.entityType);
+        _userQueries.jobTitle = splitQueryValue(_userQueries.jobTitle);
+        _userQueries['digitalIdentity.source'] = splitQueryValue(_userQueries['digitalIdentity.source']);
         sanitizeUndefined(_userQueries);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);

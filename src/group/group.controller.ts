@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { GroupDTO } from './group.DTO';
 import ResponseHandler from '../shared/BaseController';
 import GroupManager from './group.manager';
+import { sanitizeUndefined, splitQueryValue } from '../utils/utils';
 
 class GroupController {
     static entityManager: GroupManager = new GroupManager();
@@ -13,8 +14,10 @@ class GroupController {
         const limit = parseInt(pageSize, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
-
+        userQueries.akaUnit = splitQueryValue(userQueries.akaUnit);
+        userQueries.source = splitQueryValue(userQueries.source);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
+        sanitizeUndefined(userQueries);
         return { isDirect, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
@@ -44,10 +47,11 @@ class GroupController {
         const groups = await GroupManager.getChildren(id, ruleFiltersQuery, isDirect, isExpanded, page, limit); // TODO: doesnt work?
         ResponseHandler.success<GroupDTO[]>(res, groups);
     }
+
     static async getPrefixByGroupId(_req: Request, res: Response) {
-        const { id } = _req.params
-        const diPrefix = await GroupManager.getPrefixByGroupId(id)
-        res.json({ diPrefix: diPrefix })
+        const { id } = _req.params;
+        const diPrefix = await GroupManager.getPrefixByGroupId(id);
+        res.json({ diPrefix });
     }
 }
 

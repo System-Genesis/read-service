@@ -5,6 +5,7 @@ import DigitalIdentityManager from './digitalIdentity.manager';
 import { RuleFilter } from '../shared/types';
 import { DigitalIdentityQueries } from './utils/types';
 import ResponseHandler from '../shared/BaseController';
+import { sanitizeUndefined, splitQueryValue } from '../utils/utils';
 
 class DigitalIdentityController {
     static digitalIdentityManager: DigitalIdentityManager = new DigitalIdentityManager();
@@ -14,10 +15,11 @@ class DigitalIdentityController {
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
         const pageNum = parseInt(page, 10);
         const limit = parseInt(pageSize, 10);
-
+        userQueries.source = splitQueryValue(userQueries.source);
+        userQueries.type = splitQueryValue(userQueries.type);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
-
+        sanitizeUndefined(userQueries);
         return { isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 

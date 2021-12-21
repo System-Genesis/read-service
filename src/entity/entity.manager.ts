@@ -27,7 +27,7 @@ class EntityManager {
     ]);
 
     static mapFieldName = new Map<string, string>([
-        ['ids', 'id'],
+        ['ids', '_id'],
         ['updatedFrom', 'updatedAt'],
         ['entityType', 'entityType'],
         ['rank', 'rank'],

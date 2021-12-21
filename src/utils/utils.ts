@@ -23,3 +23,12 @@ export function convertCaseInsensitive(originalObj: any, inSensitiveCaseFields: 
     });
     return targetObj;
 }
+
+export function sanitizeUndefined(_userQueries: any) {
+    // eslint-disable-next-line no-param-reassign
+    Object.keys(_userQueries).forEach((key) => _userQueries[key] === undefined && delete _userQueries[key]);
+}
+export function splitQueryValue(value: any) {
+    const result = !Array.isArray(value) ? value?.split(',') : value;
+    return result;
+}

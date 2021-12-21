@@ -1,22 +1,28 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
+import * as mongoose from 'mongoose';
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
+import { sanitizeUndefined, splitQueryValue } from '../utils/utils';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
     // TODO: extractQueries in middleware?
     static extractEntityQueries(_req: Request) {
-        const { expanded, page, pageSize, ruleFilters, direct, ..._userQueries } = _req.query as { [key: string]: string };
+        const { expanded, page, pageSize, ruleFilters, direct, ..._userQueries } = _req.query as { [key: string]: any | any[] };
 
         const isExpanded = typeof expanded === 'string' ? expanded === 'true' : !!expanded;
-        const pageNum = parseInt(page, 10);
-        const limit = parseInt(pageSize, 10);
+        const pageNum = parseInt(page as string, 10);
+        const limit = parseInt(pageSize as string, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
+        _userQueries.rank = splitQueryValue(_userQueries.rank);
+        _userQueries.ids = splitQueryValue(_userQueries.ids);
+        _userQueries.ids = _userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
+        sanitizeUndefined(_userQueries);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
         const userQueries = _userQueries;

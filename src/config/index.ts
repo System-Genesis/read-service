@@ -15,7 +15,8 @@ const config = {
     app: {
         maxPageSize: env.get('MAX_PAGE_SIZE').required().asInt(),
         minPageSize: env.get('MIN_PAGE_SIZE').required().asInt(),
-        aliases: env.get('ALIASES').required().asJson(),
+        aliases: env.get('ALIASES_ENTITY').required().asJson(),
+        aliasesDI: env.get('ALIASES_DI').required().asJson(),
     },
 
     s3: {

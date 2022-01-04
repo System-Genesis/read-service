@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
 import mongoose, { QueryCursor } from 'mongoose';
+import * as JSONStream from 'JSONStream';
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
@@ -37,10 +38,8 @@ class EntityController {
         splitQueries = splitQueryValues(splitQueries);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
-        const userQueries = { ..._userQueries, ...splitQueries };
-        userQueries.ids = userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
-        sanitizeUndefined(userQueries);
-        return { isDirect, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
+        const userQueries = _userQueries;
+        return { isDirect, isStream, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static pipeToRes = (streamProvider: QueryCursor<IEntity>, res: Response): void => {

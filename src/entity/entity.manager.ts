@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
+import * as mongoose from 'mongoose';
 import { entityRepository } from './repository';
-import { digitalIdentityRepository } from '../digitalIdentity/repository';
 import { EntityQueries, RequestQueryFields } from './types/types';
 import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
 import { extractUserQueries, extractAliasesUserQueries } from '../shared/filterQueries';

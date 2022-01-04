@@ -1,12 +1,18 @@
 import { Router } from 'express';
 import EntityController from './entity.controller';
-import { wrapController } from '../utils/express';
+import { wrapController, wrapValidator } from '../utils/express';
 import ValidateRequest from '../utils/joi';
 import * as EntityValidators from './entity.validator.schema';
+import EntityValidator from './entity.validator';
 
 const EntityRouter: Router = Router();
 
-EntityRouter.get('/', ValidateRequest(EntityValidators.getEntitiesByCustomFilters), wrapController(EntityController.getAll));
+EntityRouter.get(
+    '/',
+    ValidateRequest(EntityValidators.getEntitiesByCustomFilters),
+    wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema),
+    wrapController(EntityController.getAll),
+);
 EntityRouter.get('/:id', ValidateRequest(EntityValidators.getEntitiesById), wrapController(EntityController.getById));
 EntityRouter.get(
     '/identifier/:identifier',
@@ -34,3 +40,14 @@ EntityRouter.get(
 // EntityRouter.get('/hardToValidateWithSchema', wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema));
 
 export default EntityRouter;
+function somethingThatIsImpossibleToValidateWithSchema(
+    somethingThatIsImpossibleToValidateWithSchema: any,
+): import('express-serve-static-core').RequestHandler<
+    import('express-serve-static-core').ParamsDictionary,
+    any,
+    any,
+    import('qs').ParsedQs,
+    Record<string, any>
+> {
+    throw new Error('Function not implemented.');
+}

@@ -11,6 +11,7 @@ const getRequestBaseSchema = Joi.object({
     query: {
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        stream: Joi.string().valid(...expandedTypes),
     },
     body: {},
 });
@@ -82,8 +83,9 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         entityType: Joi.string(),
         'digitalIdentity.source': Joi.alternatives().try(Joi.array(), Joi.string()),
         status: Joi.string(),
+        stream: Joi.string().valid(...expandedTypes),
         updatedFrom: Joi.date().iso(),
-        page: Joi.number().min(1).required(),
-        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
+        page: Joi.number().min(1),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });

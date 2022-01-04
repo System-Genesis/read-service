@@ -29,16 +29,27 @@ export default class EntityRepository {
     };
 
     // TODO: will work when decided how to deal with non hierarchy entities
-    find(queries: any, scopeQuery: any, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+    find(
+        queries: any,
+        scopeQuery: any,
+        expanded: boolean,
+        stream: boolean,
+        page: number,
+        pageSize: number,
+    ): Promise<IEntity[]> | mongoose.QueryCursor<IEntity> {
         let findQuery = this.model
             .find({ ...queries, ...scopeQuery })
-            .skip((page - 1) * pageSize)
-            .limit(pageSize + 1);
+            .skip(!stream ? (page - 1) * pageSize : 0)
+            .limit(!stream ? pageSize + 1 : 0);
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         } else {
             findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
+        }
+
+        if (stream) {
+            return findQuery.lean<IEntity[]>({ virtuals: true }).cursor();
         }
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }

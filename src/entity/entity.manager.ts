@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import * as mongoose from 'mongoose';
 import EntityRepository from './entity.repository';
 import RoleRepository from '../role/role.repository';
 import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
@@ -12,6 +13,7 @@ import { EntityTypes, RuleFilter } from '../shared/types';
 import * as ApiErrors from '../core/ApiErrors';
 import { pictures } from './pictures/pictureSchema';
 import * as s3Handler from '../utils/pictures/s3Handler';
+import { IEntity } from './entity.interface';
 
 class EntityManager {
     static roleRepository: RoleRepository = new RoleRepository();
@@ -35,13 +37,26 @@ class EntityManager {
         ['status', 'status'],
     ]);
 
-    static async getAll(userQueries: EntityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
+    static async getAll(
+        userQueries: EntityQueries,
+        scopeExcluders: RuleFilter[],
+        expanded: boolean = false,
+        stream: boolean = false,
+        page: number,
+        pageSize: number,
+    ): Promise<IEntity[] | mongoose.QueryCursor<IEntity>> {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
-        const entities = await EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, page, pageSize);
-        const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
+        if (stream) {
+            return new Promise((resolve, reject) => {
+                const entities = EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
+                resolve(entities as mongoose.QueryCursor<IEntity>);
+            });
+        }
+        const entities = await EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
+        const { paginatedResults, nextPage } = pageWrapper(entities as any[], pageSize);
         return paginatedResults;
     }
 

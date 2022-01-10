@@ -13,7 +13,10 @@ class GroupManager {
 
     static getDotField = new Map<EntityTypes, any>([[EntityTypes.GROUP, '']]);
 
-    static mapFieldName = new Map<string, string>([['source', 'source']]);
+    static mapFieldName = new Map<string, string>([
+        ['updatedFrom', 'updatedAt'],
+        ['source', 'source'],
+    ]);
 
     static async getAll(userQueries: groupQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);

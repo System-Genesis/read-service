@@ -7,6 +7,7 @@ export default interface IDigitalIdentity {
     mail: string;
     uniqueId: string;
     entityId: string;
+    upn: string;
     createdAt: Date;
     updatedAt: Date;
     isRoleAttachable: boolean;

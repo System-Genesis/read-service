@@ -13,6 +13,7 @@ const DigitalIdentitySchema: Schema = new Schema(
         updatedAt: Date,
         source: String,
         isRoleAttachable: Boolean,
+        upn: String,
         role: RoleSchema,
     },
     { collection: config.mongo.DigitalIdentityCollectionName },

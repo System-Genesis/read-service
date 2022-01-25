@@ -79,8 +79,9 @@ class EntityManager {
     }
 
     static async findByRole(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        const roleIdLowerCase = roleId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByRole(roleId, scopeExcluder, expanded);
+        const foundEntity = await EntityManager.entityRepository.findByRole(roleIdLowerCase, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -88,8 +89,9 @@ class EntityManager {
     }
 
     static async findByDigitalIdentity(uniqueId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        const uniqueIdLowerCase = uniqueId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByUniqueId(uniqueId, scopeExcluder, expanded);
+        const foundEntity = await EntityManager.entityRepository.findByUniqueId(uniqueIdLowerCase, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }

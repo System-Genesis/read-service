@@ -33,13 +33,13 @@ export default class RoleRepository {
     }
 
     findByRoleId(roleId: string, excluders): Promise<IRole> {
-        let findQuery = this.model.findOne({ roleId: { $regex: `^${roleId}$`, $options: 'i' }, ...excluders });
+        let findQuery = this.model.findOne({ roleId, ...excluders });
         findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole>().exec();
     }
 
     findByDigitalIdentity(uniqueId: string, excluders): Promise<IRole> {
-        let findQuery = this.model.findOne({ digitalIdentityUniqueId: { $regex: `^${uniqueId}$`, $options: 'i' }, ...excluders });
+        let findQuery = this.model.findOne({ digitalIdentityUniqueId: uniqueId, ...excluders });
         findQuery = findQuery.select(RoleRepository.HIDDEN_FIELDS);
         return findQuery.lean<IRole>().exec();
     }

@@ -28,8 +28,9 @@ class RoleManager {
     }
 
     static async findByRoleId(roleId: string, scopeExcluders: RuleFilter[]) {
+        const roleIdLowerCase = roleId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        const foundRole = await RoleManager.roleRepository.findByRoleId(roleId, scopeExcluder);
+        const foundRole = await RoleManager.roleRepository.findByRoleId(roleIdLowerCase, scopeExcluder);
         if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }
@@ -37,8 +38,9 @@ class RoleManager {
     }
 
     static async findByDigitalIdentity(uniqueId: string, scopeExcluders: RuleFilter[]) {
+        const uniqueIdLowerCase = uniqueId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        const foundRole = await RoleManager.roleRepository.findByDigitalIdentity(uniqueId, scopeExcluder);
+        const foundRole = await RoleManager.roleRepository.findByDigitalIdentity(uniqueIdLowerCase, scopeExcluder);
         if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }

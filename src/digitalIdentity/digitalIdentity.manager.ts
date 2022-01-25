@@ -44,8 +44,13 @@ class DigitalIdentityManager {
     }
 
     static async findByUniqueId(uniqueId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        const uniqueIdLowerCase = uniqueId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, DigitalIdentityManager.getDotField);
-        const foundDigitalIdentity = await DigitalIdentityManager.digitalIdentityRepository.findByUniqueId(uniqueId, scopeExcluder, expanded);
+        const foundDigitalIdentity = await DigitalIdentityManager.digitalIdentityRepository.findByUniqueId(
+            uniqueIdLowerCase,
+            scopeExcluder,
+            expanded,
+        );
         if (!foundDigitalIdentity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -53,8 +58,9 @@ class DigitalIdentityManager {
     }
 
     static async findByRoleId(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        const roleIdLowerCase = roleId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, DigitalIdentityManager.getDotField);
-        const foundDigitalIdentity = await DigitalIdentityManager.digitalIdentityRepository.findByRoleId(roleId, scopeExcluder, expanded);
+        const foundDigitalIdentity = await DigitalIdentityManager.digitalIdentityRepository.findByRoleId(roleIdLowerCase, scopeExcluder, expanded);
         if (!foundDigitalIdentity) {
             throw new ApiErrors.NotFoundError();
         }

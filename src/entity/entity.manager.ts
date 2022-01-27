@@ -32,7 +32,6 @@ class EntityManager {
         ['entityType', 'entityType'],
         ['rank', 'rank'],
         ['digitalIdentity.source', 'digitalIdentities.source'],
-        ['status', 'status'],
     ]);
 
     static async getAll(userQueries: EntityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {

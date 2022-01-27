@@ -34,7 +34,6 @@ class EntityManager {
         ['entityType', 'entityType'],
         ['rank', 'rank'],
         ['digitalIdentity.source', 'digitalIdentities.source'],
-        ['status', 'status'],
     ]);
 
     static async getAll(

@@ -5,10 +5,22 @@ import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
-import { sanitizeUndefined, splitQueryValue } from '../utils/utils';
+import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
+
+    static QueriesToSplit = [
+        'akaUnit',
+        'rank',
+        'ids',
+        'personalNumbers',
+        'identityCards',
+        'digitalIdentities.uniqueIds',
+        'digitalIdentity.source',
+        'entityType',
+        'jobTitle',
+    ];
 
     // TODO: extractQueries in middleware?
     static extractEntityQueries(_req: Request) {
@@ -19,16 +31,13 @@ class EntityController {
         const limit = parseInt(pageSize as string, 10);
         let ruleFiltersQuery = typeof ruleFilters === 'string' ? JSON.parse(ruleFilters) : ruleFilters;
         ruleFiltersQuery = ruleFiltersQuery || [];
-        _userQueries.rank = splitQueryValue(_userQueries.rank);
-        _userQueries.ids = splitQueryValue(_userQueries.ids);
-        _userQueries.ids = _userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
-        _userQueries.entityType = splitQueryValue(_userQueries.entityType);
-        _userQueries.jobTitle = splitQueryValue(_userQueries.jobTitle);
-        _userQueries['digitalIdentity.source'] = splitQueryValue(_userQueries['digitalIdentity.source']);
-        sanitizeUndefined(_userQueries);
+        let splitQueries = pickCertainFields(_userQueries, EntityController.QueriesToSplit);
+        splitQueries = splitQueryValues(splitQueries);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
-        const userQueries = _userQueries;
+        const userQueries = { ..._userQueries, ...splitQueries };
+        userQueries.ids = userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
+        sanitizeUndefined(userQueries);
         return { isDirect, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 

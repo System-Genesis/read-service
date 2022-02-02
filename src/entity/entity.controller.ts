@@ -1,22 +1,12 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
-<<<<<<< HEAD
-import * as mongoose from 'mongoose';
-import * as JSONStream from 'JSONStream';
-import { QueryCursor } from 'mongoose';
-=======
-import mongoose from 'mongoose';
->>>>>>> f3236ce ((fix): modules improper import, start dependancy injection)
+import mongoose, { QueryCursor } from 'mongoose';
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
-<<<<<<< HEAD
 import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
 import { IEntity } from './entity.interface';
-=======
-import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
->>>>>>> caf1dd7 ((feat): identityCards, personalNumbers, uniqueIds queries)
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();

@@ -21,11 +21,15 @@ const inArrayQuery = (values: string | string[]) => {
 
 export const mapFieldQueryFunc = new Map<string, any>([
     ['ids', inArrayQuery],
+    ['personalNumbers', inArrayQuery],
+    ['identityCards', inArrayQuery],
     ['updatedFrom', updatedFromQuery],
     ['entityType', inArrayQuery],
     ['rank', inArrayQuery],
+    ['akaUnit', inArrayQuery],
     ['source', inArrayQuery],
     ['digitalIdentity.source', inArrayQuery],
+    ['digitalIdentities.uniqueIds', inArrayQuery],
     ['status', basicQuery],
 ]);
 

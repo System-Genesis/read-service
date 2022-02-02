@@ -33,7 +33,11 @@ class EntityManager {
         ['updatedFrom', 'updatedAt'],
         ['entityType', 'entityType'],
         ['rank', 'rank'],
+        ['akaUnit', 'akaUnit'],
         ['digitalIdentity.source', 'digitalIdentities.source'],
+        ['digitalIdentities.uniqueIds', 'digitalIdentities.uniqueId'],
+        ['personalNumbers', 'personalNumber'],
+        ['identityCards', 'identityCard'],
     ]);
 
     static async getAll(

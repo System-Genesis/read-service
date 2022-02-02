@@ -1,9 +1,13 @@
 export type RequestQueryFields = {
     expanded?: string;
     ids?: string[];
-    rank?: string;
-    entityType?: string;
-    'digitalIdentity.source'?: string;
+    rank?: string[];
+    akaUnit?: string[];
+    entityType?: string[];
+    'digitalIdentities.uniqueIds'?: string[];
+    personalNumbers?: string[];
+    identityCards?: string[];
+    'digitalIdentity.source'?: string[];
     status?: string;
     updateFrom?: Date;
     page?: string;

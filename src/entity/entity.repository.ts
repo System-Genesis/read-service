@@ -89,7 +89,7 @@ export default class EntityRepository {
     }
 
     findByRole(roleId: string, excluders, expanded: boolean): Promise<IEntity> {
-        let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': { $regex: `^${roleId}$`, $options: 'i' }, ...excluders });
+        let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': roleId, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);

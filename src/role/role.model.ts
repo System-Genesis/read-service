@@ -8,6 +8,7 @@ const RoleSchema: Schema = new Schema(
         roleId: String,
         jobTitle: String,
         digitalIdentityUniqueId: String,
+        // TODO: change to string?
         directGroup: Types.ObjectId,
         clearance: String,
         hierarchy: String,

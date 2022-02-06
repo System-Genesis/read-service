@@ -1,9 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-await-in-loop */
-import { query } from 'express';
+import { query, Response } from 'express';
 /* eslint-disable no-restricted-syntax */
 import * as mongoose from 'mongoose';
-import { Response } from 'express';
 import * as supertest from 'supertest';
 import * as qs from 'qs';
 // import allEntitiesDB from '../../mongo-seed/entityDNs.json';
@@ -20,15 +19,21 @@ const request = supertest(server.app);
 
 describe('Entity Unit Tests', () => {
     beforeAll(async () => {
-        await mongoose.connect(`mongodb://127.0.0.1:28000/genesis`, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false,
-        });
+        try {
+            await mongoose.connect(`mongodb://localhost:28000/kartoffelTest?replicaSet=rs0&directConnection=true&ssl=false`, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useFindAndModify: false,
+            });
+        } catch (err) {
+            console.log(err);
+        }
         try {
             await emptyDB();
             await seedDB();
-        } catch (err) {}
+        } catch (err) {
+            console.log(err);
+        }
     });
     afterAll(async () => {
         await mongoose.connection.close();

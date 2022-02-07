@@ -5,7 +5,7 @@ import config from '../config/index';
 import { EntitySchema } from '../entity/entity.model';
 import { RoleSchema } from '../role/role.model';
 
-const GroupSchema: Schema = new Schema(
+const GroupSchema: Schema<IGroup> = new Schema(
     {
         name: String,
         source: String,

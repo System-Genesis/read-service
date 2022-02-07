@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
-import { Types } from 'mongoose';
-import IDigitalIdentity from './digitalIdentity.interface';
-import { DigitalIdentityModel } from './digitalIdentity.model';
+import mongoose, { Types, Connection } from 'mongoose';
+import IDigitalIdentity from '../digitalIdentity.interface';
+import { DigitalIdentitySchema } from '../digitalIdentity.model';
 
 export default class DigitalIdentityRepository {
-    protected model: mongoose.Model<IDigitalIdentity>;
+    private model: mongoose.Model<IDigitalIdentity>;
 
     private static HIDDEN_FIELDS = ' -__v -_id';
 
@@ -13,8 +12,12 @@ export default class DigitalIdentityRepository {
 
     private static DENORMALIZED_FIELDS = ' -role';
 
-    constructor() {
-        this.model = DigitalIdentityModel;
+    constructor(db: Connection, modelName: string) {
+        if (db.modelNames().includes(modelName)) {
+            this.model = db.model(modelName);
+        } else {
+            this.model = db.model(modelName, DigitalIdentitySchema);
+        }
     }
 
     static createPagniationQuery = (_id: string) => {

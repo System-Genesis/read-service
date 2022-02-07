@@ -1,13 +1,16 @@
-import mongoose from 'mongoose';
-import { Types } from 'mongoose';
-import IRole from './role.interface';
-import { RoleModel } from './role.model';
+import mongoose, { Types, Connection } from 'mongoose';
+import IRole from '../role.interface';
+import { RoleModel, RoleSchema } from '../role.model';
 
 export default class RoleRepository {
     protected model: mongoose.Model<IRole>;
 
-    constructor() {
-        this.model = RoleModel;
+    constructor(db: Connection, modelName: string) {
+        if (db.modelNames().includes(modelName)) {
+            this.model = db.model(modelName);
+        } else {
+            this.model = db.model(modelName, RoleSchema);
+        }
     }
 
     private static HIDDEN_FIELDS = ' -__v -_id -id';

@@ -1,13 +1,16 @@
-import mongoose from 'mongoose';
-import { Types } from 'mongoose';
-import IGroup from './group.interface';
-import { GroupModel } from './group.model';
+import mongoose, { Types, Connection } from 'mongoose';
+import IGroup from '../group.interface';
+import { GroupModel, GroupSchema } from '../group.model';
 
 export default class GroupRepository {
     protected model: mongoose.Model<IGroup>;
 
-    constructor() {
-        this.model = GroupModel;
+    constructor(db: Connection, modelName: string) {
+        if (db.modelNames().includes(modelName)) {
+            this.model = db.model(modelName);
+        } else {
+            this.model = db.model(modelName, GroupSchema);
+        }
     }
 
     private static HIDDEN_FIELDS = ' -__v';

@@ -3,7 +3,7 @@ import IDigitalIdentity from './digitalIdentity.interface';
 import { RoleSchema } from '../role/role.model';
 import config from '../config/index';
 
-const DigitalIdentitySchema: Schema = new Schema(
+const DigitalIdentitySchema: Schema<IDigitalIdentity> = new Schema(
     {
         id: Types.ObjectId,
         entityId: Types.ObjectId,

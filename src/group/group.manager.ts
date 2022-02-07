@@ -1,6 +1,6 @@
 import { extractAliasesUserQueries, extractUserQueries } from '../shared/filterQueries';
 /* eslint-disable no-underscore-dangle */
-import GroupRepository from './group.repository';
+import { groupRepository } from './repository';
 import * as ApiErrors from '../core/ApiErrors';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import { RuleFilter, EntityTypes } from '../shared/types';
@@ -9,8 +9,6 @@ import { groupQueries } from './types/types';
 import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
 
 class GroupManager {
-    static groupRepository: GroupRepository = new GroupRepository();
-
     static getDotField = new Map<EntityTypes, any>([[EntityTypes.GROUP, '']]);
 
     static mapFieldName = new Map<string, string>([
@@ -23,15 +21,15 @@ class GroupManager {
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries(unAliasedQuery, GroupManager.mapFieldName, mapFieldQueryFunc);
 
-        const foundGroups = await GroupManager.groupRepository.findByQuery(transformedQuery, scopeExcluder, expanded, page, pageSize);
+        const foundGroups = await groupRepository.findByQuery(transformedQuery, scopeExcluder, expanded, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
         return paginatedResults;
     }
 
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
-        const group = await GroupManager.groupRepository.findById(id, scopeExcluder, expanded);
-        // const ancestors = await GroupManager.groupRepository.getAncestors(id);
+        const group = await groupRepository.findById(id, scopeExcluder, expanded);
+        // const ancestors = await groupRepository.getAncestors(id);
         if (!group) {
             throw new ApiErrors.NotFoundError();
         }
@@ -41,7 +39,7 @@ class GroupManager {
 
     static async findByHierarchy(hierarchy: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
-        const foundGroup = await GroupManager.groupRepository.findByHierarchy(hierarchy, scopeExcluder, expanded);
+        const foundGroup = await groupRepository.findByHierarchy(hierarchy, scopeExcluder, expanded);
         if (!foundGroup) {
             throw new ApiErrors.NotFoundError();
         }
@@ -57,26 +55,26 @@ class GroupManager {
         pageSize: number,
     ) {
         let foundGroups;
-        // const ancestors = await GroupManager.groupRepository.getAncestorsFromGroup('85ew4r3d3d');
+        // const ancestors = await groupRepository.getAncestorsFromGroup('85ew4r3d3d');
         const scopeExcluder = extractScopesQuery(scopeExcluders, GroupManager.getDotField);
         if (direct) {
-            foundGroups = await GroupManager.groupRepository.findByQuery({ directGroup: groupId }, scopeExcluder, expanded, page, pageSize);
+            foundGroups = await groupRepository.findByQuery({ directGroup: groupId }, scopeExcluder, expanded, page, pageSize);
         } else {
-            foundGroups = await GroupManager.groupRepository.findByQuery({ ancestors: groupId }, scopeExcluder, expanded, page, pageSize);
+            foundGroups = await groupRepository.findByQuery({ ancestors: groupId }, scopeExcluder, expanded, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(foundGroups, pageSize);
         return paginatedResults;
     }
 
     static async getPrefixByGroupId(id: string) {
-        const group = await GroupManager.groupRepository.findById(id, {}, false);
+        const group = await groupRepository.findById(id, {}, false);
         if (!group) {
             throw new ApiErrors.NotFoundError('Group Not Found');
         }
         if (group.diPrefix) {
             return group.diPrefix;
         }
-        const groupWithPrefix = await GroupManager.groupRepository.findPrefixById(id);
+        const groupWithPrefix = await groupRepository.findPrefixById(id);
         if (!groupWithPrefix || groupWithPrefix.length === 0) {
             throw new ApiErrors.NotFoundError('Group doesn`t have prefix');
         }

@@ -1,7 +1,6 @@
-import { Types } from 'mongoose';
-import mongoose from 'mongoose';
-import { IEntity, pictures } from './entity.interface';
-import { EntityModel } from './entity.model';
+import mongoose, { Types, Connection } from 'mongoose';
+import { IEntity, pictures } from '../entity.interface';
+import { EntityModel, EntitySchema } from '../entity.model';
 
 export default class EntityRepository {
     protected model: mongoose.Model<IEntity>;
@@ -14,8 +13,12 @@ export default class EntityRepository {
     // TODO: remain __v in repo layer
     private static HIDDEN_FIELDS = ' -hierarchyIds  -pictures.profile.meta.path -__v ';
 
-    constructor() {
-        this.model = EntityModel;
+    constructor(db: Connection, modelName: string) {
+        if (db.modelNames().includes(modelName)) {
+            this.model = db.model(modelName);
+        } else {
+            this.model = db.model(modelName, EntitySchema);
+        }
     }
 
     convertExcludedFields = (fieldsToDelete: string[]): string => {

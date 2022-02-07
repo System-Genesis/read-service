@@ -1,4 +1,4 @@
-import * as BaseJoi from 'joi';
+import BaseJoi from 'joi';
 import JoiDate from '@joi/date';
 import config from '../config/index';
 

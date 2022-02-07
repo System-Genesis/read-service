@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-return-await */
-import * as AWS from 'aws-sdk';
+import AWS from 'aws-sdk';
 import { Readable } from 'stream';
 import config from '../../config';
 

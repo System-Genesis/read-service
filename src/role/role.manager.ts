@@ -2,6 +2,7 @@ import { mapQueryValueAlias, mapFieldQueryFunc } from '../shared/queryParsers';
 import { extractAliasesUserQueries, extractUserQueries } from '../shared/filterQueries';
 /* eslint-disable no-underscore-dangle */
 import RoleRepository from './role.repository';
+// TODO: replace all * imports with namespace / class
 import * as ApiErrors from '../core/ApiErrors';
 import { extractScopesQuery } from '../shared/scopeExcluders';
 import pageWrapper from '../shared/pageWrapper';

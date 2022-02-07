@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk';
+import AWS from 'aws-sdk';
 import { Readable } from 'stream';
 import { Response } from 'express';
 

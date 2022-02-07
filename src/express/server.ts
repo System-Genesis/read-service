@@ -1,9 +1,9 @@
-import * as fs from 'fs';
-import * as http from 'http';
-import * as express from 'express';
-import * as helmet from 'helmet';
-import * as logger from 'morgan';
-import * as compression from 'compression';
+import fs from 'fs';
+import http from 'http';
+import express from 'express';
+import helmet from 'helmet';
+import logger from 'morgan';
+import compression from 'compression';
 
 import { once } from 'events';
 import errorMiddleware from '../core/errorController';

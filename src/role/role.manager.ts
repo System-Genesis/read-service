@@ -1,7 +1,7 @@
 import { mapQueryValueAlias, mapFieldQueryFunc } from '../shared/queryParsers';
 import { extractAliasesUserQueries, extractUserQueries } from '../shared/filterQueries';
 /* eslint-disable no-underscore-dangle */
-import RoleRepository from './role.repository';
+import { roleRepository } from './repository';
 // TODO: replace all * imports with namespace / class
 import * as ApiErrors from '../core/ApiErrors';
 import { extractScopesQuery } from '../shared/scopeExcluders';
@@ -10,8 +10,6 @@ import { roleQueries } from './types/types';
 import { EntityTypes, RuleFilter } from '../shared/types';
 
 class RoleManager {
-    static roleRepository: RoleRepository = new RoleRepository();
-
     static getDotField = new Map<EntityTypes, any>([[EntityTypes.ROLE, '']]);
 
     static mapFieldName = new Map<string, string>([
@@ -23,7 +21,7 @@ class RoleManager {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries(unAliasedQuery, RoleManager.mapFieldName, mapFieldQueryFunc);
-        const roles = await RoleManager.roleRepository.findByQuery(transformedQuery, scopeExcluder, page, pageSize);
+        const roles = await roleRepository.findByQuery(transformedQuery, scopeExcluder, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
         return paginatedResults;
     }
@@ -31,7 +29,7 @@ class RoleManager {
     static async findByRoleId(roleId: string, scopeExcluders: RuleFilter[]) {
         const roleIdLowerCase = roleId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        const foundRole = await RoleManager.roleRepository.findByRoleId(roleIdLowerCase, scopeExcluder);
+        const foundRole = await roleRepository.findByRoleId(roleIdLowerCase, scopeExcluder);
         if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }
@@ -41,7 +39,7 @@ class RoleManager {
     static async findByDigitalIdentity(uniqueId: string, scopeExcluders: RuleFilter[]) {
         const uniqueIdLowerCase = uniqueId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
-        const foundRole = await RoleManager.roleRepository.findByDigitalIdentity(uniqueIdLowerCase, scopeExcluder);
+        const foundRole = await roleRepository.findByDigitalIdentity(uniqueIdLowerCase, scopeExcluder);
         if (!foundRole) {
             throw new ApiErrors.NotFoundError();
         }
@@ -52,9 +50,9 @@ class RoleManager {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         let roles;
         if (direct) {
-            roles = await RoleManager.roleRepository.findInGroupId(groupId, scopeExcluder, page, pageSize);
+            roles = await roleRepository.findInGroupId(groupId, scopeExcluder, page, pageSize);
         } else {
-            roles = await RoleManager.roleRepository.findUnderGroupId(groupId, scopeExcluder, page, pageSize);
+            roles = await roleRepository.findUnderGroupId(groupId, scopeExcluder, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
         return paginatedResults;
@@ -64,9 +62,9 @@ class RoleManager {
         const scopeExcluder = extractScopesQuery(scopeExcluders, RoleManager.getDotField);
         let roles;
         if (direct) {
-            roles = await RoleManager.roleRepository.findByHierarchy(hierarchy, scopeExcluder, page, pageSize);
+            roles = await roleRepository.findByHierarchy(hierarchy, scopeExcluder, page, pageSize);
         } else {
-            roles = await RoleManager.roleRepository.findUnderHierarchy(hierarchy, scopeExcluder, page, pageSize);
+            roles = await roleRepository.findUnderHierarchy(hierarchy, scopeExcluder, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(roles, pageSize);
         return paginatedResults;

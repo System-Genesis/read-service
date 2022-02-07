@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { Types } from 'mongoose';
 import IRole from './role.interface';
 import { RoleModel } from './role.model';

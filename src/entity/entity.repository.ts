@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { IEntity, pictures } from './entity.interface';
 import { EntityModel } from './entity.model';
 

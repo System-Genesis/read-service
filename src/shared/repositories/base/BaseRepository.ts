@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { IRead } from '../interfaces/IRead';
 
 export default abstract class BaseRepository<T> implements IRead<T> {

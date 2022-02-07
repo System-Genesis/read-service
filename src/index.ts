@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import * as mongoose from 'mongoose';
+import pRetry from 'p-retry';
+import { connect as connectDB } from './shared/infra/mongoose/connection';
 import { initializeS3 } from './utils/pictures/s3Handler';
 import Server from './express/server';
 import config from './config';
@@ -7,11 +8,14 @@ import config from './config';
 const { mongo, service } = config;
 
 const initializeMongo = async () => {
-    console.log('Connecting to Mongo...');
-
-    await mongoose.connect(mongo.uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
-
-    console.log('Mongo connection established');
+    try {
+        await pRetry(connectDB, {
+            onFailedAttempt: (err) => console.log(`[DB]: connection attempt ${err.attemptNumber} failed`),
+        });
+        console.log('[DB]: connected successfully');
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 const main = async () => {

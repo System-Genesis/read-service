@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { EntityModel } from '../../entity/entity.model';
 import { RoleModel } from '../../role/role.model';
 import { DigitalIdentityModel } from '../../digitalIdentity/digitalIdentity.model';

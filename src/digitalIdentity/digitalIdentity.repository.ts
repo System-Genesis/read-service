@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { Types } from 'mongoose';
 import IDigitalIdentity from './digitalIdentity.interface';
 import { DigitalIdentityModel } from './digitalIdentity.model';

@@ -1,5 +1,4 @@
-import * as mongoose from 'mongoose';
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import IGroup from './group.interface';
 import { GroupModel } from './group.model';
 

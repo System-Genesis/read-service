@@ -1,9 +1,9 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { Response } from 'express';
-import * as supertest from 'supertest';
-import * as qs from 'qs';
+import supertest from 'supertest';
+import qs from 'qs';
 // import EntityController from './entity.controller';
 // import { EntityModel } from './entity.model';
 import { seedDB, emptyDB } from '../shared/tests/seedUtils';

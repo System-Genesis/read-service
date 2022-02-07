@@ -1,14 +1,18 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
+<<<<<<< HEAD
 import * as mongoose from 'mongoose';
 import * as JSONStream from 'JSONStream';
 import { QueryCursor } from 'mongoose';
+=======
+import mongoose from 'mongoose';
+>>>>>>> f3236ce ((fix): modules improper import, start dependancy injection)
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
 <<<<<<< HEAD
-import { sanitizeUndefined, splitQueryValue } from '../utils/utils';
+import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
 import { IEntity } from './entity.interface';
 =======
 import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
@@ -43,15 +47,10 @@ class EntityController {
         splitQueries = splitQueryValues(splitQueries);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
-<<<<<<< HEAD
-        const userQueries = _userQueries;
-        return { isDirect, isStream, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
-=======
         const userQueries = { ..._userQueries, ...splitQueries };
         userQueries.ids = userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
         sanitizeUndefined(userQueries);
         return { isDirect, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
->>>>>>> caf1dd7 ((feat): identityCards, personalNumbers, uniqueIds queries)
     }
 
     static pipeToRes = (streamProvider: QueryCursor<IEntity>, res: Response): void => {

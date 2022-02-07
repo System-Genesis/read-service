@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import { BadRequestError, NotFoundError } from './ApiErrors';
 import ResponseHandler from '../shared/BaseController';
 import { PageSizeRequired } from '../validators/errors/PageSizeRequired';

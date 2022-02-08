@@ -9,7 +9,7 @@ const { mongo, service } = config;
 
 const initializeMongo = async () => {
     try {
-        await pRetry(connectDB, {
+        await pRetry(() => connectDB(mongo.uri), {
             onFailedAttempt: (err) => console.log(`[DB]: connection attempt ${err.attemptNumber} failed`),
         });
         console.log('[DB]: connected successfully');

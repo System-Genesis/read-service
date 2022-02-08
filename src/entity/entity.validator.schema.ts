@@ -40,6 +40,13 @@ export const getEntitiesByIdentifier = getRequestBaseSchema.keys({
     },
 });
 
+export const getByOrgAndEmpNum = getRequestBaseSchema.keys({
+    params: {
+        employeeNumber: Joi.string().required(),
+        organization: Joi.string().required(),
+    },
+});
+
 export const getEntitiesByGroup = getRequestBaseSchema.keys({
     query: {
         page: Joi.number().min(1).required(),

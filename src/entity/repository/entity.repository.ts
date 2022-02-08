@@ -77,7 +77,7 @@ export default class EntityRepository {
     // }
 
     findByIdentifier(identifier: string, excluders, expanded: boolean) {
-        const identifierFields = ['personalNumber', 'identityCard', 'goalUserId'];
+        const identifierFields = ['personalNumber', 'identityCard', 'goalUserId', 'employeeId'];
         const cond = identifierFields.map((key) => {
             return { [key]: { $in: [identifier] } };
         });
@@ -104,6 +104,17 @@ export default class EntityRepository {
 
     findByRole(roleId: string, excluders, expanded: boolean): Promise<IEntity> {
         let findQuery = this.model.findOne({ 'digitalIdentities.role.roleId': roleId, ...excluders });
+        findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
+        if (!expanded) {
+            findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
+        } else {
+            findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
+        }
+        return findQuery.lean<IEntity>({ virtuals: true }).exec();
+    }
+
+    findByOrgAndEmpNum(organization: string, employeeNumber: string, excluders, expanded: boolean): Promise<IEntity> {
+        let findQuery = this.model.findOne({ organization, employeeNumber, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);

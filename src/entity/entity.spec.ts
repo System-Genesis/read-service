@@ -3,8 +3,10 @@
 import { query, Response } from 'express';
 /* eslint-disable no-restricted-syntax */
 import mongoose from 'mongoose';
+import { MongoMemoryReplSet } from 'mongodb-memory-server';
 import supertest from 'supertest';
 import qs from 'qs';
+import { connect as connectDB } from '../shared/infra/mongoose/connection';
 // import allEntitiesDB from '../../mongo-seed/entityDNs.json';
 // import EntityControlleimportr from './entity.controller';
 import { seedDB, emptyDB } from '../shared/tests/seedUtils';
@@ -20,11 +22,21 @@ const request = supertest(server.app);
 describe('Entity Unit Tests', () => {
     beforeAll(async () => {
         try {
-            await mongoose.connect(`mongodb://localhost:28000/kartoffelTest?replicaSet=rs0&directConnection=true&ssl=false`, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-                useFindAndModify: false,
+            const replset = await MongoMemoryReplSet.create({
+                replSet: {
+                    name: 'rs0',
+                    dbName: 'kartoffelTest',
+                    storageEngine: 'wiredTiger',
+                    count: 1,
+                },
             });
+            await replset.waitUntilRunning();
+            const uri = replset.getUri();
+            await connectDB(uri);
+
+            // your code here
+
+            // await mongoose.disconnect();
         } catch (err) {
             console.log(err);
         }
@@ -36,7 +48,7 @@ describe('Entity Unit Tests', () => {
         }
     });
     afterAll(async () => {
-        await mongoose.connection.close();
+        await mongoose.disconnect();
         server.stop();
     });
     // let res: Response;

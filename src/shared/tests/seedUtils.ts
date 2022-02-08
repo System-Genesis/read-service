@@ -1,11 +1,23 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 
-import mongoose from 'mongoose';
-import { EntityModel } from '../../entity/entity.model';
-import { RoleModel } from '../../role/role.model';
-import { DigitalIdentityModel } from '../../digitalIdentity/digitalIdentity.model';
-import { GroupModel } from '../../group/group.model';
+import mongoose, { Types, Connection } from 'mongoose';
+import { EntitySchema } from '../../entity/entity.model';
+import connection from '../infra/mongoose/connection';
+
+const getModel = (modelName: string) => {
+    let model;
+    if (connection.modelNames().includes(modelName)) {
+        model = connection.model(modelName);
+    } else {
+        model = connection.model(modelName, EntitySchema);
+    }
+    return model;
+};
+const EntityModel = connection.model('entity', EntitySchema);
+const GroupModel = connection.model('group', EntitySchema);
+const RoleModel = connection.model('role', EntitySchema);
+const DigitalIdentityModel = connection.model('digitalIdentity', EntitySchema);
 
 const allEntitiesDB = require('../../../mongo-seed/entityDNs');
 const allGroupsDB = require('../../../mongo-seed/organizationGroupsDNs');

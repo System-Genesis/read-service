@@ -57,6 +57,11 @@ const createGroupFromMock = (mockEntity: any) => {
     };
 };
 
+export const insertEntity = async <T>(entity: Object) => {
+    const mappedData = createEntityFromMock(entity);
+    return EntityModel.create(mappedData);
+};
+
 export const seedCollection = async <T>(dataJson: any[], createFromMockFunc: (any) => any, dataModel: mongoose.Model<T>) => {
     const mappedData = dataJson.map((obj) => createFromMockFunc(obj));
     return dataModel.insertMany(mappedData);

@@ -14,9 +14,9 @@ interface IEntity {
     identityCard: string;
     personalNumber: string;
     goalUserId?: string;
-    employeeNumber: string;
-    employeeId: string;
-    organization: string;
+    employeeNumber?: string;
+    employeeId?: string;
+    organization?: string;
     serviceType: string;
     firstName: string;
     lastName: string;

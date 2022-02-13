@@ -2,8 +2,8 @@
 import { RuleFilter, ScopeFields } from './types';
 
 // TODO: why array of string and first element?
-const hierarchiesExcluder = (hierarchyValues: string[]) => {
-    return { $not: { $regex: hierarchyValues[0], $options: 'i' } };
+const hierarchiesExcluder = (hierarchy: string) => {
+    return { $not: { $regex: `^${hierarchy}` } };
 };
 
 const otherFieldsExcluder = (fieldValues: string[]) => {

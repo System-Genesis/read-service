@@ -20,12 +20,14 @@ class EntityManager {
 
     static entityRepository: EntityRepository = new EntityRepository();
 
+    // TODO (M): could use object, could be improved?
     static getDotField = new Map<EntityTypes, any>([
         [EntityTypes.ENTITY, ''],
         [EntityTypes.DI, 'digitalIdentities.'],
         [EntityTypes.ROLE, 'digitalIdentities.role.'],
     ]);
 
+    // TODO (M): shouldn't be in manager, mongo related
     static mapFieldName = new Map<string, string>([
         ['ids', '_id'],
         ['updatedFrom', 'updatedAt'],
@@ -38,7 +40,10 @@ class EntityManager {
         ['identityCards', 'identityCard'],
     ]);
 
+    // TODO (M): strict types to return from each method
+
     static async getAll(userQueries: EntityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
+        // TODO (M): return types in scopes and transform - mongo related functions should be in repository
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);

@@ -5,6 +5,8 @@ import config from '../config/index';
 const Joi = BaseJoi.extend(JoiDate);
 Joi.objectId = require('joi-objectid')(Joi);
 
+// TODO (M) : move to config? move other validations to here? expanded should be boolean in validation
+
 const expandedTypes = ['true', 'false'];
 
 const getRequestBaseSchema = Joi.object({

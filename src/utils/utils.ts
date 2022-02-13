@@ -35,6 +35,7 @@ export function splitQueryValue(value: any) {
 }
 
 export function splitQueryValues(queries: Object) {
+    // TODO (M): maybe map on entries/keys and then fromEntries? Object.keys(myObject).map(function(key, index) {
     const splittedQueries = {};
     Object.entries(queries).forEach((entry) => {
         const [key, value] = entry;

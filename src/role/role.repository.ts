@@ -66,6 +66,7 @@ export default class RoleRepository {
     }
 
     findUnderHierarchy(hierarchyToQuery: string, excluders, page: number, pageSize: number): Promise<IRole[]> {
+        // TODO: add hierarchy index
         let findQuery = this.model
             .find({ hierarchy: { $regex: `^${hierarchyToQuery}`, $options: 'i' }, ...excluders })
             .skip((page - 1) * pageSize)

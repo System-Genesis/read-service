@@ -25,6 +25,7 @@ class Server {
         const app = express();
 
         app.use(helmet());
+        // TODO (M) : the 2 following are default?
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
         app.use(compression());

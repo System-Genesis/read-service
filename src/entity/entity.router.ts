@@ -6,6 +6,8 @@ import * as EntityValidators from './entity.validator.schema';
 
 const EntityRouter: Router = Router();
 
+// TODO (M) : create a function that takes validateFunc and controllerFunc?
+
 EntityRouter.get('/', ValidateRequest(EntityValidators.getEntitiesByCustomFilters), wrapController(EntityController.getAll));
 EntityRouter.get('/:id', ValidateRequest(EntityValidators.getEntitiesById), wrapController(EntityController.getById));
 EntityRouter.get(

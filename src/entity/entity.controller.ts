@@ -60,6 +60,13 @@ class EntityController {
         ResponseHandler.success(res, entity);
     }
 
+    static async getByOrgAndEmpNum(_req: Request, res: Response) {
+        const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
+        const { employeeNumber, organization } = _req.params as { [key: string]: string };
+        const entity = await EntityManager.findByOrgAndEmpNum(organization, employeeNumber, ruleFiltersQuery, isExpanded);
+        ResponseHandler.success(res, entity);
+    }
+
     static async getByDigitalIdentity(_req: Request, res: Response) {
         const { isExpanded, ruleFiltersQuery } = EntityController.extractEntityQueries(_req);
         const { digitalIdentityUniqueId } = _req.params as { [key: string]: string };

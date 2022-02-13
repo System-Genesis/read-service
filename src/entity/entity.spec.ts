@@ -260,16 +260,16 @@ describe('Entity Unit Tests', () => {
                 const qsQuery = qs.stringify({
                     // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
                     page,
-                    pageSize: 10,
+                    pageSize: 1000,
                     expanded: true,
                 });
                 const res = await request.get('/api/entities').query(qsQuery);
                 expect(res.status).toBe(200);
                 foundEntities = foundEntities.concat(res.body);
-                const nextPage = page + 1;
                 if (res.body.length === 0) {
                     break;
                 }
+                const nextPage = page + 1;
                 page = nextPage;
             }
             expect(foundEntities.length).toBe(allEntitiesDB.length);

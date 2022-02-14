@@ -15,6 +15,7 @@ export const mapFieldQuery = new Map<ScopeFields, any>([
     [ScopeFields.SOURCE, otherFieldsExcluder],
 ]);
 
+// TODO (M): mapField is not clear => different for each entity
 export const extractScopesQuery = (excluders: RuleFilter[], mapField) => {
     const query = {};
     excluders.forEach((excluder) => {

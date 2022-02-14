@@ -41,7 +41,7 @@ class EntityManager {
     ]);
 
     // TODO (M): strict types to return from each method
-
+    // TODO (M): scopeExcluders / ruleFilters? where?
     static async getAll(userQueries: EntityQueries, scopeExcluders: RuleFilter[], expanded: boolean = false, page: number, pageSize: number) {
         // TODO (M): return types in scopes and transform - mongo related functions should be in repository
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
@@ -53,7 +53,10 @@ class EntityManager {
         return paginatedResults;
     }
 
+    // TODO (M): same code lines into function?
+
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        // TODO (M): every method use extractScopesQuery, can it be saved?
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const entity = await EntityManager.entityRepository.findById(id, scopeExcluder, expanded);
         if (!entity) {
@@ -119,6 +122,7 @@ class EntityManager {
         return paginatedResults;
     }
 
+    // TODO (M): move isDirect to repo side instead of condition here
     static async findUnderHierarchy(
         hierarchy: string,
         scopeExcluders: RuleFilter[],

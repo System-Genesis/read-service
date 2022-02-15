@@ -14,6 +14,7 @@ const getRequestBaseSchema = Joi.object({
     body: {},
 });
 
+// TODO (M): remove already declared in base (expanded)
 export const getDIByCustomFilters = getRequestBaseSchema.keys({
     query: {
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),

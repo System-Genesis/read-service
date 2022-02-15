@@ -5,6 +5,7 @@
  * @param originalObj original object
  * @returns proxy object
  */
+// TODO (M): not using that, perhaps should? (probably not)
 export function convertCaseInsensitive(originalObj: any, inSensitiveCaseFields: string[]) {
     const targetObj = { ...originalObj };
     // return new Proxy(originalObj, {

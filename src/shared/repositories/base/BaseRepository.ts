@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose';
 import { IRead } from '../interfaces/IRead';
 
 export default abstract class BaseRepository<T> implements IRead<T> {
+    // TODO (M): use base repository for all the modules
     protected model: mongoose.Model<T & mongoose.Document>;
 
     constructor(documentModel: mongoose.Model<T & mongoose.Document>) {

@@ -18,10 +18,12 @@ export default class EntityRepository {
         this.model = EntityModel;
     }
 
+    // TODO (M): using that?
     convertExcludedFields = (fieldsToDelete: string[]): string => {
         return `-${fieldsToDelete.join(' -')}`;
     };
 
+    // TODO (M): unnecssary anymore
     static createPagniationQuery = (_id: string) => {
         return {
             _id: { $gt: Types.ObjectId(_id) },
@@ -29,6 +31,8 @@ export default class EntityRepository {
     };
 
     // TODO: will work when decided how to deal with non hierarchy entities
+    // TODO (M): static, public?
+    // TODO (M): find out how to concise the removal of fields to single function
     find(queries: any, scopeQuery: any, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
         let findQuery = this.model
             .find({ ...queries, ...scopeQuery })
@@ -43,6 +47,7 @@ export default class EntityRepository {
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
+    // TODO (M): remove execs?
     findOne(cond: any, excluders, expanded: boolean): Promise<IEntity> {
         let findQuery = this.model.findOne({ cond, ...excluders });
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);

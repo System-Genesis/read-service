@@ -103,6 +103,7 @@ class EntityManager {
         return foundEntity;
     }
 
+    // TODO (M): get rid of default parameters?
     static async findUnderGroup(
         groupID: string,
         scopeExcluders: RuleFilter[],
@@ -112,7 +113,7 @@ class EntityManager {
         pageSize: number,
     ) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        let entities;
+        let entities; // TODO (M): strict type
         if (direct) {
             entities = await EntityManager.entityRepository.findInGroupId(groupID, scopeExcluder, expanded, page, pageSize);
         } else {
@@ -142,21 +143,21 @@ class EntityManager {
         return paginatedResults;
     }
 
+    // TODO (M): consider move scopes inside getPicture / 2 different errors of not found
     static async getPictureByIdentifier(identifier: string, scopeExcluders: RuleFilter[]) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntity = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, false);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
-
+        // TODO (M): not any
         const pictures: any = await EntityManager.entityRepository.getPictureMetaData(identifier);
-
+        // TODO (M): pictures?.pictures?.profile(?).meta(?).path
         if (!pictures || !pictures.pictures || !pictures.pictures.profile) {
             throw new ApiErrors.NotFoundError();
         }
 
         const { path } = pictures.pictures.profile.meta;
-
         try {
             const streamProvider = s3Handler.getProfilePicture(path);
             return streamProvider;

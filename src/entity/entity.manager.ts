@@ -61,7 +61,7 @@ class EntityManager {
 
     static async findByOrgAndEmpNum(organization: string, employeeNumber: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByOrgAndEmpNum(organization, employeeNumber, scopeExcluder, expanded);
+        const foundEntity = await entityRepository.findByOrgAndEmpNum(organization, employeeNumber, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }

@@ -75,6 +75,25 @@ describe('Entity Unit Tests', () => {
         expect(res.body.personalNumber).toBe('2612910');
     });
 
+    it('Should return entity by identityCard padded with zeros', async () => {
+        const qsQuery = qs.stringify({
+            // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            expanded: true,
+        });
+        const res = await request.get('/api/entities/identifier/068940493').query(qsQuery);
+        expect(res.status).toBe(200);
+        expect(res.body.identityCard).toBe('68940493');
+    });
+
+    it('Shouldnt return entity by personalNumber padded with zeros', async () => {
+        const qsQuery = qs.stringify({
+            // ruleFilters: [{ field: 'source', values: [''], entityType: 'digitalIdentity' }],
+            expanded: true,
+        });
+        const res = await request.get('/api/entities/identifier/02612910').query(qsQuery);
+        expect(res.status).toBe(404);
+    });
+
     it('Shouldnt return entity from city by identifier out of scope', async () => {
         const qsQuery = qs.stringify({
             ruleFilters: [{ field: 'hierarchy', values: ['wallmart'], entityType: 'entity' }],

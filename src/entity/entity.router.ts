@@ -14,6 +14,11 @@ EntityRouter.get(
     wrapController(EntityController.getByIdentifier),
 );
 EntityRouter.get(
+    '/employeeNumber/:employeeNumber/organization/:organization',
+    ValidateRequest(EntityValidators.getByOrgAndEmpNum),
+    wrapController(EntityController.getByOrgAndEmpNum),
+);
+EntityRouter.get(
     '/digitalIdentity/:digitalIdentityUniqueId',
     ValidateRequest(EntityValidators.getEntitiesByDigitalIdentity),
     wrapController(EntityController.getByDigitalIdentity),

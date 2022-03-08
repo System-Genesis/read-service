@@ -59,6 +59,15 @@ class EntityManager {
         return foundEntity;
     }
 
+    static async findByOrgAndEmpNum(organization: string, employeeNumber: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
+        const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
+        const foundEntity = await entityRepository.findByOrgAndEmpNum(organization, employeeNumber, scopeExcluder, expanded);
+        if (!foundEntity) {
+            throw new ApiErrors.NotFoundError();
+        }
+        return foundEntity;
+    }
+
     static async findByRole(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const roleIdLowerCase = roleId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);

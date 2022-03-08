@@ -1,4 +1,7 @@
 /* eslint-disable import/prefer-default-export */
+
+import { number } from 'joi';
+
 /**
  * Returns a proxy object with the same values of the original object,
  * but with case insensitive key lookup, and lowercases all keys in Object.keys()
@@ -23,6 +26,10 @@ export function convertCaseInsensitive(originalObj: any, inSensitiveCaseFields: 
     });
     return targetObj;
 }
+
+export const trimLeadingZeros = (str: string) => {
+    return parseInt(str, 10).toString();
+};
 
 export function sanitizeUndefined(_userQueries: any) {
     // eslint-disable-next-line no-param-reassign

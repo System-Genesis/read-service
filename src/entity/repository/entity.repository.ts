@@ -1,3 +1,4 @@
+import { trimLeadingZeros } from './../../utils/utils';
 import mongoose, { Types, Connection } from 'mongoose';
 import { IEntity, pictures } from '../entity.interface';
 import { EntityModel, EntitySchema } from '../entity.model';
@@ -78,8 +79,12 @@ export default class EntityRepository {
 
     findByIdentifier(identifier: string, excluders, expanded: boolean) {
         const identifierFields = ['personalNumber', 'identityCard', 'goalUserId', 'employeeId'];
+        let queryIdentifier = identifier;
         const cond = identifierFields.map((key) => {
-            return { [key]: { $in: [identifier] } };
+            if (key === 'identityCard') {
+                queryIdentifier = trimLeadingZeros(identifier);
+            }
+            return { [key]: queryIdentifier };
         });
 
         let findQuery = this.model.findOne({ $or: cond, ...excluders });

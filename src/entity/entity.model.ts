@@ -4,7 +4,7 @@ import { IEntity } from './entity.interface';
 import { DigitalIdentitySchema } from '../digitalIdentity/digitalIdentity.model';
 import config from '../config/index';
 
-const EntitySchema: Schema = new Schema(
+const EntitySchema: Schema<IEntity> = new Schema(
     {
         // Entity's Basic information
         displayName: String,

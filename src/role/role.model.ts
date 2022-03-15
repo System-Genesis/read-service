@@ -2,7 +2,7 @@ import { model, Schema, Model, Types } from 'mongoose';
 import IRole from './role.interface';
 import config from '../config/index';
 
-const RoleSchema: Schema = new Schema(
+const RoleSchema: Schema<IRole> = new Schema(
     {
         id: Types.ObjectId,
         roleId: String,

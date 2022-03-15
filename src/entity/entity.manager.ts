@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import EntityRepository from './entity.repository';
-import RoleRepository from '../role/role.repository';
-import DigitalIdentityRepository from '../digitalIdentity/digitalIdentity.repository';
+import { entityRepository } from './repository';
+import { digitalIdentityRepository } from '../digitalIdentity/repository';
 import { EntityQueries, RequestQueryFields } from './types/types';
 import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
 import { extractUserQueries, extractAliasesUserQueries } from '../shared/filterQueries';
@@ -14,12 +13,6 @@ import { pictures } from './pictures/pictureSchema';
 import * as s3Handler from '../utils/pictures/s3Handler';
 
 class EntityManager {
-    static roleRepository: RoleRepository = new RoleRepository();
-
-    static digitalIdentityRepository: DigitalIdentityRepository = new DigitalIdentityRepository();
-
-    static entityRepository: EntityRepository = new EntityRepository();
-
     static getDotField = new Map<EntityTypes, any>([
         [EntityTypes.ENTITY, ''],
         [EntityTypes.DI, 'digitalIdentities.'],
@@ -43,23 +36,24 @@ class EntityManager {
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
-        const entities = await EntityManager.entityRepository.find(transformedQuery, scopeExcluder, expanded, page, pageSize);
+        const entities = await entityRepository.find(transformedQuery, scopeExcluder, expanded, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
         return paginatedResults;
     }
 
     static async findById(id: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const entity = await EntityManager.entityRepository.findById(id, scopeExcluder, expanded);
+        const entity = await entityRepository.findById(id, scopeExcluder, expanded);
         if (!entity) {
             throw new ApiErrors.NotFoundError();
         }
         return entity;
     }
 
+    // TODO: refactor identifiers into manager (consider value object of identifier with it's trimZeros method)
     static async findByIdentifier(identifier: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, expanded);
+        const foundEntity = await entityRepository.findByIdentifier(identifier, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -68,7 +62,7 @@ class EntityManager {
 
     static async findByOrgAndEmpNum(organization: string, employeeNumber: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByOrgAndEmpNum(organization, employeeNumber, scopeExcluder, expanded);
+        const foundEntity = await entityRepository.findByOrgAndEmpNum(organization, employeeNumber, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -78,7 +72,7 @@ class EntityManager {
     static async findByRole(roleId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const roleIdLowerCase = roleId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByRole(roleIdLowerCase, scopeExcluder, expanded);
+        const foundEntity = await entityRepository.findByRole(roleIdLowerCase, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -88,7 +82,7 @@ class EntityManager {
     static async findByDigitalIdentity(uniqueId: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const uniqueIdLowerCase = uniqueId.toLowerCase();
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByUniqueId(uniqueIdLowerCase, scopeExcluder, expanded);
+        const foundEntity = await entityRepository.findByUniqueId(uniqueIdLowerCase, scopeExcluder, expanded);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
@@ -106,9 +100,9 @@ class EntityManager {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         let entities;
         if (direct) {
-            entities = await EntityManager.entityRepository.findInGroupId(groupID, scopeExcluder, expanded, page, pageSize);
+            entities = await entityRepository.findInGroupId(groupID, scopeExcluder, expanded, page, pageSize);
         } else {
-            entities = await EntityManager.entityRepository.findUnderGroup(groupID, scopeExcluder, expanded, page, pageSize);
+            entities = await entityRepository.findUnderGroup(groupID, scopeExcluder, expanded, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
         return paginatedResults;
@@ -125,9 +119,9 @@ class EntityManager {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         let entities;
         if (direct) {
-            entities = await EntityManager.entityRepository.findByHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
+            entities = await entityRepository.findByHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
         } else {
-            entities = await EntityManager.entityRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
+            entities = await entityRepository.findUnderHierarchy(hierarchy, scopeExcluder, expanded, page, pageSize);
         }
         const { paginatedResults, nextPage } = pageWrapper(entities, pageSize);
         return paginatedResults;
@@ -135,12 +129,12 @@ class EntityManager {
 
     static async getPictureByIdentifier(identifier: string, scopeExcluders: RuleFilter[]) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
-        const foundEntity = await EntityManager.entityRepository.findByIdentifier(identifier, scopeExcluder, false);
+        const foundEntity = await entityRepository.findByIdentifier(identifier, scopeExcluder, false);
         if (!foundEntity) {
             throw new ApiErrors.NotFoundError();
         }
 
-        const pictures: any = await EntityManager.entityRepository.getPictureMetaData(identifier);
+        const pictures: any = await entityRepository.getPictureMetaData(identifier);
 
         if (!pictures || !pictures.pictures || !pictures.pictures.profile) {
             throw new ApiErrors.NotFoundError();
@@ -151,6 +145,7 @@ class EntityManager {
         try {
             const streamProvider = s3Handler.getProfilePicture(path);
             return streamProvider;
+            // TODO: useful error type
         } catch (err: any) {
             if (err.statusCode === 404) {
                 throw new ApiErrors.NotFoundError();

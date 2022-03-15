@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-// import * as qs from 'qs';
+// import qs from 'qs';
 import { Types } from 'mongoose';
 import DigitalIdentityManager from './digitalIdentity.manager';
 import { RuleFilter } from '../shared/types';

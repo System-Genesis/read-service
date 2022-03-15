@@ -22,6 +22,7 @@ const inArrayQuery = (values: string | string[]) => {
 export const mapFieldQueryFunc = new Map<string, any>([
     ['ids', inArrayQuery],
     ['personalNumbers', inArrayQuery],
+    // TODO: function identityCard with trimZeros
     ['identityCards', inArrayQuery],
     ['updatedFrom', updatedFromQuery],
     ['entityType', inArrayQuery],

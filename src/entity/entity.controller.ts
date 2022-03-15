@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 

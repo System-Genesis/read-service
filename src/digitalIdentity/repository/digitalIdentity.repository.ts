@@ -13,6 +13,7 @@ export default class DigitalIdentityRepository {
     private static DENORMALIZED_FIELDS = ' -role';
 
     constructor(db: Connection, modelName: string) {
+        // TODO: why seperating cases, and check functionallity
         if (db.modelNames().includes(modelName)) {
             this.model = db.model(modelName);
         } else {

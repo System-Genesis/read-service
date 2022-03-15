@@ -64,6 +64,7 @@ class EntityManager {
         return entity;
     }
 
+    // TODO: refactor identifiers into manager (consider value object of identifier with it's trimZeros method)
     static async findByIdentifier(identifier: string, scopeExcluders: RuleFilter[], expanded: boolean = false) {
         const scopeExcluder = extractScopesQuery(scopeExcluders, EntityManager.getDotField);
         const foundEntity = await entityRepository.findByIdentifier(identifier, scopeExcluder, expanded);

@@ -15,11 +15,7 @@ export default class EntityRepository {
     private static HIDDEN_FIELDS = ' -hierarchyIds  -pictures.profile.meta.path -__v ';
 
     constructor(db: Connection, modelName: string) {
-        if (db.modelNames().includes(modelName)) {
-            this.model = db.model(modelName);
-        } else {
-            this.model = db.model(modelName, EntitySchema);
-        }
+        this.model = db.model(modelName, EntitySchema);
     }
 
     convertExcludedFields = (fieldsToDelete: string[]): string => {

@@ -14,11 +14,7 @@ export default class DigitalIdentityRepository {
 
     constructor(db: Connection, modelName: string) {
         // TODO: why seperating cases, and check functionallity
-        if (db.modelNames().includes(modelName)) {
-            this.model = db.model(modelName);
-        } else {
-            this.model = db.model(modelName, DigitalIdentitySchema);
-        }
+        this.model = db.model(modelName, DigitalIdentitySchema);
     }
 
     static createPagniationQuery = (_id: string) => {

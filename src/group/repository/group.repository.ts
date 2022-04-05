@@ -12,11 +12,7 @@ export default class GroupRepository {
     protected model: mongoose.Model<IGroup>;
 
     constructor(db: Connection, modelName: string) {
-        if (db.modelNames().includes(modelName)) {
-            this.model = db.model(modelName);
-        } else {
-            this.model = db.model(modelName, GroupSchema);
-        }
+        this.model = db.model(modelName, GroupSchema);
     }
 
     private static HIDDEN_FIELDS = ' -__v';

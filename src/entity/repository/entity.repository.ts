@@ -1,5 +1,5 @@
-import { trimLeadingZeros } from './../../utils/utils';
 import mongoose, { Types, Connection } from 'mongoose';
+import { trimLeadingZeros } from '../../utils/utils';
 import { IEntity, pictures } from '../entity.interface';
 import { EntityModel, EntitySchema } from '../entity.model';
 

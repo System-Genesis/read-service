@@ -1,12 +1,6 @@
-<<<<<<< HEAD:src/group/group.repository.ts
-import mongoose, { Types } from 'mongoose';
-import IGroup from './group.interface';
-import { GroupModel } from './group.model';
-=======
 import mongoose, { Types, Connection } from 'mongoose';
 import IGroup from '../group.interface';
 import { GroupModel, GroupSchema } from '../group.model';
->>>>>>> b3a32c8 ((refactor): move infra repository to dependancy injection pattern):src/group/repository/group.repository.ts
 
 export default class GroupRepository {
     protected model: mongoose.Model<IGroup>;

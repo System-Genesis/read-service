@@ -17,7 +17,7 @@ const request = supertest(server.app);
 
 describe('Digital Identity Tests', () => {
     beforeAll(async () => {
-        await mongoose.connect(`mongodb://127.0.0.1:28000/genesis`, {
+        await mongoose.connect(`mongodb://nitro:password123@localhost:27017/kartoffelMock`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false,

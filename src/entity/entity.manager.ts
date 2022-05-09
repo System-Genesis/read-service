@@ -45,7 +45,7 @@ class EntityManager {
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
         if (stream) {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve, _) => {
                 const entities = entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
                 resolve(entities as mongoose.QueryCursor<IEntity>);
             });

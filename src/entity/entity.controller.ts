@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
+import * as fs from 'fs';
 import mongoose, { QueryCursor } from 'mongoose';
 import * as JSONStream from 'JSONStream';
 import { EntityDTO } from './entity.DTO';
@@ -43,16 +44,22 @@ class EntityController {
     }
 
     static pipeToRes = (streamProvider: QueryCursor<IEntity>, res: Response): void => {
-        res.set('Content-Type', 'application/json');
+        // let countTotal = 0;
 
-        streamProvider.pipe(JSONStream.stringify());
-        streamProvider.on('data', (chunk) => {
-            res.write(JSON.stringify(chunk));
-        });
+        streamProvider.pipe(JSONStream.stringify()).pipe(res);
 
-        streamProvider.on('end', () => {
-            res.end();
-        });
+        // // streamProvider.pipe(JSONStream.stringify());
+        // streamProvider.on('data', (chunk) => {
+        //     countTotal += 1;
+        //     // res.write(`${JSON.stringify(chunk)}\r\n`);
+        //     // res.write(JSON.stringify(`${chunk}`));
+        //     res.write(JSON.stringify(chunk));
+        // });
+
+        // streamProvider.on('end', () => {
+        //     console.log(`Total is: ${countTotal}`);
+        //     res.end();
+        // });
     };
 
     static async getAll(_req: Request, res: Response) {

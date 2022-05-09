@@ -1,14 +1,18 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
+
 import * as fs from 'fs';
 import mongoose, { QueryCursor } from 'mongoose';
 import * as JSONStream from 'JSONStream';
+
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
 
 import EntityManager from './entity.manager';
 import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
+
 import { IEntity } from './entity.interface';
+
 
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
@@ -39,8 +43,10 @@ class EntityController {
         splitQueries = splitQueryValues(splitQueries);
         const isDirect = typeof direct === 'string' ? direct === 'true' : !!direct;
         // const userQueries = convertCaseInsensitive(_userQueries, ['source', 'expanded']);
-        const userQueries = _userQueries;
-        return { isDirect, isStream, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
+        const userQueries = { ..._userQueries, ...splitQueries };
+        userQueries.ids = userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
+        sanitizeUndefined(userQueries);
+        return { isDirect,isStream, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static pipeToRes = (streamProvider: QueryCursor<IEntity>, res: Response): void => {
@@ -62,7 +68,7 @@ class EntityController {
         // });
     };
 
-    static async getAll(_req: Request, res: Response) {
+    static async getAll(_req: Request, res: Response) {>>>>>>> dev
         const { isExpanded, isStream, page, limit, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
         const resEntities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, isStream, page, limit);
         if (isStream) {

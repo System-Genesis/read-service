@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
+
 import * as mongoose from 'mongoose';
 import { entityRepository } from './repository';
+
 import { EntityQueries, RequestQueryFields } from './types/types';
 import { mapFieldQueryFunc, mapQueryValueAlias } from '../shared/queryParsers';
 import { extractUserQueries, extractAliasesUserQueries } from '../shared/filterQueries';
@@ -44,6 +46,7 @@ class EntityManager {
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
+
         if (stream) {
             return new Promise((resolve, _) => {
                 const entities = entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
@@ -52,6 +55,7 @@ class EntityManager {
         }
         const entities = await entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(entities as any[], pageSize);
+
         return paginatedResults;
     }
 

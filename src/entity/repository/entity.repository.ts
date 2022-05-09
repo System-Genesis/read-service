@@ -1,5 +1,7 @@
+
 import mongoose, { Types, Connection } from 'mongoose';
 import { trimLeadingZeros } from '../../utils/utils';
+
 import { IEntity, pictures } from '../entity.interface';
 import { EntityModel, EntitySchema } from '../entity.model';
 
@@ -29,6 +31,7 @@ export default class EntityRepository {
     };
 
     // TODO: will work when decided how to deal with non hierarchy entities
+
     find(
         queries: any,
         scopeQuery: any,
@@ -41,6 +44,8 @@ export default class EntityRepository {
             .find({ ...queries, ...scopeQuery })
             .skip(!stream ? (page - 1) * pageSize : 0)
             .limit(!stream ? pageSize + 1 : 0);
+
+
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
@@ -51,6 +56,7 @@ export default class EntityRepository {
         if (stream) {
             return findQuery.lean<IEntity[]>({ virtuals: true }).cursor();
         }
+
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 

@@ -46,7 +46,6 @@ class EntityManager {
         const unAliasedQuery = extractAliasesUserQueries(userQueries, mapQueryValueAlias);
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
-
         if (stream) {
             return new Promise((resolve, _) => {
                 const entities = entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);

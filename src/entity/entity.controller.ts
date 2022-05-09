@@ -13,7 +13,6 @@ import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues
 
 import { IEntity } from './entity.interface';
 
-
 class EntityController {
     static entityManager: EntityManager = new EntityManager();
 
@@ -46,7 +45,7 @@ class EntityController {
         const userQueries = { ..._userQueries, ...splitQueries };
         userQueries.ids = userQueries.ids?.map((s) => mongoose.Types.ObjectId(s));
         sanitizeUndefined(userQueries);
-        return { isDirect,isStream, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
+        return { isDirect, isStream, isExpanded, page: pageNum, limit, ruleFiltersQuery, userQueries };
     }
 
     static pipeToRes = (streamProvider: QueryCursor<IEntity>, res: Response): void => {
@@ -68,7 +67,7 @@ class EntityController {
         // });
     };
 
-    static async getAll(_req: Request, res: Response) {>>>>>>> dev
+    static async getAll(_req: Request, res: Response) {
         const { isExpanded, isStream, page, limit, ruleFiltersQuery, userQueries } = EntityController.extractEntityQueries(_req);
         const resEntities = await EntityManager.getAll(userQueries, ruleFiltersQuery, isExpanded, isStream, page, limit);
         if (isStream) {

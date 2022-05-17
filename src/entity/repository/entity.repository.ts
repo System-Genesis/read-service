@@ -1,9 +1,8 @@
-
 import mongoose, { Types, Connection } from 'mongoose';
 import { trimLeadingZeros } from '../../utils/utils';
 
 import { IEntity, pictures } from '../entity.interface';
-import { EntityModel, EntitySchema } from '../entity.model';
+import { EntitySchema } from '../entity.model';
 
 export default class EntityRepository {
     protected model: mongoose.Model<IEntity>;
@@ -44,7 +43,6 @@ export default class EntityRepository {
             .find({ ...queries, ...scopeQuery })
             .skip(!stream ? (page - 1) * pageSize : 0)
             .limit(!stream ? pageSize + 1 : 0);
-
 
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {

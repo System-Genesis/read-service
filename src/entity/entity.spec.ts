@@ -184,6 +184,39 @@ describe('Entity Unit Tests', () => {
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
     });
+    function binaryParser(res, callback) {
+        res.setEncoding('binary');
+        res.data = '';
+        res.on('data', function (chunk) {
+            res.data += chunk;
+        });
+        // res.on('end', function () {
+        //     // eslint-disable-next-line no-buffer-constructor
+        //     callback(null, new Buffer(res.data, 'binary'));
+        // });
+    }
+    it('Should return all stream entities', async () => {
+        const qsQuery = qs.stringify({
+            stream: true,
+        });
+        request
+            .get('/api/entities')
+            .responseType('stream')
+            .query(qsQuery)
+            .expect('Content-Type', 'application/json')
+            .buffer()
+            // eslint-disable-next-line no-use-before-define
+            .parse(binaryParser)
+            .expect(200)
+            .end((err, res) => {
+                if (err) {
+                    throw err;
+                }
+                expect(res.status).toBe(200);
+                expect(res.body.length).toBeGreaterThan(0);
+                expect(JSON.parse(res.body)).toBeDefined();
+            });
+    });
 
     it('Should return entities with entityType filter expanded', async () => {
         const qsQuery = qs.stringify({

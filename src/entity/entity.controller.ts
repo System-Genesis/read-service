@@ -1,16 +1,11 @@
 import { Request, Response } from 'express';
 import { Readable } from 'stream';
-
-import * as fs from 'fs';
 import mongoose, { QueryCursor } from 'mongoose';
 import * as JSONStream from 'JSONStream';
-
 import { EntityDTO } from './entity.DTO';
 import ResponseHandler from '../shared/BaseController';
-
 import EntityManager from './entity.manager';
 import { pickCertainFields, sanitizeUndefined, splitQueryValue, splitQueryValues } from '../utils/utils';
-
 import { IEntity } from './entity.interface';
 
 class EntityController {
@@ -49,22 +44,7 @@ class EntityController {
     }
 
     static pipeToRes = (streamProvider: QueryCursor<IEntity>, res: Response): void => {
-        // let countTotal = 0;
-
         streamProvider.pipe(JSONStream.stringify()).pipe(res);
-
-        // // streamProvider.pipe(JSONStream.stringify());
-        // streamProvider.on('data', (chunk) => {
-        //     countTotal += 1;
-        //     // res.write(`${JSON.stringify(chunk)}\r\n`);
-        //     // res.write(JSON.stringify(`${chunk}`));
-        //     res.write(JSON.stringify(chunk));
-        // });
-
-        // streamProvider.on('end', () => {
-        //     console.log(`Total is: ${countTotal}`);
-        //     res.end();
-        // });
     };
 
     static async getAll(_req: Request, res: Response) {

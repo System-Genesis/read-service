@@ -190,10 +190,10 @@ describe('Entity Unit Tests', () => {
         res.on('data', function (chunk) {
             res.data += chunk;
         });
-        // res.on('end', function () {
-        //     // eslint-disable-next-line no-buffer-constructor
-        //     callback(null, new Buffer(res.data, 'binary'));
-        // });
+        res.on('end', function () {
+            // eslint-disable-next-line no-buffer-constructor
+            callback(null, new Buffer(res.data, 'binary'));
+        });
     }
     it('Should return all stream entities', async () => {
         const qsQuery = qs.stringify({
@@ -203,7 +203,6 @@ describe('Entity Unit Tests', () => {
             .get('/api/entities')
             .responseType('stream')
             .query(qsQuery)
-            .expect('Content-Type', 'application/json')
             .buffer()
             // eslint-disable-next-line no-use-before-define
             .parse(binaryParser)
@@ -220,7 +219,6 @@ describe('Entity Unit Tests', () => {
 
     it('Should return entities with entityType filter expanded', async () => {
         const qsQuery = qs.stringify({
-            // ruleFilters: [{ field: 'source', values: ['city_name'], entityType: 'digitalIdentity' }],
             entityType: 'digimon',
             page: 1,
             pageSize: 50,

@@ -11,8 +11,6 @@ const errorMiddleware = (error: Error, _req: express.Request, res: express.Respo
         ResponseHandler.clientError(res, error.message);
     } else if (error instanceof NotFoundError) {
         ResponseHandler.notFound(res, error.message);
-    } else if (error instanceof PageSizeRequired || error instanceof PageRequired || error instanceof PageSizeAndPageRequired) {
-        ResponseHandler.validationError(res, error.message);
     } else {
         ResponseHandler.internal(res, error.message);
     }

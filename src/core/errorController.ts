@@ -1,6 +1,9 @@
 import express from 'express';
 import { BadRequestError, NotFoundError } from './ApiErrors';
 import ResponseHandler from '../shared/BaseController';
+import { PageSizeRequired } from '../validators/errors/PageSizeRequired';
+import { PageRequired } from '../validators/errors/PageRequired';
+import { PageSizeAndPageRequired } from '../validators/errors/PageSizeAndPageRequired';
 
 const errorMiddleware = (error: Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
     // console.log('error: ', error);

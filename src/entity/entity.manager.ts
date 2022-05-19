@@ -47,10 +47,7 @@ class EntityManager {
         const transformedQuery = extractUserQueries<EntityQueries>(unAliasedQuery, EntityManager.mapFieldName, mapFieldQueryFunc);
 
         if (stream) {
-            return new Promise((resolve, _) => {
-                const entities = entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
-                resolve(entities as mongoose.QueryCursor<IEntity>);
-            });
+            return entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize) as mongoose.QueryCursor<IEntity>;
         }
         const entities = await entityRepository.find(transformedQuery, scopeExcluder, expanded, stream, page, pageSize);
         const { paginatedResults, nextPage } = pageWrapper(entities as any[], pageSize);

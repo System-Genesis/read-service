@@ -9,8 +9,8 @@ const EntityRouter: Router = Router();
 
 EntityRouter.get(
     '/',
-    ValidateRequest(EntityValidators.getEntitiesByCustomFilters),
-    wrapValidator(EntityValidator.somethingThatIsImpossibleToValidateWithSchema),
+    ValidateRequest(EntityValidators.requireOneOption),
+    ValidateRequest(EntityValidators.getAllEntities),
     wrapController(EntityController.getAll),
 );
 EntityRouter.get('/:id', ValidateRequest(EntityValidators.getEntitiesById), wrapController(EntityController.getById));

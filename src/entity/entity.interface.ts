@@ -30,6 +30,7 @@ interface IEntity {
     mobilePhone: string[];
     address: string;
     clearance: string; // string of number - enum
+    fullClearance: string;
     sex?: string;
     birthDate?: Date;
     createdAt?: Date;

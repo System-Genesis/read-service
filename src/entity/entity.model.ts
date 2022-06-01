@@ -27,6 +27,7 @@ const EntitySchema: Schema<IEntity> = new Schema(
         mobilePhone: [String],
         address: String,
         clearance: String, // String of number - enum
+        fullClearance: String,
         sex: String,
         birthDate: Date,
         createdAt: Date,

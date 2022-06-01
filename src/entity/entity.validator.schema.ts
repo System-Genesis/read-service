@@ -1,4 +1,4 @@
-import BaseJoi from 'joi';
+import BaseJoi, { ObjectSchema } from 'joi';
 import JoiDate from '@joi/date';
 import config from '../config/index';
 
@@ -11,6 +11,7 @@ const getRequestBaseSchema = Joi.object({
     query: {
         expanded: Joi.string().valid(...expandedTypes),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        stream: Joi.string().valid(...expandedTypes),
     },
     body: {},
 });
@@ -78,7 +79,7 @@ export const getPictureByIdentifier = getRequestBaseSchema.keys({
     },
 });
 
-export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
+export const getEntitiesByCustomFilters: BaseJoi.ObjectSchema<any> = getRequestBaseSchema.keys({
     query: {
         // ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()).required(),
         ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
@@ -89,11 +90,54 @@ export const getEntitiesByCustomFilters = getRequestBaseSchema.keys({
         akaUnit: Joi.alternatives().try(Joi.array(), Joi.string()),
         entityType: Joi.string(),
         'digitalIdentity.source': Joi.alternatives().try(Joi.array(), Joi.string()),
+        status: Joi.string(),
+        stream: Joi.string().valid(...expandedTypes),
         'digitalIdentities.uniqueIds': Joi.alternatives().try(Joi.array(), Joi.string()),
         personalNumbers: Joi.alternatives().try(Joi.array(), Joi.string()),
         identityCards: Joi.alternatives().try(Joi.array(), Joi.string()),
         updatedFrom: Joi.date().iso(),
-        page: Joi.number().min(1).required(),
-        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
+        page: Joi.number().min(1),
+        pageSize: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize),
     },
 });
+
+export const getAllEntities: BaseJoi.ObjectSchema<any> = getRequestBaseSchema.keys({
+    query: {
+        // ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()).required(),
+        ruleFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        // userFilters: Joi.alternatives().try(Joi.array(), Joi.string()),
+        expanded: Joi.string().valid(...expandedTypes),
+        ids: Joi.alternatives().try(Joi.array(), Joi.string()),
+        rank: Joi.alternatives().try(Joi.array(), Joi.string()), // TODO: test rank array or string
+        akaUnit: Joi.alternatives().try(Joi.array(), Joi.string()),
+        entityType: Joi.string(),
+        'digitalIdentity.source': Joi.alternatives().try(Joi.array(), Joi.string()),
+        status: Joi.string(),
+        stream: Joi.string().valid(...expandedTypes),
+        'digitalIdentities.uniqueIds': Joi.alternatives().try(Joi.array(), Joi.string()),
+        personalNumbers: Joi.alternatives().try(Joi.array(), Joi.string()),
+        identityCards: Joi.alternatives().try(Joi.array(), Joi.string()),
+        updatedFrom: Joi.date().iso(),
+        page: Joi.when('stream', {
+            is: Joi.string().exist(),
+            then: Joi.forbidden(),
+            otherwise: Joi.number().min(1).required(),
+        }),
+        pageSize: Joi.when('stream', {
+            is: Joi.string().exist(),
+            then: Joi.forbidden(),
+            otherwise: Joi.number().min(config.app.minPageSize).max(config.app.maxPageSize).required(),
+        }),
+    },
+});
+
+export const requireOneOption = BaseJoi.object({
+    query: {
+        stream: Joi.alternatives().try(Joi.array(), Joi.string(), Joi.boolean()).allow(Joi.array().length(0)),
+        page: Joi.alternatives().try(Joi.array(), Joi.string(), Joi.boolean()).allow(Joi.array().length(0)),
+        pageSize: Joi.alternatives().try(Joi.array(), Joi.string(), Joi.boolean()).allow(Joi.array().length(0)),
+    },
+})
+    .or(`query.stream`, 'query.page', 'query.pageSize')
+    .unknown(true)
+    .options({ allowUnknown: true });

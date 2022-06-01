@@ -31,6 +31,10 @@ export default abstract class ResponseHandler {
         return this.jsonResponse(res, 400, message || 'Bad Request');
     }
 
+    static validationError(res: Response, message?: string) {
+        return this.jsonResponse(res, 400, message || 'Validation Error');
+    }
+
     static notFound(res: Response, message?: string) {
         return this.jsonResponse(res, 404, message || 'Not found');
     }

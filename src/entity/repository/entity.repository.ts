@@ -79,12 +79,11 @@ export default class EntityRepository {
 
     findByIdentifier(identifier: string, excluders, expanded: boolean) {
         const identifierFields = ['personalNumber', 'identityCard', 'goalUserId', 'employeeId'];
-        let queryIdentifier = identifier;
         const cond = identifierFields.map((key) => {
             if (key === 'identityCard') {
-                queryIdentifier = trimLeadingZeros(identifier);
+                return { [key]: trimLeadingZeros(identifier) };
             }
-            return { [key]: queryIdentifier };
+            return { [key]: identifier };
         });
 
         let findQuery = this.model.findOne({ $or: cond, ...excluders });

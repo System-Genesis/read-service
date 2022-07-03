@@ -1,4 +1,5 @@
 import DigitalIdentityRepository from './digitalIdentity.repository';
 import connection from '../../shared/infra/mongoose/connection';
 
-export const digitalIdentityRepository = new DigitalIdentityRepository(connection, 'digitalIdentity');
+// TODO: how implements dependency injections, why necessary
+export const digitalIdentityRepository = new DigitalIdentityRepository(connection, 'denormalizedDigitalIdentity');

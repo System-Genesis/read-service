@@ -6,11 +6,7 @@ export default class RoleRepository {
     protected model: mongoose.Model<IRole>;
 
     constructor(db: Connection, modelName: string) {
-        if (db.modelNames().includes(modelName)) {
-            this.model = db.model(modelName);
-        } else {
-            this.model = db.model(modelName, RoleSchema);
-        }
+        this.model = db.model(modelName, RoleSchema);
     }
 
     private static HIDDEN_FIELDS = ' -__v -_id -id';

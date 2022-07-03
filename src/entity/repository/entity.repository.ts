@@ -1,7 +1,8 @@
-import { trimLeadingZeros } from './../../utils/utils';
 import mongoose, { Types, Connection } from 'mongoose';
+import { trimLeadingZeros } from '../../utils/utils';
+
 import { IEntity, pictures } from '../entity.interface';
-import { EntityModel, EntitySchema } from '../entity.model';
+import { EntitySchema } from '../entity.model';
 
 export default class EntityRepository {
     protected model: mongoose.Model<IEntity>;
@@ -15,11 +16,7 @@ export default class EntityRepository {
     private static HIDDEN_FIELDS = ' -hierarchyIds  -pictures.profile.meta.path -__v ';
 
     constructor(db: Connection, modelName: string) {
-        if (db.modelNames().includes(modelName)) {
-            this.model = db.model(modelName);
-        } else {
-            this.model = db.model(modelName, EntitySchema);
-        }
+        this.model = db.model(modelName, EntitySchema);
     }
 
     convertExcludedFields = (fieldsToDelete: string[]): string => {
@@ -33,17 +30,31 @@ export default class EntityRepository {
     };
 
     // TODO: will work when decided how to deal with non hierarchy entities
-    find(queries: any, scopeQuery: any, expanded: boolean, page: number, pageSize: number): Promise<IEntity[]> {
+
+    find(
+        queries: any,
+        scopeQuery: any,
+        expanded: boolean,
+        stream: boolean,
+        page: number,
+        pageSize: number,
+    ): Promise<IEntity[]> | mongoose.QueryCursor<IEntity> {
         let findQuery = this.model
             .find({ ...queries, ...scopeQuery })
-            .skip((page - 1) * pageSize)
-            .limit(pageSize + 1);
+            .skip(!stream ? (page - 1) * pageSize : 0)
+            .limit(!stream ? pageSize + 1 : 0);
+
         findQuery = findQuery.select(EntityRepository.HIDDEN_FIELDS);
         if (!expanded) {
             findQuery = findQuery.select(EntityRepository.DENORMALIZED_FIELDS);
         } else {
             findQuery = findQuery.select(EntityRepository.HIDDEN_DENORMALIZED_FIELDS);
         }
+
+        if (stream) {
+            return findQuery.lean<IEntity[]>({ virtuals: true }).cursor();
+        }
+
         return findQuery.lean<IEntity[]>({ virtuals: true }).exec();
     }
 
@@ -68,12 +79,11 @@ export default class EntityRepository {
 
     findByIdentifier(identifier: string, excluders, expanded: boolean) {
         const identifierFields = ['personalNumber', 'identityCard', 'goalUserId', 'employeeId'];
-        let queryIdentifier = identifier;
         const cond = identifierFields.map((key) => {
             if (key === 'identityCard') {
-                queryIdentifier = trimLeadingZeros(identifier);
+                return { [key]: trimLeadingZeros(identifier) };
             }
-            return { [key]: queryIdentifier };
+            return { [key]: identifier };
         });
 
         let findQuery = this.model.findOne({ $or: cond, ...excluders });
